@@ -31,4 +31,11 @@
 ### Date : 07-Nov-2025
 - **Work :**
   - documented yesterday's progress with workflow and step-by-step explanation.
+  - created 2 AIPs:
+    - Company Registration
+    - List all the companies
+  - documented today's progress
+- **Short-Milestone :**
+  - Implemented 1 prototype feature:
+    - Company Registration (basic version)
 #

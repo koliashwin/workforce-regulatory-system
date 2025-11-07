@@ -2,11 +2,11 @@
 
 <!-- this file will contain the infomation/workflows of the implemented features -->
 
-## Basic API workflow (no ORM approch):
-- **General Workflow :**
+## Basic API workflow (no ORM approch)
+- ### General Workflow :
   - **schema/** → **services/** → **routes/** → **main.py**
 
-- **Deatails:**
+- ### Deatails:
   - create the Schemas for respective DB tables. its best to have 2 pydentic schemas for each model/table.
     - 1 for creating/updating data (eg. UserCreate)
     - 1 for retriving data (eg. UserResponse)
@@ -15,11 +15,11 @@
   - map the routes and call them from main.py file
 #
 
-## College Onboarding Candidates:
-- **Workflow :**
+## College Onboarding Candidates
+- ### Workflow :
   - **schema/candidates.py** → **services/candidates.py** → **routes/institute_routes.py** → **routes/router.py** → **main.py**
 
-- **Details :**
+- ### Details :
   - **schema/candidates.py :**
     - created 2 schema classes :
       - `CandidateCreate` : used for posting data into database
@@ -47,13 +47,55 @@
     - 2 functions for respective endpoints as follows
       1. `def create_candidate(candidate: CandidateCreate)` :
          - will recieve the payload from the user in the format defined in schema `CandidateCreate`
-         - call the `clg_onboard_candidate(candidate)` function from **services/**, pass the payload/data and store the data into database
+         - call the `clg_onboard_candidate(candidate)` function from **services/candidates.py**, pass the payload/data and store the data into database
          - basic HTTP exceptions handling
         #
       2. `def candidate_list()`:
-         - call the `all_candidates_list()` function form **services/** 
+         - call the `all_candidates_list()` function form **services/candidates.py** 
          - retrive the data and display it.
          - basic HTTP exceptions handling
        #
   - **routes/router.py:** 
     - include the institute routes into this file 
+#
+
+## Comapny Registration
+
+- ### workflow :
+  - **schema/companies.py → services/companies.py → routes/company_routes.py → routes/router.py**
+
+- ### details:
+  - **schema/companies.py**
+    - created 2 schema classes :
+      - `CompanyCreate` : used for posting data into database
+      - `CompanyResponse` : used for fetching specific data from database (a kind of validation layer)
+  - **services/companies.py**
+    - created 2 functions, they contain logic on how to post and retirve data:
+      - `register_company(data)` : this function posts data into 1 database table(**companies**) with following logic:
+        1. insert the relevent data into table (**companies**) via query
+        2. basic error handling
+    # 
+      - `all_company_list()` : this function will fetch the list of the companies from the 1 table(**companies**) with following logic:
+        1. fetch the data from **companies** table with simple query
+        2. store the retrived data into a variable `results`
+        3. then retrun it
+        4. basic error handling
+    # 
+  - **routes/company_routes.py**
+    - created an APIRouter
+    - 2 endpoints
+      - `@router.post('/register')`
+      - `@router.get('/company_list', response_model=list[CompanyResponse])`
+    - 2 functions for respective endpoints, as follows:
+      1. `def create_company(company: CompanyCreate)` :
+         - will recieve the payload from the user in the format defined in schema `CompanyCreate`
+         - call the `register_company(company)` function from **services/companies.py**, pass the payload/data and store the data into database
+         - basic HTTP exceptions handling
+      2. `def company_list()` :
+         - call the `all_company_list()` function form **services/companies.py** 
+         - retrive the data and display it
+         - basic HTTP exceptions handling 
+    #
+  - **routes/router.py**
+    - include the company routes into this file 
+#

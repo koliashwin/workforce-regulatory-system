@@ -11,7 +11,7 @@
 ## Prototype Features
 - [ ] Implement company verification (dummy)
 - [ ] Implement college verification (dummy)
-- [ ] Implement Company Registration
+- [x] Implement Company Registration
 - [x] Implement College Onboarding Candidates
 - [ ] Implement Candidate Joins Company
 - [ ] Implement Candidate Exits Company
