@@ -3,6 +3,7 @@ from pydantic import BaseModel
 class CompanyCreate(BaseModel):
     # company info
     name: str
+    cin: str
     address: str
     contact_no: str
     email: str
@@ -10,6 +11,7 @@ class CompanyCreate(BaseModel):
 
 class CompanyResponse(BaseModel):
     company_id: int
+    cin: str
     name: str
     address: str
     contact_no: str

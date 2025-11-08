@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from schema.companies import CompanyCreate, CompanyResponse
-from services.companies import register_company, all_company_list
+from services.companies import register_company, all_company_list, verify_company
 
 router = APIRouter(prefix='/company', tags=['company'])
 
@@ -21,3 +21,12 @@ def company_list():
         raise HTTPException(status_code=400, detail=result['error'])
     
     return result['data']
+
+@router.post('/verify_company')
+def dummy_verification(company: CompanyCreate):
+    result = verify_company(company.cin)
+
+    if not result['success']:
+        raise HTTPException(status_code=400, detail=result['error'])
+    
+    return result
