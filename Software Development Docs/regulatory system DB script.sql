@@ -48,6 +48,7 @@ create table Candidates (
 
 create table Companies (
 	company_id int primary key auto_increment,
+    cin varchar(30) unique not null,
     name varchar(255) not null,
     address text not null,
     contact_no varchar(20) not null,

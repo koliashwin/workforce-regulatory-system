@@ -22,6 +22,7 @@ select * from institutes;
 
 insert into institutes (name, address, contact_no, email, verification_status)
 values 
+('SPIT', 'andheri', 7458987128, 'support@spit.com', 'Registered'),
 ('PR College', 'GG Road', 8975949872, 'support@prclg.com', 'Unknown'),
 ('CD College', 'Opp. AB Mall', 7594259872, 'support@cdclg.com', 'Registered'),
 ('MN College', 'TS building', 8975987362, 'support@mnclg.com', 'Unknown');
@@ -30,11 +31,10 @@ values
 
 select * from companies;
 
-insert into companies (name, address, contact_no, email, verification_status)
+insert into companies (cin, name, address, contact_no, email)
 values 
-('ABC pvt ltd.', 'RS Street', 9865748412, 'support@abc.com', 'Unknown'),
-('CXD llp', 'UC Hotel', 8215748412, 'support@cxd.com', 'Unknown'),
-('WTF solutions', 'TF Road', 9861257412, 'support@wtf.com', 'Registered');
+('U39431MH2022PLC635155', 'NeoGen INFOTECH PRIVATE LIMITED', '168, Tower, Tech Park, Delhi, India', 9865748412, 'neogen@info.com'),
+('L49290GJ2015PTC637820', 'Omniscient SOLUTIONS LIMITED', '242, Wing, Eureka Tower, Bangalore, India', 8215748412, 'omniscient@company.com');
 
 -- -------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ insert into employees (company_id, user_id, designation)
 values
 (2, 1, 'Backend Developer'),
 (2, 3, 'Frontend Developer'),
-(3, 2, 'Fullstack Developer');
+(1, 2, 'Fullstack Developer');
 
 -- ---------------------------------------------------------
 
