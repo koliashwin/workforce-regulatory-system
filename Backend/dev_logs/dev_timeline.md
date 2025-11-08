@@ -39,3 +39,18 @@
   - Implemented 1 prototype feature:
     - Company Registration (basic version)
 #
+
+### Date : 08-Nov-2025
+- **Work :**
+  - Created dummy MCA data source
+  - implemented code to convers CSV to Json (reffer folder: **dummy DB/**)
+  - created an API to verify the company (via dummy MCA dataset)
+
+- **Short-Milestone :**
+  - Implemented 1 prototype feature:
+    - Company Verification (dummy version)
+
+- **Notes :**
+  - updated core DB script file (**reguletory system DB script.sql**)
+    - added `cin` field to the companies table
+    - made relevent changes into **test data for DB.sql** file

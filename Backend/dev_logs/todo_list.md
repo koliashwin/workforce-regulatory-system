@@ -9,7 +9,7 @@
 #
 
 ## Prototype Features
-- [ ] Implement company verification (dummy)
+- [x] Implement company verification (dummy)
 - [ ] Implement college verification (dummy)
 - [x] Implement Company Registration
 - [x] Implement College Onboarding Candidates

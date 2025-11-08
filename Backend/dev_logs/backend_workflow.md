@@ -99,3 +99,29 @@
   - **routes/router.py**
     - include the company routes into this file 
 #
+
+## Comapny Verification
+
+- ### workflow :
+  - **schema/companies.py → services/companies.py → routes/company_routes.py → routes/router.py**
+
+- ### details:
+  - **schema/companies.py** :
+    - Same as **company registration** just added extra `cin` in both schemas
+  - **services/companies.py** :
+    - added one function with company verify logic:
+      - `verify_company(cin: str)` : 
+        - load the dummy companies dataset(**"MCA companies.json"**)
+        - checke for the matching `cin` and it's **status** field in that file
+        - if it met the criteria then update the **verification_status** field in **companies** table
+        - return the results
+        - basic error handling
+    # 
+  - **routes/company_routes.py** :
+    - created 1 endpoints `@router.post('/verify_company')`
+    - and 1 function as follows
+      - `dummy_verification(company: CompanyCreate)` :
+        - call the `verify_company(company.cin)` function form **services/companies.py** 
+         - retrive the results and display it
+         - basic HTTP exceptions handling 
+    # 
