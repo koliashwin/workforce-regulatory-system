@@ -13,6 +13,7 @@
 - [ ] Implement college verification (dummy)
 - [x] Implement Company Registration
 - [x] Implement College Onboarding Candidates
+- [x] Implement Company onboarding Employees
 - [ ] Implement Candidate Joins Company
 - [ ] Implement Candidate Exits Company
 - [ ] Implement Dispute logic

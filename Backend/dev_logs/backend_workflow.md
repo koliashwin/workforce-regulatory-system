@@ -125,3 +125,26 @@
          - retrive the results and display it
          - basic HTTP exceptions handling 
     # 
+
+## Company Onboarding Employee
+
+- ### workflow :
+  - **schema/employees.py → services/companies.py → routes/company_routes.py → routes/router.py**
+
+- ### details:
+  - **schema/employees.py** :
+    - created 2 schema classes: 
+      - `EmployeeCreate` to store data into DB
+      - `EmployeeResponse` to retive data form DB tables
+  - **services/companies.py** :
+    - added 2 functions:
+      - `onboard_employee(data)` : contains temperory logic on how to store data into database
+      - `all_employee_list()` : contains temperory logic on what data should be fetched form DB 
+    #
+  - **routes/company_routes.py** :
+    - added 2 endpoints :
+      - `@router.post('/onboard_employee')`
+      - `@router.get('/employee_list', response_model=list[EmployeeResponse])`
+    - added 2 functions (working is same as earliar function form same file):
+      - `def create_employee(employee: EmployeeCreate)`
+      - `def employee_list()`

@@ -54,3 +54,13 @@
   - updated core DB script file (**reguletory system DB script.sql**)
     - added `cin` field to the companies table
     - made relevent changes into **test data for DB.sql** file
+#
+
+### Date : 09-Nov-2025
+- **Work :**
+  - created an API (Company Onboarding Employee)
+  - documentation
+
+- **Short-Milestone :**
+  - implemented 1 prototype feature:
+    - Company onboarding Employees (basic version)
