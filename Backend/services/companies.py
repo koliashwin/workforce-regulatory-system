@@ -140,6 +140,76 @@ def onboard_employee(data):
         cursor.close()
         conn.close()
 
+def exit_employee(data):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        # fetch company_id
+        # for now will need to fetch the company_id via following query 
+        # when the front-end is setup will store it in session or localstorage and collect directly form there
+        cursor.execute(
+            "SELECT company_id FROM companies WHERE cin = %s", (data.company_cin,)
+        )
+        company_data = cursor.fetchone()
+
+        if not company_data:
+            return {"success": False, "error": "Company not found"}
+
+        company_id = company_data['company_id']         # till here its the optional code (will change afte frontend setup)
+
+        # fetch user_id
+        # this is also optional code 
+        # will have to alter once jobs related modules are implemented
+        cursor.execute(
+            "SELECT user_id FROM users WHERE email = %s", (data.user_email,)
+        )
+        user_data = cursor.fetchone()
+
+        if not user_data:
+            return {"success": False, "error": "User not found"}
+
+        user_id = user_data['user_id']                  # till here its the optional code (will change afte implementation for jobs module)
+
+        # fetch emp_id
+        cursor.execute(
+            "SELECT emp_id FROM employees WHERE company_id = %s and user_id = %s", (company_id, user_id)
+        )
+        emp_data = cursor.fetchone()
+
+        if not emp_data:
+            return {"success": False, "error": "Employee not found"}
+
+        emp_id = emp_data['emp_id']
+
+        # check if exit date exist in the employee_history table
+        cursor.execute(
+            "SELECT exit_date FROM employee_history WHERE company_id = %s and emp_id = %s",
+            (company_id, emp_id)
+        )
+        emp_history_record = cursor.fetchone()
+        
+
+        if emp_history_record and emp_history_record['exit_date']:
+            # here comes the dispute logic (right now module is not emplimented)
+            return {'success': True, 'message': 'Exit_date already exists'}
+        
+        cursor.execute(
+            "UPDATE employee_history SET exit_date = %s WHERE company_id = %s and emp_id = %s",
+            (data.exit_date, company_id, emp_id)
+        )
+        conn.commit()
+
+        return {"success": True, "message": 'Exit date updated by company', "user_id":user_id, "emp_id": emp_id, "compnay_id": company_id, "emp_history_id": cursor.lastrowid}
+
+    except Exception as e:
+        conn.rollback()
+        return {"success": False, "error": str(e)}
+    
+    finally:
+        cursor.close()
+        conn.close()
+
 def all_employee_list():
 
     conn = get_db_connection()
