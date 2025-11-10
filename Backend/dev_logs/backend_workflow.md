@@ -148,3 +148,19 @@
     - added 2 functions (working is same as earliar function form same file):
       - `def create_employee(employee: EmployeeCreate)`
       - `def employee_list()`
+
+## Employee Exits Company
+
+- ### workflow :
+  - **schema/employees.py → services/companies.py → routes/company_routes.py → routes/router.py**
+
+- ### details:
+  - **schema/employees.py** :
+    - used existing schema `EmployeeCreate`
+  - **services/companies.py** :
+    - added 1 function:
+      - `exit_employee(data)` : contains the temporary logic on getting required reference keys and update the exit date in DB table (employee history)
+    #
+  - **routes/company_routes.py** :
+    - added 1 endpoint : `@router.post('/employee_exit')`
+    - added 1 function : `employ_exit(employee: EmployeeCreate)` (working is same as earliar function form same file)

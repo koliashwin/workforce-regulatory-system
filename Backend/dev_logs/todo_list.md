@@ -14,8 +14,10 @@
 - [x] Implement Company Registration
 - [x] Implement College Onboarding Candidates
 - [x] Implement Company onboarding Employees
-- [ ] Implement Candidate Joins Company
-- [ ] Implement Candidate Exits Company
+- [ ] Implement Candidate Join confirmation
+- [x] Implement Employee Exits Company
+- [ ] Implement Candidate Exit confirmation
 - [ ] Implement Dispute logic
 - [ ] Implement Employment history tracker
 #
+

@@ -52,7 +52,7 @@
 
 - **Notes :**
   - updated core DB script file (**reguletory system DB script.sql**)
-    - added `cin` field to the companies table
+    - added `cin` field to the **companies** table
     - made relevent changes into **test data for DB.sql** file
 #
 
@@ -64,3 +64,14 @@
 - **Short-Milestone :**
   - implemented 1 prototype feature:
     - Company onboarding Employees (basic version)
+#
+
+### Date : 10-Nov-2025
+- **Work :**
+  - created an API (Employee Exits Company)
+  - documentation
+
+- **Short-Milestone :**
+  - implemented 1 prototype feature:
+    - Employee Exits Company (basic version)
+#
