@@ -75,3 +75,11 @@
   - implemented 1 prototype feature:
     - Employee Exits Company (basic version)
 #
+
+### Date : 13-Nov-2025
+- **Work :**
+  - created 2 APIs
+    - Employee Exit Confirmation
+    - candidate profile (basic get request for single candidate)
+  - API Testing (employee exit and exit confirmation)
+    - current logic is only good as proof of concept

@@ -16,7 +16,7 @@
 - [x] Implement Company onboarding Employees
 - [ ] Implement Candidate Join confirmation
 - [x] Implement Employee Exits Company
-- [ ] Implement Candidate Exit confirmation
+- [x] Implement Candidate Exit confirmation
 - [ ] Implement Dispute logic
 - [ ] Implement Employment history tracker
 #

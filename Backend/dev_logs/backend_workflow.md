@@ -164,3 +164,27 @@
   - **routes/company_routes.py** :
     - added 1 endpoint : `@router.post('/employee_exit')`
     - added 1 function : `employ_exit(employee: EmployeeCreate)` (working is same as earliar function form same file)
+
+## Employee Exit Confirmation
+
+- ### workflow :
+  - **schema/employees.py → services/candidates.py → routes/candidate_routes.py → routes/router.py**
+
+- ### details:
+  - **schema/employees.py** :
+    - added new schema `EmpExitConfirmation`
+  - **services/candidates.py** :
+    - added 2 functions:
+      - `view_candidate_profile(user_email: str)`: contains temporary logic to disply info of single candidate
+      - `confirm_exit(data)` : validates the exit_date in **employee_history** DB table and updates the status accordingly
+    #
+    - **routes/candidate_routes.py** :
+      - added 2 endpoints :
+        - `@router.post('/exit_confirm')`
+        - `@router.get('/view_profile')`
+      - added 2 functions : (working is same as explained in earliear workflows)
+        - `def employee_exit_confirmation(data: EmpExitConfirmation)`
+        - `def view_profile(email: str)`
+    # 
+    - **routes/router.py**
+      - included the router reference of **candidate_routes.py** in tihs file 
