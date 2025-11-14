@@ -29,3 +29,8 @@ class EmployeeResponse(BaseModel):
     joining_date: date
     exit_date: date | None 
     employment_status: str
+
+class EmpExitConfirmation(BaseModel):
+    company_id: int
+    user_id: int
+    exit_date: date
