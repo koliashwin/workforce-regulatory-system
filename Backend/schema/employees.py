@@ -30,7 +30,7 @@ class EmployeeResponse(BaseModel):
     exit_date: date | None 
     employment_status: str
 
-class EmpExitConfirmation(BaseModel):
+class EmpDatesConfirmation(BaseModel):
     company_id: int
     user_id: int
-    exit_date: date
+    date: date

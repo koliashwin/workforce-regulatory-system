@@ -145,7 +145,7 @@ def confirm_exit(data):
 
         result = cursor.fetchone()
 
-        if result and result['exit_date'] == data.exit_date:
+        if result and result['exit_date'] == data.date:
             cursor.execute(
                 "UPDATE employee_history SET status = 'Safe Exit' WHERE emp_id = %s and company_id = %s",
                 (emp_id, data.company_id)
@@ -154,6 +154,55 @@ def confirm_exit(data):
             return {"success": True , "message": "Employee Exits Safely"} 
         
         return {"success": False, "error": "Company hasn't initiated the Exit process."}
+
+    except Exception as e:
+        conn.rollback()
+        return {"success": False, "error": str(e)}
+    
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def confirm_joining(data):
+    # check for joining_date in DB
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        # fetch company_id based on emp_id
+        cursor.execute(
+            "SELECT emp_id FROM employees where company_id = %s and user_id = %s", (data.company_id, data.user_id)
+        )
+        record = cursor.fetchone()
+
+        if not record :
+            return {"success": False, "error": "Employee not found"}
+        
+        emp_id = record['emp_id']
+
+        # fetch joining_date based on emp_id and company_id
+        cursor.execute(
+            "SELECT joining_date FROM employee_history WHERE emp_id = %s and company_id = %s",
+            (emp_id, data.company_id)
+        )
+
+        result = cursor.fetchone()
+
+        print('joining date from DB : ',result['joining_date'], 'User Input : ', data.date)
+        if result : 
+            if result['joining_date'] == data.date:
+                cursor.execute(
+                    "UPDATE employee_history SET status = 'Joined Safely' WHERE emp_id = %s and company_id = %s",
+                    (emp_id, data.company_id)
+                )
+                conn.commit()
+                return {"success": True , "message": "Employee joines Safely"} 
+            
+            # logic to raise the dispute goes here
+            return {"success": False , "error": "Joining date didn't matche"} 
+        
+        return {"success": False, "error": "Company hasn't initiated the onboarding process."}
 
     except Exception as e:
         conn.rollback()
