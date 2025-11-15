@@ -83,3 +83,24 @@
     - candidate profile (basic get request for single candidate)
   - API Testing (employee exit and exit confirmation)
     - current logic is only good as proof of concept
+
+- **Short-Milestone :**
+  - implemented 1 prototype feature:
+    - Employee Exits confirmation (basic version)
+#
+
+### Date : 14-Nov-2025
+- **Work :**
+  - Documented yesterday's progress
+  - Done baisc testing and found some logical errors
+  - created 1 API
+    - Employee joining Confirmation
+
+- **Short-Milestone :**
+  - implemented 1 prototype feature:
+    - Employee joining confirmation (basic version)
+#
+
+### Date : 15-Nov-2025
+- **Work :**
+  - Documented yesterday's progress

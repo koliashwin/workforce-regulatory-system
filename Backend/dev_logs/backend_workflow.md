@@ -172,19 +172,40 @@
 
 - ### details:
   - **schema/employees.py** :
-    - added new schema `EmpExitConfirmation`
+    - added new schema `EmpDatesConfirmation`
   - **services/candidates.py** :
     - added 2 functions:
       - `view_candidate_profile(user_email: str)`: contains temporary logic to disply info of single candidate
       - `confirm_exit(data)` : validates the exit_date in **employee_history** DB table and updates the status accordingly
     #
-    - **routes/candidate_routes.py** :
+  - **routes/candidate_routes.py** :
       - added 2 endpoints :
         - `@router.post('/exit_confirm')`
         - `@router.get('/view_profile')`
       - added 2 functions : (working is same as explained in earliear workflows)
-        - `def employee_exit_confirmation(data: EmpExitConfirmation)`
+        - `def employee_exit_confirmation(data: EmpDatesConfirmation)`
         - `def view_profile(email: str)`
     # 
-    - **routes/router.py**
+  - **routes/router.py**
       - included the router reference of **candidate_routes.py** in tihs file 
+
+
+## Employee Joining Confirmation
+
+- ### workflow :
+  - **schema/employees.py → services/candidates.py → routes/candidate_routes.py → routes/router.py**
+
+- ### details:
+  - **schema/employees.py** :
+    - used existing schema `EmpDatesConfirmation`
+  - **services/candidates.py** :
+    - added 1 functions:
+      - `confirm_joining(data)` : validates the joining_date in **employee_history** DB table and updates the status accordingly
+    #
+  - **routes/candidate_routes.py** :
+      - added 1 endpoints :
+        - `@router.post('/joining_confirm')`
+      - added 1 functions : (working is same as explained in earliear workflows)
+        - `def employee_joining_confirmation(data: EmpDatesConfirmation)`
+    # 
+    
