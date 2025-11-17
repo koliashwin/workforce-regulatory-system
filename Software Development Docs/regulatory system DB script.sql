@@ -3,6 +3,7 @@ drop table employee_history;
 drop table employees;
 drop table institutes;
 drop table companies;
+drop table disputes;
 drop table Users;
 
 create table Users (
@@ -76,4 +77,17 @@ create table Employee_history (
     
     foreign key (company_id) references companies(company_id),
     foreign key (emp_id) references employees(emp_id)
+);
+
+create table disputes (
+	dispute_id int primary key auto_increment,
+    raised_by_type enum('candidate', 'employee', 'company', 'institute') not null,
+    raised_by_id int not null,
+    raised_against_type enum('candidate', 'employee', 'company', 'institute') not null,
+    raised_against_id int not null,
+    topic varchar(255) not null,
+    description text,
+    status ENUM('pending','under_review','resolved','rejected') not null default 'pending',
+    created_on datetime default current_timestamp,
+    updated_on datetime default current_timestamp on update current_timestamp
 );
