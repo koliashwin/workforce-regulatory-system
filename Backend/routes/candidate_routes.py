@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from schema.employees import EmpDatesConfirmation, EmployeeResponse
 from services.candidates import confirm_joining, confirm_exit, view_candidate_profile
+from services.dipsutes import view_all_disputes
 
 router = APIRouter(prefix="/candidates", tags=['candidates'])
 
@@ -25,6 +26,15 @@ def employee_joining_confirmation(data: EmpDatesConfirmation):
 @router.get('/view_profile')
 def view_profile(email: str):
     result = view_candidate_profile(email)
+
+    if not result['success']:
+        raise HTTPException(status_code=400, detail=result['error'])
+    
+    return result['data']
+
+@router.get('/disputes_list')
+def dispute_list():
+    result = view_all_disputes()
 
     if not result['success']:
         raise HTTPException(status_code=400, detail=result['error'])

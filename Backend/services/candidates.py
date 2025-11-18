@@ -1,4 +1,5 @@
 from config.db import get_db_connection
+from services.dipsutes import raise_dispute
 
 def clg_onboard_candidate(data):
     '''
@@ -63,7 +64,7 @@ def all_candidates_list():
         """
         cursor.execute(query)
         results = cursor.fetchall()
-        print("DB REsults :", results)
+        # print("DB REsults :", results)
         if not results:
             return {'success': True, 'data': []}
         return {'success': True, 'data': results}
@@ -145,13 +146,24 @@ def confirm_exit(data):
 
         result = cursor.fetchone()
 
-        if result and result['exit_date'] == data.date:
-            cursor.execute(
-                "UPDATE employee_history SET status = 'Safe Exit' WHERE emp_id = %s and company_id = %s",
-                (emp_id, data.company_id)
+        if result :
+            if result['exit_date'] == data.date:
+                cursor.execute(
+                    "UPDATE employee_history SET status = 'Safe Exit' WHERE emp_id = %s and company_id = %s",
+                    (emp_id, data.company_id)
+                )
+                conn.commit()
+                return {"success": True , "message": "Employee Exits Safely"}
+            
+            # raise a dispute on exit date mismatch
+            dispute = raise_dispute(
+                raised_by_type="candidate",
+                raised_by_id= data.user_id,
+                raised_against_type="company",
+                raised_against_id= data.company_id,
+                topic= "Exit Date mismatch"
             )
-            conn.commit()
-            return {"success": True , "message": "Employee Exits Safely"} 
+            return {"success": False , "error": "Exit date didn't match", "dispute": dispute} 
         
         return {"success": False, "error": "Company hasn't initiated the Exit process."}
 
@@ -200,7 +212,14 @@ def confirm_joining(data):
                 return {"success": True , "message": "Employee joines Safely"} 
             
             # logic to raise the dispute goes here
-            return {"success": False , "error": "Joining date didn't matche"} 
+            dispute = raise_dispute(
+                raised_by_type="candidate",
+                raised_by_id= data.user_id,
+                raised_against_type="company",
+                raised_against_id= data.company_id,
+                topic= "Joining Date mismatch"
+            )
+            return {"success": False , "error": "Joining date didn't match", "dispute": dispute} 
         
         return {"success": False, "error": "Company hasn't initiated the onboarding process."}
 
@@ -211,3 +230,5 @@ def confirm_joining(data):
     finally:
         cursor.close()
         conn.close()
+
+
