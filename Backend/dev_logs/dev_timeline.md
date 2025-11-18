@@ -104,3 +104,12 @@
 ### Date : 15-Nov-2025
 - **Work :**
   - Documented yesterday's progress
+  - updated core DB script file (**reguletory system DB script.sql**)
+    - added new table `disputes`
+#
+
+### Date : 17-Nov-2025
+- **Work :**
+  - worked on raise dispute logic
+    - system will raise the dispute by itself when there's mismatch in joining or exit date 
+  - Documentation

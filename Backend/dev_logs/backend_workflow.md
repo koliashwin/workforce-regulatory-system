@@ -208,4 +208,26 @@
       - added 1 functions : (working is same as explained in earliear workflows)
         - `def employee_joining_confirmation(data: EmpDatesConfirmation)`
     # 
-    
+
+## Raise Disputes 
+
+- ### workflow :
+  - **services/disputes.py → services/candidates.py → routes/candidate_routes.py → routes/router.py**
+
+- ### details:
+  - **services/disputes.py** :
+    - created 2 functions
+      - `raise_dispute(raised_by_type: str, raised_by_id: int, raised_against_type: str, raised_against_id: int, topic: str)` : stores the data into **disputes** table in DB
+      - `view_all_disputes()` : fetch the data from **disputes** table
+  - **services/candidates.py** :
+    - `raise_dispute` function is called automataticly when joining date and exit date don't match (refer functions `confirm_joining(data)`, `confirm_exit(data)`)
+  - **routes/candidate_routes.py** :
+    - added 1 endpoint : `@router.get('/disputes_list')`
+    - this will call the `view_all_disputes()` form **dispute service** and display the results
+#
+
+## Notes:
+  - This is Rough logic for now. known drawbacks/anomalities of the logic are as follows:
+    - no proper roles for Actors (**candidate, employee, company, college**)
+    - no proper Status update system for when employee onboards and exits (basic verion in place and working but it still need some work)
+    - since there are no validations in place for `exit_confirm()` and `joinin_confirm()`. thous API can be called multiple time resulting in multiple `raise_dispute()` calls thus multiple entires of same dispute in database
