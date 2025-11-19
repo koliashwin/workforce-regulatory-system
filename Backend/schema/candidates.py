@@ -1,3 +1,4 @@
+from datetime import date
 from pydantic import BaseModel
 
 class CandidateCreate(BaseModel):
@@ -7,7 +8,7 @@ class CandidateCreate(BaseModel):
     password_hash: str
     name: str
     contact_no: str
-    dob: str
+    dob: date
     created_on: str
     updated_on: str
     last_login: str
@@ -16,7 +17,7 @@ class CandidateCreate(BaseModel):
     user_id: int
     institute_id: int
     course: str
-    passout_year: str
+    passout_year: date
     skills: str
 
     # College/Institute reference (institutes table)
