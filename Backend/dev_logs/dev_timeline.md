@@ -113,3 +113,16 @@
   - worked on raise dispute logic
     - system will raise the dispute by itself when there's mismatch in joining or exit date 
   - Documentation
+#
+
+### Date : 18-Nov-2025
+- **Work :**
+  - Started API Testing
+  - Documented API Payloads and responses
+#
+
+### Date : 19-Nov-2025
+- **Work :**
+  - Finished the API testing
+  - Documented Payloads and responses and possible future tweeks
+#

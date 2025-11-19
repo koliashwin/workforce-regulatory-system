@@ -20,6 +20,12 @@
 - [ ] Implement Employment history tracker
 #
 
+## Testing
+- [x] API Testing
+- [x] API Documentation for frontend reference (payloads & response)
+- [x] Core Logic (basic, no validiations, main flow only)
+- [ ] Core Logic (with validations & known edge cases)
+
 ## Important Notes (Streatched features/updates)
 <!-- (Review or work on once all the protototype features are done) -->
 - [ ] update proper role_id for following modules:
