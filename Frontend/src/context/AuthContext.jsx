@@ -14,6 +14,8 @@ export const AuthProvider = ({children}) => {
     const login = (userData) => {
         setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
+        
+        // console.log(userData);
     };
 
     // Remove User form browser's localStorage, clear the state variable

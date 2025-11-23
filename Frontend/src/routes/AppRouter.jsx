@@ -25,17 +25,17 @@ const AppRouter = () => {
 
                         {/* Candidate Routes */}
                         <Route path='/candidate' element={<ProtectedRoute allowedRoles={['candidate']}/>}>
-                            <Route path='home' element={<CandidateHome />} />
+                            <Route path='' element={<CandidateHome />} />
                         </Route>
                         
                         {/* Institute Routes */}
                         <Route path='/institute' element={<ProtectedRoute allowedRoles={['institute']}/>}>
-                            <Route path='home' element={<InstituteHome />} />
+                            <Route path='' element={<InstituteHome />} />
                         </Route>
 
                         {/* Company Routes */}
                         <Route path='/company' element={<ProtectedRoute allowedRoles={['company']}/>}>
-                            <Route path='home' element={<CompanyHome />} />
+                            <Route path='' element={<CompanyHome />} />
                         </Route>
 
                         {/* <Route element={<ProtectedRoute allowedRoles={['admin']}/>}>

@@ -50,7 +50,7 @@ const DashboardLayout = () => {
             </Drawer>
 
             {/* main content */}
-            <Box component='main' sx={{ flexGrow: 1, p: 3, ml: `${drawerWidth}px`, mt: 8 }}>
+            <Box component='main' sx={{ flexGrow: 1, p: 3, mt: 8 }}>
                 <Outlet />
             </Box>
         </Box>
