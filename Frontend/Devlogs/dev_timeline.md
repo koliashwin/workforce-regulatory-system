@@ -15,9 +15,26 @@
   - Initial Project Setup (ReactJs, Vite, MUI)
   - Implemented Protected Routes logic for role-based access 
   - Implemented Presistent Login logic with localstorage (basic version)
+
+- **Short-Milestone :**
+  - Role-Based Access
+  - persistant Login (basic version)
 #
 
 ### Date : 23-Nov-2025
 - **Work :**
   - Yesterday's Documentation
+  - Created API boilarplates
+  - Established connection between backend and frontend
+  - tested GET and POST API requests
+  - backend tweeks for CORS permissoin
+
+- **Short-Milestone :**
+  - Established proper connection between Frontend & backend
+#
+
+### Date : 24-Nov-2025
+- **Work :**
+  - Yesterday's documentation
+  - defined more clear tasks in todo_list.md
 #

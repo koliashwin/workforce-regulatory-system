@@ -1,6 +1,7 @@
 # Frontend Workflow
 
 <!-- this file will contain the infomation/workflows of the implemented features -->
+# General Flow (Common/General Workflows)
 
 ##  Pages (General Flow)
 - ### General Workflow :
@@ -23,8 +24,34 @@
       - In parent route make sure to configure roles correctly to populate the require data
 #
 
-## Public Routes
-- ### WorkFlow :
+## API Workflow (Common Flow)
+- ### General Workflow :
+  - **src/api/axiosClient.js → src/api/modules/####.js → src/pages/####.jsx**
+
+- ### Details :
+  - **src/api/axiosClient.js :**
+    - this file contains following:
+      - backend connection configuration
+      - read token from already stored user in localStorage
+      - General Response format
+  - **src/api/modules/ :**
+    - this folder will contain multiple files. each such file will will contain dictionary with **{Key: Value}** pairs where:
+      - Key = identifier
+      - Value = a funtion with relevent endpoint and payload
+    ```js
+    const candidateAPI = {
+        getProfile: (payload) => axiosClient.get("candidates/view_profile", payload),
+        exitConfirm: (payload) => axiosClient.post("candidates/exit_confirm", payload),
+        joiningConfirm: (payload) => axiosClient.post("candidates/joining_confirm", payload),
+    };
+    ```
+  - **src/pages/ or src/components/** :
+    - the configured APIs will be used in some pages or components to get and post data on backend
+#
+
+
+## Public Routes (Common Flow)
+- ### General WorkFlow :
   - **src/pages/****.jsx → src/routers/AppRouter.jsx → src/App.jsx**
   - **src/layout/****.jsx → src/routers/AppRouter.jsx → src/App.jsx**
 
@@ -45,8 +72,8 @@
 ```
 #
 
-## Proctected Routes
-- ### WorkFlow :
+## Proctected Routes (Common Flow)
+- ### General WorkFlow :
   - **src/pages/****.jsx → src/routers/ProtectedRoute.jsx → src/routers/AppRouter.jsx → src/App.jsx**
   - **src/layout/****.jsx → src/routers/ProtectedRoute.jsx → src/routers/AppRouter.jsx → src/App.jsx**
 
@@ -81,6 +108,8 @@
 </Route>
 ```
 #
+
+# Features WorkFlow (Specift to certain feature)
 
 ## Login
 - ### WorkFlow :

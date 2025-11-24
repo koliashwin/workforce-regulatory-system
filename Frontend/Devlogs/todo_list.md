@@ -10,10 +10,25 @@
 
 ## Prototype Features
 - [x] Protected routes (Role-based access)
-- [ ] Frontend Forms (to get data from user)
-- [ ] Frontend views (to show the data to user)
-- [ ] API interation logic
+- [ ] Frontend Forms 
+  - [ ] Candidate Onboarding
+  - [ ] Company Registration
+  - [ ] Employee Onboarding
+  - [ ] Employee Exit
+  - [ ] Joining confirmation
+  - [ ] Exit confirmation
+- [ ] Frontend views
+  - [ ] Candidate Profile
+  - [ ] Employee List
+  - [ ] Company List
+  - [ ] Dispute List
+- [x] API interation logic (basic)
+- [ ] Connect all Forms to backend
+- [ ] Connect all views to backend
 #
+
+## Testing
+- [x] Test API communication between Froentend & Backend
 
 ## Streched Features
 - [x] Presistant Login
