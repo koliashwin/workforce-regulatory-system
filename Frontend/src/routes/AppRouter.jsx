@@ -7,6 +7,8 @@ import Login from '../pages/auth/Login'
 import CandidateHome from '../pages/candidate/Home'
 import InstituteHome from '../pages/institute/Home'
 import CompanyHome from '../pages/company/Home'
+import OnboardStudent from '../pages/institute/OnboardStudent'
+import CandidateList from '../pages/institute/CandidateList'
 
 const AppRouter = () => {
     return (
@@ -31,6 +33,8 @@ const AppRouter = () => {
                         {/* Institute Routes */}
                         <Route path='/institute' element={<ProtectedRoute allowedRoles={['institute']}/>}>
                             <Route path='' element={<InstituteHome />} />
+                            <Route path='onboard' element={<OnboardStudent />} />
+                            <Route path='candidates' element={<CandidateList />} />
                         </Route>
 
                         {/* Company Routes */}

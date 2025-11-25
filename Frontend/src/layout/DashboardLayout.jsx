@@ -1,5 +1,5 @@
 import { AppBar, Box, Button, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 
@@ -7,12 +7,24 @@ const drawerWidth = 240;
 
 const DashboardLayout = () => {
     const {user, logout} = useAuth();
+    const navigate = useNavigate();
 
     const menuItems = {
-        candidate: ['Profile', 'Employment History', 'Disputes'],
-        institute: ['Instiute Dashboard', 'Students', 'Disputes'],
-        company: ['Company Dashboard', 'Employees', 'Disputes'],
-        admin: ['Admin Dashboard', 'Manage Users', 'Dispute Logs']
+        candidate: [
+            {label: "Dashboard", path: "/candidate"},
+            {label: "Employment History", path: "/candidate/history"}
+        ],
+        institute: [
+            {label: "Dashboard", path: "/institute"},
+            {label: "Onboard Candidate", path: "/institute/onboard"},
+            {label: "Candidate List", path: "/institute/candidates"}
+        ],
+        company: [
+            {label: "Dashboard", path: "/company"}
+        ],
+        admin: [
+            {label: "Dashboard", path: "/admin"}
+        ]
     };
 
     const role = user?.role || 'candidate';
@@ -39,10 +51,10 @@ const DashboardLayout = () => {
             >
                 <Toolbar />
                 <List>
-                    {menuItems[role].map((text) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary={text} />
+                    {menuItems[role].map((item) => (
+                        <ListItem key={item.label} disablePadding>
+                            <ListItemButton onClick={() => navigate(item.path)}>
+                                <ListItemText primary={item.label} />
                             </ListItemButton>
                         </ListItem>
                     ))}
