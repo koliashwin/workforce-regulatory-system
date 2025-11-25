@@ -37,4 +37,9 @@
 - **Work :**
   - Yesterday's documentation
   - defined more clear tasks in todo_list.md
+  - created and tested 1 view & 1 form 
 #
+
+### Date : 25-Nov-2025
+- **Work :**
+  - Yesterday's documentation

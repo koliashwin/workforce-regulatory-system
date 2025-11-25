@@ -138,4 +138,43 @@
       - `<Route path='/login' element={<Login />} />`
 #
 
+## Onboard Students (Institute Feature)
 
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/instituteAPI.js → src/pages/institute/OnboardStudent.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
+  - **src/api/modules/instituteAPI.js :** collection of institute module specific endpoints along with params
+  - **src/pages/institute/OnboardStudent.jsx :** Form for passing student/candidate data to backend.
+    - **a state variable `[form, setForm]` :**
+      - defines the data structure in which the data should be passed to backend. all keys should be same as backend payload
+    - **const handleChange :**
+      - this function updates the relevant key-value pair in the state variable for every input in form
+    - **const handleSubmit :**
+      - this function will try to call the required API with recieved payload `instituteAPI.onboardStudent(form)`
+      - display relevent alert message whenever succeed or failed
+    - **[page content] :** React/html code for page components
+  - **src/routes/ProtectedRouter.jsx :** access getway for routes
+  - **src/routes/AppRouter.jsx :** define route path for `<OnboardStudent />`
+  - **src/App.jsx :** main file to run application
+#
+
+## Candidate List (Institute Feature)
+
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/instituteAPI.js → src/pages/institute/candidateList.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
+  - **src/api/modules/instituteAPI.js :** collection of institute module specific endpoints along with params
+  - **src/pages/institute/CandidateList.jsx :** A view to retirve candidates list from backend and display it to user
+    - **a state variable [candidates, setCandidates] :** empty state variable.
+    - **useEffect() :** whenever the page loads this hook will do following:
+      - call relevant API `instituteAPI.getCandidateList()`
+      - stored retrived data into state variable `setCandidates`
+    - **[page content] :** React/html code for page components & populate the data from state variable
+  - **src/routes/ProtectedRouter.jsx :** access getway for routes
+  - **src/routes/AppRouter.jsx :** define route path for `<CandidateList />`
+  - **src/App.jsx :** main file to run application
+#

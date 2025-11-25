@@ -11,17 +11,18 @@
 ## Prototype Features
 - [x] Protected routes (Role-based access)
 - [ ] Frontend Forms 
-  - [ ] Candidate Onboarding
-  - [ ] Company Registration
-  - [ ] Employee Onboarding
-  - [ ] Employee Exit
-  - [ ] Joining confirmation
-  - [ ] Exit confirmation
+  - [x] Candidate Onboarding (institute)
+  - [ ] Company Registration (company)
+  - [ ] Employee Onboarding (company)
+  - [ ] Employee Exit (company)
+  - [ ] Joining confirmation (candidate)
+  - [ ] Exit confirmation (candidate)
 - [ ] Frontend views
-  - [ ] Candidate Profile
-  - [ ] Employee List
-  - [ ] Company List
-  - [ ] Dispute List
+  - [x] Candidate List (institute)
+  - [ ] Candidate Profile (candidate)
+  - [ ] Employee List (company)
+  - [ ] Company List (admin)
+  - [ ] Dispute List (all)
 - [x] API interation logic (basic)
 - [ ] Connect all Forms to backend
 - [ ] Connect all views to backend
