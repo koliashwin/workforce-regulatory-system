@@ -22,6 +22,7 @@ const DashboardLayout = () => {
         company: [
             {label: "Dashboard", path: "/company"},
             {label: "Onbord Employee", path: "/company/onboard"},
+            {label: "Employee Exits", path: "/company/employee_exit"},
             {label: "Employee List", path: "/company/employees"},
             {label: "Company List", path: "/company/company_list"},
             {label: "Register Company", path: "/company/register"},

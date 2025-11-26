@@ -14,6 +14,7 @@ import EmployeeList from '../pages/company/EmployeeList'
 import CompanyList from '../pages/company/CompanyList'
 import RegisterCompany from '../pages/company/RegisterCompany'
 import VerifyCompany from '../pages/company/VerifyCompany'
+import EmployeeExits from '../pages/company/EmployeeExits'
 
 const AppRouter = () => {
     return (
@@ -46,6 +47,7 @@ const AppRouter = () => {
                         <Route path='/company' element={<ProtectedRoute allowedRoles={['company']}/>}>
                             <Route path='' element={<CompanyHome />} />
                             <Route path='onboard' element={<OnboardEmployee />} />
+                            <Route path='employee_exit' element={<EmployeeExits />} />
                             <Route path='employees' element={<EmployeeList />} />
                             <Route path='company_list' element={<CompanyList />} />
                             <Route path='register' element={<RegisterCompany />} />
