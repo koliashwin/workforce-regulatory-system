@@ -43,3 +43,12 @@
 ### Date : 25-Nov-2025
 - **Work :**
   - Yesterday's documentation
+  - Created 2 views
+    - CompanyList & EmployeeList
+  - Created 3 forms
+    - OnboardEmployee, RegisterCompany & VerifyComapny
+#
+
+### Date : 26-Nov-2025
+- **Work :**
+  - Yesterday's Documentation

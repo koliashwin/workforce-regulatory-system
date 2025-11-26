@@ -161,9 +161,11 @@
 #
 
 ## Candidate List (Institute Feature)
+<!-- this will be moved to Admin Feature in futerue -->
+<!-- & this will be updated to Student List in specific college -->
 
 - ### Workflow :
-  - **src/api/axiosClient.js → src/api/modules/instituteAPI.js → src/pages/institute/candidateList.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+  - **src/api/axiosClient.js → src/api/modules/instituteAPI.js → src/pages/institute/CandidateList.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
 
 - ### Details :
   - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
@@ -178,3 +180,110 @@
   - **src/routes/AppRouter.jsx :** define route path for `<CandidateList />`
   - **src/App.jsx :** main file to run application
 #
+
+## Company List (Company Feature)
+<!-- this will be moved to Admin Feature in future -->
+<!-- & thiw will be updated to Company Profile view -->
+
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/companyAPI.js → src/pages/company/CompanyList.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
+  - **src/api/modules/compnayAPI.js :** collection of company module specific endpoints along with params
+  - **src/pages/company/CompanyList.jsx :** A view to retirve candidates list from backend and display it to user
+    - **a state variable [companies, setCompanies] :** empty state variable.
+    - **useEffect() :** whenever the page loads this hook will do following:
+      - call relevant API `companyAPI.companyList()`
+      - stored retrived data into state variable `setCompanies`
+    - **[page content] :** React/html code for page components & populate the data from state variable
+  - **src/routes/ProtectedRouter.jsx :** access getway for routes
+  - **src/routes/AppRouter.jsx :** define route path for `<CompanyList />`
+  - **src/App.jsx :** main file to run application
+#
+
+## Employee List (Company Feature)
+<!-- this will be moved to Admin Feature in future -->
+<!-- & thiw will be updated to Compnay Employees (employees specific to that company) -->
+
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/companyAPI.js → src/pages/company/EmployeeList.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
+  - **src/api/modules/compnayAPI.js :** collection of company module specific endpoints along with params
+  - **src/pages/company/EmployeeList.jsx :** A view to retirve candidates list from backend and display it to user
+    - **a state variable [employees, setEmployees] :** empty state variable.
+    - **useEffect() :** whenever the page loads this hook will do following:
+      - call relevant API `companyAPI.employeeList()`
+      - stored retrived data into state variable `setEmployees`
+    - **[page content] :** React/html code for page components & populate the data from state variable
+  - **src/routes/ProtectedRouter.jsx :** access getway for routes
+  - **src/routes/AppRouter.jsx :** define route path for `<EmployeeList />`
+  - **src/App.jsx :** main file to run application
+#
+
+## Register Company (Company Feature)
+
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/RegisterCompany.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
+  - **src/api/modules/companyAPI.js :** collection of company module specific endpoints along with params
+  - **src/pages/company/RegisterCompany.jsx :** Form for passing student/candidate data to backend.
+    - **a state variable `[form, setForm]` :**
+      - defines the data structure in which the data should be passed to backend. all keys should be same as backend payload
+    - **const handleChange :**
+      - this function updates the relevant key-value pair in the state variable for every input in form
+    - **const handleSubmit :**
+      - this function will try to call the required API with recieved payload `companyAPI.registerCompany(form)`
+      - display relevent alert message whenever succeed or failed
+    - **[page content] :** React/html code for page components
+  - **src/routes/ProtectedRouter.jsx :** access getway for routes
+  - **src/routes/AppRouter.jsx :** define route path for `<RegisterComapny />`
+  - **src/App.jsx :** main file to run application
+#
+
+## Verify Company (Company Feature)
+
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/VerifyCompany.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
+  - **src/api/modules/companyAPI.js :** collection of company module specific endpoints along with params
+  - **src/pages/company/VerifyCompany.jsx :** Form for passing student/candidate data to backend.
+    - **a state variable `[form, setForm]` :**
+      - defines the data structure in which the data should be passed to backend. all keys should be same as backend payload
+    - **const handleChange :**
+      - this function updates the relevant key-value pair in the state variable for every input in form
+    - **const handleSubmit :**
+      - this function will try to call the required API with recieved payload `companyAPI.verifyComapny(form)`
+      - display relevent alert message whenever succeed or failed
+    - **[page content] :** React/html code for page components
+  - **src/routes/ProtectedRouter.jsx :** access getway for routes
+  - **src/routes/AppRouter.jsx :** define route path for `<VerifyCompany />`
+  - **src/App.jsx :** main file to run application
+#
+
+## Onboard Employee (Company Feature)
+
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/OnboardEmployee.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
+  - **src/api/modules/companyAPI.js :** collection of company module specific endpoints along with params
+  - **src/pages/company/OnboardEmployee.jsx :** Form for passing student/candidate data to backend.
+    - **a state variable `[form, setForm]` :**
+      - defines the data structure in which the data should be passed to backend. all keys should be same as backend payload
+    - **const handleChange :**
+      - this function updates the relevant key-value pair in the state variable for every input in form
+    - **const handleSubmit :**
+      - this function will try to call the required API with recieved payload `companyAPI.onboardEmployee(form)`
+      - display relevent alert message whenever succeed or failed
+    - **[page content] :** React/html code for page components
+  - **src/routes/ProtectedRouter.jsx :** access getway for routes
+  - **src/routes/AppRouter.jsx :** define route path for `<OnboardEmployee />`
+  - **src/App.jsx :** main file to run application

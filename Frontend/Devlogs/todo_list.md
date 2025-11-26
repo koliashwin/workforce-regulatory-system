@@ -12,16 +12,17 @@
 - [x] Protected routes (Role-based access)
 - [ ] Frontend Forms 
   - [x] Candidate Onboarding (institute)
-  - [ ] Company Registration (company)
-  - [ ] Employee Onboarding (company)
+  - [x] Company Registration (company)
+  - [x] Verify Company (company)
+  - [x] Employee Onboarding (company)
   - [ ] Employee Exit (company)
   - [ ] Joining confirmation (candidate)
   - [ ] Exit confirmation (candidate)
 - [ ] Frontend views
   - [x] Candidate List (institute)
   - [ ] Candidate Profile (candidate)
-  - [ ] Employee List (company)
-  - [ ] Company List (admin)
+  - [x] Employee List (company)
+  - [x] Company List (company) 
   - [ ] Dispute List (all)
 - [x] API interation logic (basic)
 - [ ] Connect all Forms to backend
