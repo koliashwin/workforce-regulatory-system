@@ -15,7 +15,7 @@
   - [x] Company Registration (company)
   - [x] Verify Company (company)
   - [x] Employee Onboarding (company)
-  - [ ] Employee Exit (company)
+  - [x] Employee Exit (company)
   - [ ] Joining confirmation (candidate)
   - [ ] Exit confirmation (candidate)
 - [ ] Frontend views
