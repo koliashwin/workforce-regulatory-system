@@ -9,6 +9,11 @@ import InstituteHome from '../pages/institute/Home'
 import CompanyHome from '../pages/company/Home'
 import OnboardStudent from '../pages/institute/OnboardStudent'
 import CandidateList from '../pages/institute/CandidateList'
+import OnboardEmployee from '../pages/company/OnboardEmployee'
+import EmployeeList from '../pages/company/EmployeeList'
+import CompanyList from '../pages/company/CompanyList'
+import RegisterCompany from '../pages/company/RegisterCompany'
+import VerifyCompany from '../pages/company/VerifyCompany'
 
 const AppRouter = () => {
     return (
@@ -40,6 +45,11 @@ const AppRouter = () => {
                         {/* Company Routes */}
                         <Route path='/company' element={<ProtectedRoute allowedRoles={['company']}/>}>
                             <Route path='' element={<CompanyHome />} />
+                            <Route path='onboard' element={<OnboardEmployee />} />
+                            <Route path='employees' element={<EmployeeList />} />
+                            <Route path='company_list' element={<CompanyList />} />
+                            <Route path='register' element={<RegisterCompany />} />
+                            <Route path='verify' element={<VerifyCompany />} />
                         </Route>
 
                         {/* <Route element={<ProtectedRoute allowedRoles={['admin']}/>}>

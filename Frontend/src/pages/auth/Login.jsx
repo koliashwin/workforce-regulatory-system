@@ -25,7 +25,7 @@ const Login = () => {
     // verify login credential and update the localStorage
     const handleLogin = () => {
         // temporary logic
-        const userData = {role: "institute", user_id: "1"}
+        const userData = {role: "company", user_id: "1"}
         
         login(userData)
 
