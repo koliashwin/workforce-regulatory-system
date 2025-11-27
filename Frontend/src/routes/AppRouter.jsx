@@ -15,6 +15,10 @@ import CompanyList from '../pages/company/CompanyList'
 import RegisterCompany from '../pages/company/RegisterCompany'
 import VerifyCompany from '../pages/company/VerifyCompany'
 import EmployeeExits from '../pages/company/EmployeeExits'
+import JoiningConfirm from '../pages/candidate/JoiningConfirm'
+import Profile from '../pages/candidate/Profile'
+import ExitConfirm from '../pages/candidate/ExitConfirm'
+import DisputesList from '../pages/candidate/DisputesList'
 
 const AppRouter = () => {
     return (
@@ -34,6 +38,10 @@ const AppRouter = () => {
                         {/* Candidate Routes */}
                         <Route path='/candidate' element={<ProtectedRoute allowedRoles={['candidate']}/>}>
                             <Route path='' element={<CandidateHome />} />
+                            <Route path='profile' element={<Profile />} />
+                            <Route path='joining_confirm' element={<JoiningConfirm />} />
+                            <Route path='exit_confirm' element={<ExitConfirm />} />
+                            <Route path='disputes' element={<DisputesList />} />
                         </Route>
                         
                         {/* Institute Routes */}

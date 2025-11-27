@@ -12,7 +12,10 @@ const DashboardLayout = () => {
     const menuItems = {
         candidate: [
             {label: "Dashboard", path: "/candidate"},
-            {label: "Employment History", path: "/candidate/history"}
+            {label: "Profile", path: "/candidate/profile"},
+            {label: "Confirm Joining", path: "/candidate/joining_confirm"},
+            {label: "Confirm Exit", path: "/candidate/exit_confirm"},
+            {label: "Disputes", path: "/candidate/disputes"}
         ],
         institute: [
             {label: "Dashboard", path: "/institute"},
