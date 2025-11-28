@@ -361,37 +361,71 @@
 - ### payload :
 ```json
 {
-    "email" : "ashwin1@mail.com"       # this should be user_id
+    "user_id" : 1
 }
 ```
 - ### Ok Response :
 ```json
 {
-  "user_id": 1,
-  "role_id": 100,
-  "user_name": "Ashwin Koli",
-  "user_email": "ashwin1@mail.com",
-  "candidate_id": 1,
-  "course": "MCA",
-  "passout_year": "2023-02-20",
-  "skills": "Java, Python, C++, SQL",
-  "institute_id": 1,
-  "institute_name": "XYZ college 1",
-  "institute_email": "clg1@mail.com",
-  "company_id": 1,
-  "company_name": "SkyLark LIMITED",
-  "cin": "L16484TN1992PTC203527",
-  "joining_date": "2023-12-04",
-  "exit_date": "2024-06-05",
-  "status": "Safe Exit"
+  "personal_info": {
+    "name": "Ashwin Koli",
+    "email": "ashwin1@mail.com",
+    "contact_no": "9569876921",
+    "dob": "1999-08-04"
+  },
+  "acdemic_info": [
+    {
+      "candidate_id": 1,
+      "course": "MCA",
+      "passout_year": "2023-02-20",
+      "skills": "Java, Python, C++, SQL",
+      "institute_name": "XYZ college 1",
+      "institute_email": "clg1@mail.com",
+      "institute_contact": "7845987456",
+      "institue_legal_status": "Registered",
+      "future_plan": "employment"
+    }
+  ],
+  "employment_history": [
+    {
+      "emp_id": 1,
+      "company_id": 1,
+      "name": "SkyLark LIMITED",
+      "cin": "L16484TN1992PTC203527",
+      "joining_date": "2023-12-04",
+      "exit_date": "2024-06-05",
+      "status": "Safe Exit"
+    }
+  ],
+  "dispute_history": [
+    {
+      "dispute_id": 2,
+      "raised_by_type": "candidate",
+      "raised_by_id": 1,
+      "raised_against_type": "company",
+      "raised_against_id": 1,
+      "topic": "Exit Date mismatch",
+      "description": null,
+      "status": "pending",
+      "created_on": "2025-11-19T12:55:57",
+      "updated_on": "2025-11-19T12:55:57"
+    },
+    {
+      "dispute_id": 1,
+      "raised_by_type": "candidate",
+      "raised_by_id": 1,
+      "raised_against_type": "company",
+      "raised_against_id": 1,
+      "topic": "Joining Date mismatch",
+      "description": null,
+      "status": "pending",
+      "created_on": "2025-11-19T12:36:30",
+      "updated_on": "2025-11-19T12:36:30"
+    }
+  ]
 }
 ```
-- ### Ideal Payload :
-```json
-{
-    "user_id" : 1
-}
-```
+
 #
 
 ## 12. `GET: /candidates/dispute_list`
