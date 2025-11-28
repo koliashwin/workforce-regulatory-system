@@ -126,3 +126,14 @@
   - Finished the API testing
   - Documented Payloads and responses and possible future tweeks
 #
+
+### Date : 27-Nov-2025
+  - **Work :**
+    - Updated some Candidate Profile API related functions
+    - integrated new API response with frontend
+#
+
+### Date : 28-Nov-2025
+  - **Work :**
+    - Updated relevant API paylods in API Docs
+    - Documented new changes

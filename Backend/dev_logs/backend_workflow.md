@@ -174,17 +174,14 @@
   - **schema/employees.py** :
     - added new schema `EmpDatesConfirmation`
   - **services/candidates.py** :
-    - added 2 functions:
-      - `view_candidate_profile(user_email: str)`: contains temporary logic to disply info of single candidate
+    - added 1 functions:
       - `confirm_exit(data)` : validates the exit_date in **employee_history** DB table and updates the status accordingly
     #
   - **routes/candidate_routes.py** :
       - added 2 endpoints :
         - `@router.post('/exit_confirm')`
-        - `@router.get('/view_profile')`
       - added 2 functions : (working is same as explained in earliear workflows)
         - `def employee_exit_confirmation(data: EmpDatesConfirmation)`
-        - `def view_profile(email: str)`
     # 
   - **routes/router.py**
       - included the router reference of **candidate_routes.py** in tihs file 
@@ -225,6 +222,27 @@
     - added 1 endpoint : `@router.get('/disputes_list')`
     - this will call the `view_all_disputes()` form **dispute service** and display the results
 #
+
+## Candidate Profile 
+
+- ### workflow :
+  - **services/candidates.py → routes/candidate_routes.py → routes/router.py**
+
+- ### details :
+  - **services/candidates.py :**
+    - added 1 function 
+      - `view_candidate_profile(user_id: int) :`
+        - fires the 4 differnet querries to get all the relevant data
+          - **Personal data** : retrived from 1 DB table **(users)**
+          - **Acdemic data** : retrived from 2 DB tables **(candidates, institutes)**
+          - **Employment data** : retrived from 3 DB tables **(employees, companies, employee_history)**
+          - **Disputes data** : retrived from 1 DB table **(disputes)**
+  - **routes/candidate_routes.py :**
+    - added 1 endpoint:
+      - `@router.get('/view_profile')`
+    - Updated associated function:
+      - `def view_profile(user_id: int):` updated pram form **user_email → user_id**, rest of the working is same as earliear functions in same file
+
 
 ## Notes:
   - This is Rough logic for now. known drawbacks/anomalities of the logic are as follows:
