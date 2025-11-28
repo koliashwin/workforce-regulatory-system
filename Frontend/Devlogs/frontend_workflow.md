@@ -141,7 +141,7 @@
 ## Onboard Students (Institute Feature)
 
 - ### Workflow :
-  - **src/api/axiosClient.js → src/api/modules/instituteAPI.js → src/pages/institute/OnboardStudent.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+  - **src/api/axiosClient.js → src/api/modules/instituteAPI.js → src/pages/institute/OnboardStudent.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
 
 - ### Details :
   - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
@@ -155,7 +155,7 @@
       - this function will try to call the required API with recieved payload `instituteAPI.onboardStudent(form)`
       - display relevent alert message whenever succeed or failed
     - **[page content] :** React/html code for page components
-  - **src/routes/ProtectedRouter.jsx :** access getway for routes
+  - **src/routes/ProtectedRoute.jsx :** access getway for routes
   - **src/routes/AppRouter.jsx :** define route path for `<OnboardStudent />`
   - **src/App.jsx :** main file to run application
 #
@@ -165,7 +165,7 @@
 <!-- & this will be updated to Student List in specific college -->
 
 - ### Workflow :
-  - **src/api/axiosClient.js → src/api/modules/instituteAPI.js → src/pages/institute/CandidateList.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+  - **src/api/axiosClient.js → src/api/modules/instituteAPI.js → src/pages/institute/CandidateList.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
 
 - ### Details :
   - **src/api/axiosClient.js :** API configuration layer. connects the frontend with backend
@@ -176,7 +176,7 @@
       - call relevant API `instituteAPI.getCandidateList()`
       - stored retrived data into state variable `setCandidates`
     - **[page content] :** React/html code for page components & populate the data from state variable
-  - **src/routes/ProtectedRouter.jsx :** access getway for routes
+  - **src/routes/ProtectedRoute.jsx :** access getway for routes
   - **src/routes/AppRouter.jsx :** define route path for `<CandidateList />`
   - **src/App.jsx :** main file to run application
 #
@@ -186,7 +186,7 @@
 <!-- & thiw will be updated to Company Profile view -->
 
 - ### Workflow :
-  - **src/api/axiosClient.js → src/api/modules/companyAPI.js → src/pages/company/CompanyList.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+  - **src/api/axiosClient.js → src/api/modules/companyAPI.js → src/pages/company/CompanyList.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
 
 - ### Details :
   - (Same as **Candidate List (Institute Feature)**)
@@ -197,7 +197,7 @@
 <!-- & thiw will be updated to Compnay Employees (employees specific to that company) -->
 
 - ### Workflow :
-  - **src/api/axiosClient.js → src/api/modules/companyAPI.js → src/pages/company/EmployeeList.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+  - **src/api/axiosClient.js → src/api/modules/companyAPI.js → src/pages/company/EmployeeList.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
 
 - ### Details :
   - (Same as **Candidate List (Institute Feature)**)
@@ -206,7 +206,7 @@
 ## Register Company (Company Feature)
 
 - ### Workflow :
-  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/RegisterCompany.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/RegisterCompany.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
 
 - ### Details :
   - (Same as **Onboard Student (Institute Feature)**)
@@ -215,7 +215,7 @@
 ## Verify Company (Company Feature)
 
 - ### Workflow :
-  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/VerifyCompany.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/VerifyCompany.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
 
 - ### Details :
   - (Same as **Onboard Student (Institute Feature)**)
@@ -224,7 +224,7 @@
 ## Onboard Employee (Company Feature)
 
 - ### Workflow :
-  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/OnboardEmployee.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/OnboardEmployee.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
 
 - ### Details :
   - (Same as **Onboard Student (Institute Feature)**)
@@ -233,7 +233,34 @@
 ## Employee Exits (Company Feature)
 
 - ### Workflow :
-  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/EmployeeExits.jsx → src/routes/ProtectedRouter.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/company/EmployeeExits.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
 
 - ### Details :
   - (Same as **Onboard Student (Institute Feature)**)
+#
+
+## Candidate Confirms Joining Date (Candidate Feature)
+
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/candidateAPI.js → src/pages/candidate/JoiningConfirm.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - (Same as **Onboard Student (Institute Feature)**)
+#
+
+## Candidate Confirms Exit Date (Candidate Feature)
+
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/candidateAPI.js → src/pages/candidate/ExitConfirm.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - (Same as **Onboard Student (Institute Feature)**)
+#
+
+## Candidate Profile View (Candidate Feature)
+
+- ### Workflow :
+  - **src/api/axiosClient.js → src/api/modules/compnayAPI.js → src/pages/candidate/Profile.jsx → src/routes/ProtectedRoute.jsx → src/routes/AppRouter.jsx → src/App.jsx**
+
+- ### Details :
+  - (Similar to **Candidate List (Institute Feature)** only difference is that data Retireved form API is more complex and needs structuring in html/react page code)

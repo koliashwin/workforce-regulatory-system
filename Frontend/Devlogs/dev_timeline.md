@@ -52,3 +52,20 @@
 ### Date : 26-Nov-2025
 - **Work :**
   - Yesterday's Documentation
+  - created 2 forms
+    - Employee exit and joining confirmation
+  - created candidate profile sample page 
+#
+
+### Date : 27-Nov-2025
+- **Work :**
+  - fixed the backend API responsible for candidate Profile data.
+  - integrated Candiate Profile with proper backend data.
+
+- **Huge Milestone :**
+  - main business logic is seems to work fine end-to-end (frontend → backend → DB → backend → frontend)
+#
+
+### Date : 28-Nov-2025
+- **Work :**
+  - Yesterday's Documentation
