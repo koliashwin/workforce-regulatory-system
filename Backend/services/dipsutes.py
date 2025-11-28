@@ -49,7 +49,7 @@ def view_all_disputes():
 
     try:
         cursor.execute(
-            "SELECT * FROM disputes"
+            "SELECT dispute_id, raised_by_type, raised_by_id, raised_against_type, raised_against_id, topic, description, status, created_on, updated_on FROM disputes"
         )
         results = cursor.fetchall()
 
@@ -64,3 +64,4 @@ def view_all_disputes():
     finally:
         cursor.close()
         conn.close()
+

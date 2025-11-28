@@ -24,8 +24,8 @@ def employee_joining_confirmation(data: EmpDatesConfirmation):
     return {'message': 'Employee Joined safely'}
 
 @router.get('/view_profile')
-def view_profile(email: str):
-    result = view_candidate_profile(email)
+def view_profile(user_id: int):
+    result = view_candidate_profile(user_id)
 
     if not result['success']:
         raise HTTPException(status_code=400, detail=result['error'])
