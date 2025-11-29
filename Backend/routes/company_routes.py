@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from schema.companies import CompanyCreate, CompanyResponse
 from schema.employees import EmployeeCreate, EmployeeResponse
-from services.companies import register_company, all_company_list, verify_company, onboard_employee, exit_employee, all_employee_list
+from services.companies import register_company, all_company_list, verify_company, onboard_employee, exit_employee, all_employee_list, view_company_profile
 
 
 router = APIRouter(prefix='/company', tags=['company'])
@@ -54,6 +54,15 @@ def employ_exit(employee: EmployeeCreate):
 @router.get('/employee_list', response_model=list[EmployeeResponse])
 def employee_list():
     result = all_employee_list()
+
+    if not result['success']:
+        raise HTTPException(status_code=400, detail=result['error'])
+    
+    return result['data']
+
+@router.get('/view_profile')
+def view_profile(company_id: int):
+    result = view_company_profile(company_id)
 
     if not result['success']:
         raise HTTPException(status_code=400, detail=result['error'])

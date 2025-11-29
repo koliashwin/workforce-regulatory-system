@@ -244,3 +244,58 @@ def all_employee_list():
     finally:
         cursor.close()
         conn.close()
+
+def view_company_profile(company_id: int):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        company_query = '''
+        SELECT * FROM companies 
+        WHERE company_id = %s
+        '''
+        cursor.execute(company_query, (company_id,))
+        company_info = cursor.fetchone()
+
+        if not company_info:
+            return {"success": False, "error": "Company not found"}
+
+        employee_query = '''
+        SELECT 
+            u.user_id, e.emp_id, eh.history_id,
+            u.name as employee_name, u.email as employee_email,
+            u.contact_no as employee_contact, e.designation, eh.joining_date,
+            eh.exit_date, eh.status as employee_status
+        FROM employees e, employee_history eh, users u
+        WHERE e.emp_id = eh.emp_id and e.company_id = eh.company_id 
+            and e.user_id = u.user_id and e.company_id = %s
+        '''
+        cursor.execute(employee_query, (company_id,))
+        company_employees = cursor.fetchall()
+
+        dispute_query = '''
+        SELECT
+            *
+        FROM disputes
+        WHERE raised_by_type='company' AND raised_by_id= %s
+            OR raised_against_type='company' AND raised_against_id= %s
+        ORDER BY created_on DESC;
+        '''
+        cursor.execute(dispute_query, (company_id, company_id))
+        dispute_history = cursor.fetchall()
+
+        result = {
+            "company_info": company_info,
+            "company_employees": company_employees,
+            "dispute_history" : dispute_history
+        }
+
+        return {"success": True, "data": result}
+
+    except Exception as e:
+        conn.rollback()
+        return {"success": False, "error": str(e)}
+    
+    finally:
+        cursor.close()
+        conn.close()

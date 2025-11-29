@@ -45,7 +45,7 @@ def raise_dispute(raised_by_type: str, raised_by_id: int, raised_against_type: s
 # get all disputes information
 def view_all_disputes():
     conn = get_db_connection()
-    cursor = conn.cursor()
+    cursor = conn.cursor(dictionary=True)
 
     try:
         cursor.execute(
