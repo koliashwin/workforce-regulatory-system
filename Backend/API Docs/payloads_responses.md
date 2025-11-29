@@ -355,7 +355,53 @@
 ```
 #
 
-## 11. `GET: /candidates/view_profile`
+## 11. `GET: /candidates/dispute_list`
+- ### purpose : 
+  - fetch the list of all disputes
+- ### Ok Response :
+```json
+[
+  {
+    "dispute_id": 1,
+    "raised_by_type": "candidate",
+    "raised_by_id": 1,
+    "raised_against_type": "company",
+    "raised_against_id": 1,
+    "topic": "Joining Date mismatch",
+    "description": null,
+    "status": "pending",
+    "created_on": "2025-11-19T12:36:30",
+    "updated_on": "2025-11-19T12:36:30"
+  },
+  {
+    "dispute_id": 2,
+    "raised_by_type": "candidate",
+    "raised_by_id": 1,
+    "raised_against_type": "company",
+    "raised_against_id": 1,
+    "topic": "Exit Date mismatch",
+    "description": null,
+    "status": "pending",
+    "created_on": "2025-11-19T12:55:57",
+    "updated_on": "2025-11-19T12:55:57"
+  },
+  {
+    "dispute_id": 3,
+    "raised_by_type": "candidate",
+    "raised_by_id": 5,
+    "raised_against_type": "company",
+    "raised_against_id": 1,
+    "topic": "Joining Date mismatch",
+    "description": null,
+    "status": "pending",
+    "created_on": "2025-11-26T21:15:22",
+    "updated_on": "2025-11-26T21:15:22"
+  }
+]
+```
+#
+
+## 12. `GET: /candidates/view_profile`
 - ### purpose : 
   - fetch details of single candidate
 - ### payload :
@@ -428,37 +474,160 @@
 
 #
 
-## 12. `GET: /candidates/dispute_list`
+## 13. `GET: /company/view_profile`
 - ### purpose : 
-  - fetch the list of all disputes
+  - fetch details of single company
+- ### payload :
+```json
+{
+    "company_id" : 1
+}
+```
 - ### Ok Response :
 ```json
-[
-    # this API stil not complete since im using "select * from disputes" query its fetcing results in array format insted of dictinary format
-    # corrtect query should be "select col1,col2... from disputes" this will yield proper {key: value} parired results
-  [
-    1,
-    "candidate",
-    1,
-    "company",
-    1,
-    "Joining Date mismatch",
-    null,
-    "pending",
-    "2025-11-19T12:36:30",
-    "2025-11-19T12:36:30"
+{
+  "company_info": {
+    "company_id": 1,
+    "cin": "L16484TN1992PTC203527",
+    "name": "SkyLark LIMITED",
+    "address": "137, Tower, Tech Park, Pune, India",
+    "contact_no": "8547621458",
+    "email": "skylark@company.com",
+    "verification_status": "Registered"
+  },
+  "company_employees": [
+    {
+      "user_id": 1,
+      "emp_id": 1,
+      "history_id": 1,
+      "employee_name": "Ashwin Koli",
+      "employee_email": "ashwin1@mail.com",
+      "employee_contact": "9569876921",
+      "designation": "Backend Developer",
+      "joining_date": "2023-12-04",
+      "exit_date": "2024-06-05",
+      "employee_status": "Safe Exit"
+    },
+    {
+      "user_id": 5,
+      "emp_id": 2,
+      "history_id": 2,
+      "employee_name": "Test User 2",
+      "employee_email": "test2@mail.com",
+      "employee_contact": "8974582350",
+      "designation": "UI/UX Developer",
+      "joining_date": "2024-01-01",
+      "exit_date": null,
+      "employee_status": "Joined Safely"
+    }
   ],
-  [
-    2,
-    "candidate",
-    1,
-    "company",
-    1,
-    "Exit Date mismatch",
-    null,
-    "pending",
-    "2025-11-19T12:55:57",
-    "2025-11-19T12:55:57"
+  "dispute_history": [
+    {
+      "dispute_id": 3,
+      "raised_by_type": "candidate",
+      "raised_by_id": 5,
+      "raised_against_type": "company",
+      "raised_against_id": 1,
+      "topic": "Joining Date mismatch",
+      "description": null,
+      "status": "pending",
+      "created_on": "2025-11-26T21:15:22",
+      "updated_on": "2025-11-26T21:15:22"
+    },
+    {
+      "dispute_id": 2,
+      "raised_by_type": "candidate",
+      "raised_by_id": 1,
+      "raised_against_type": "company",
+      "raised_against_id": 1,
+      "topic": "Exit Date mismatch",
+      "description": null,
+      "status": "pending",
+      "created_on": "2025-11-19T12:55:57",
+      "updated_on": "2025-11-19T12:55:57"
+    },
+    {
+      "dispute_id": 1,
+      "raised_by_type": "candidate",
+      "raised_by_id": 1,
+      "raised_against_type": "company",
+      "raised_against_id": 1,
+      "topic": "Joining Date mismatch",
+      "description": null,
+      "status": "pending",
+      "created_on": "2025-11-19T12:36:30",
+      "updated_on": "2025-11-19T12:36:30"
+    }
   ]
-]
+}
+
+```
+
+## 14. `GET: /institute/view_profile`
+- ### purpose : 
+  - fetch details of single institute
+- ### payload :
+```json
+{
+    "institute_id" : 1
+}
+```
+- ### Ok Response :
+```json
+{
+  "institute_info": {
+    "institute_id": 1,
+    "name": "XYZ college 1",
+    "address": "PQ street, opp. AB mall",
+    "contact_no": "7845987456",
+    "email": "clg1@mail.com",
+    "verification_status": "Registered"
+  },
+  "institute_students": [
+    {
+      "user_id": 1,
+      "candidate_id": 1,
+      "emp_id": 1,
+      "company_id": 1,
+      "student_name": "Ashwin Koli",
+      "student_contact": "9569876921",
+      "course": "MCA",
+      "passout_year": "2023-02-20",
+      "skills": "Java, Python, C++, SQL",
+      "future_plan": "employment",
+      "company_name": "SkyLark LIMITED",
+      "designation": "Backend Developer"
+    },
+    {
+      "user_id": 5,
+      "candidate_id": 5,
+      "emp_id": 2,
+      "company_id": 1,
+      "student_name": "Test User 2",
+      "student_contact": "8974582350",
+      "course": "B. Tech",
+      "passout_year": "2022-02-02",
+      "skills": "Javascipt, HTML/CSS",
+      "future_plan": "employment",
+      "company_name": "SkyLark LIMITED",
+      "designation": "UI/UX Developer"
+    },
+    {
+      "user_id": 4,
+      "candidate_id": 4,
+      "emp_id": 3,
+      "company_id": 3,
+      "student_name": "Test User",
+      "student_contact": "8974587890",
+      "course": "M. Tech",
+      "passout_year": "2023-02-02",
+      "skills": "Python, Django",
+      "future_plan": "employment",
+      "company_name": "NeoGen INFOTECH PRIVATE LIMITED",
+      "designation": "UI Developer"
+    }
+  ],
+  "dispute_history": []
+}
+
 ```
