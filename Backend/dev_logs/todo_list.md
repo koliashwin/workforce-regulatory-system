@@ -16,6 +16,7 @@
 - [x] Implement Candidate Join confirmation
 - [x] Implement Employee Exits Company
 - [x] Implement Candidate Exit confirmation
+- [x] Implement Profile/dashboard details logic for every actor
 - [ ] Implement Dispute logic
 - [ ] Implement Employment history tracker
 #

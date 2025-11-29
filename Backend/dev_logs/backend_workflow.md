@@ -242,6 +242,48 @@
       - `@router.get('/view_profile')`
     - Updated associated function:
       - `def view_profile(user_id: int):` updated pram form **user_email → user_id**, rest of the working is same as earliear functions in same file
+#
+
+## Company Profile 
+
+- ### workflow :
+  - **services/companies.py → routes/company_routes.py → routes/router.py**
+
+- ### details :
+  - **services/companies.py :**
+    - added 1 function 
+      - `def view_company_profile(company_id: int):`
+        - fires the 3 differnet querries to get all the relevant data
+          - **Company data** : retrived from 1 DB table **(companies)**
+          - **Employee list** : retrived from 3 DB tables **(employees, employee_history, users)**
+          - **Disputes data** : retrived from 1 DB table **(disputes)**
+  - **routes/company_routes.py :**
+    - added 1 endpoint:
+      - `@router.get('/view_profile')`
+    - added 1 function:
+      - `def view_profile(company_id: int):` 
+#
+
+## Institute Profile 
+
+- ### workflow :
+  - **services/institute.py → routes/institute_routes.py → routes/router.py**
+
+- ### details :
+  - **services/institute.py :**
+    - added 1 function 
+      - `def view_institute_profile(institute_id: int):`
+        - fires the 3 differnet querries to get all the relevant data
+          - **Institute data** : retrived from 1 DB table **(institute)**
+          - **Students list** : retrived from 4 DB tables **(users, candidates, employees, companies)**
+          - **Disputes data** : retrived from 1 DB table **(disputes)**
+  - **routes/institute_routes.py :**
+    - added 1 endpoint:
+      - `@router.get('/view_profile')`
+    - added 1 function:
+      - `def view_profile(institute_id: int):` 
+#
+
 
 
 ## Notes:

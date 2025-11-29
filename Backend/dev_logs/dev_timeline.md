@@ -137,3 +137,7 @@
   - **Work :**
     - Updated relevant API paylods in API Docs
     - Documented new changes
+    - created 3 new APIs
+      - insitute register, 
+      - institute profile, 
+      - company profile
