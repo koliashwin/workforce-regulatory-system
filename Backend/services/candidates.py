@@ -1,46 +1,6 @@
 from config.db import get_db_connection
 from services.dipsutes import raise_dispute
 
-def clg_onboard_candidate(data):
-    '''
-    function description goes here
-    '''
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-
-    try:
-        cursor.execute("SELECT institute_id FROM institutes WHERE email = %s", (data.institute_email,))
-        result = cursor.fetchone()
-
-        if not result:
-            return {"success": False, "error": "College not found"}
-        
-        institute_id = result['institute_id']
-
-        cursor.execute(
-            "insert into users (role_id, email, name, contact_no, dob) VALUES (%s, %s, %s, %s, %s)",
-            (data.role_id, data.email, data.name, data.contact_no, data.dob)
-        )
-
-        user_id = cursor.lastrowid
-
-        cursor.execute(
-            "INSERT INTO candidates (institute_id, user_id, course, passout_year, skills) VALUES (%s, %s, %s, %s, %s)",
-            (institute_id, user_id, data.course, data.passout_year, data.skills)
-        )
-        conn.commit()
-
-        return {"success": True, "user_id":user_id, "institute_id": institute_id, "candidate_id": cursor.lastrowid}
-    
-    except Exception as e:
-        conn.rollback()
-        return {"success": False, "error": str(e)}
-    
-    finally:
-        cursor.close()
-        conn.close()
-
-
 def all_candidates_list():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -49,7 +9,7 @@ def all_candidates_list():
         query = """
         SELECT 
             u.user_id AS user_id,
-            u.role_id AS role_id,
+            u.role_code AS role_code,
             u.name AS user_name,
             u.email AS user_email,
             c.candidate_id AS candidate_id,

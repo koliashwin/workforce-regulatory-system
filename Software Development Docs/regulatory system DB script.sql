@@ -5,10 +5,17 @@ drop table institutes;
 drop table companies;
 drop table disputes;
 drop table Users;
+drop table roles;
+
+create table roles (
+	role_id int primary key auto_increment,
+    role varchar(255) not null,
+    role_code int unique not null
+);
 
 create table Users (
 	user_id int primary key auto_increment,
-    role_id int not null,
+    role_code int not null,
 	email varchar(255) unique not null,
 	password_hash varchar(255) not null default 'Abced@12345',
 	name varchar(255) not null,
@@ -16,22 +23,21 @@ create table Users (
 	dob date not null,
 	created_on datetime default current_timestamp,
     updated_on datetime default current_timestamp,
-	last_login datetime
+	last_login datetime,
+    
+    foreign key(role_code) references roles(role_code)
 );
-
--- create table roles (
--- 	role_id int primary key auto_increment,
---     role varchar(255) not null,
---     code int not null
--- );
 
 create table Institutes (
 	institute_id int primary key auto_increment,
+    institute_code int unique not null,
+    user_id int not null,
     name varchar(255) not null,
     address text not null,
     contact_no varchar(20) not null,
     email varchar(100) not null,
-    verification_status enum('Registered', 'Unknown') not null default 'Unknown'
+    verification_status enum('Registered', 'Unknown') not null default 'Unknown',
+    foreign key (user_id) references users(user_id)
 );
 
 create table Candidates (
@@ -39,7 +45,7 @@ create table Candidates (
     institute_id int not null,
     user_id int not null,
     course varchar(255) not null,
-    passout_year date not null,
+    passout_year year not null,
     skills text,
     future_plan varchar(255) default 'employment',
     
@@ -50,11 +56,13 @@ create table Candidates (
 create table Companies (
 	company_id int primary key auto_increment,
     cin varchar(30) unique not null,
+    user_id int not null,
     name varchar(255) not null,
     address text not null,
     contact_no varchar(20) not null,
     email varchar(100) not null,
-    verification_status enum('Registered', 'Unknown') not null default 'Unknown'
+    verification_status enum('Registered', 'Unknown') not null default 'Unknown',
+    foreign key (user_id) references users(user_id)
 );
 
 create table Employees (
@@ -73,7 +81,7 @@ create table Employee_history (
     emp_id int not null,
     joining_date date not null,
     exit_date date,
-    status text,
+    status varchar(100),
     
     foreign key (company_id) references companies(company_id),
     foreign key (emp_id) references employees(emp_id)

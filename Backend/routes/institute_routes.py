@@ -1,13 +1,13 @@
 from fastapi import APIRouter, HTTPException
 from schema.candidates import CandidateCreate, CandidateResponse
 from schema.companies import CompanyCreate
-from services.candidates import clg_onboard_candidate, all_candidates_list
-from services.institutes import view_institute_profile, register_institute, all_institutes_list
+from services.candidates import all_candidates_list
+from services.institutes import view_institute_profile, register_institute, all_institutes_list, clg_onboard_candidate
 
 router = APIRouter(prefix='/institute', tags=['institute'])
 
 @router.post('/register')
-def create_company(institute: CompanyCreate):
+def create_institute(institute: CompanyCreate):
     result = register_institute(institute)
     
     if not result['success']:

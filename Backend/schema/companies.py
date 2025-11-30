@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 class CompanyCreate(BaseModel):
     # company info
+    user_name: str
     name: str
     cin: str
     address: str

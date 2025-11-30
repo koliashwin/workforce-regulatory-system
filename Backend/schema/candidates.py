@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class CandidateCreate(BaseModel):
     # personal info (users table)
-    role_id: int
+    role_code: int
     email: str
     password_hash: str
     name: str
@@ -17,7 +17,7 @@ class CandidateCreate(BaseModel):
     user_id: int
     institute_id: int
     course: str
-    passout_year: date
+    passout_year: int
     skills: str
 
     # College/Institute reference (institutes table)
@@ -28,7 +28,7 @@ class CandidateCreate(BaseModel):
 class CandidateResponse(BaseModel):
     # personal info identifires
     user_id: int
-    role_id: int
+    role_code: int
     user_name: str
     user_email: str
 

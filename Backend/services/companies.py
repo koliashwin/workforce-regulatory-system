@@ -1,3 +1,4 @@
+from datetime import date
 from config.db import get_db_connection
 import json
 import os
@@ -8,10 +9,17 @@ def register_company(data):
     cursor = conn.cursor(dictionary=True)
 
     try:
+        # create a user for company
+        cursor.execute(
+            "INSERT INTO users (role_code, email, name, contact_no, dob) VALUES (300, %s, %s, %s, %s)",
+            (data.email, data.user_name, data.contact_no, date.today())
+        )
+        user_id = cursor.lastrowid
+
         # store company details int DB
         cursor.execute(
-            "INSERT INTO companies (name, cin, address, contact_no, email) VALUES(%s, %s, %s, %s, %s)",
-            (data.name, data.cin, data.address, data.contact_no, data.email)
+            "INSERT INTO companies (name, cin, user_id, address, contact_no, email) VALUES(%s, %s, %s, %s, %s, %s)",
+            (data.name, data.cin, user_id, data.address, data.contact_no, data.email)
         )
         conn.commit()
 

@@ -1,4 +1,44 @@
+from datetime import date
 from config.db import get_db_connection
+
+def clg_onboard_candidate(data):
+    '''
+    function description goes here
+    '''
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        cursor.execute("SELECT institute_id FROM institutes WHERE email = %s", (data.institute_email,))
+        result = cursor.fetchone()
+
+        if not result:
+            return {"success": False, "error": "College not found"}
+        
+        institute_id = result['institute_id']
+
+        cursor.execute(
+            "insert into users (role_code, email, name, contact_no, dob) VALUES (100, %s, %s, %s, %s)",
+            (data.email, data.name, data.contact_no, data.dob)
+        )
+
+        user_id = cursor.lastrowid
+
+        cursor.execute(
+            "INSERT INTO candidates (institute_id, user_id, course, passout_year, skills) VALUES (%s, %s, %s, %s, %s)",
+            (institute_id, user_id, data.course, data.passout_year, data.skills)
+        )
+        conn.commit()
+
+        return {"success": True, "user_id":user_id, "institute_id": institute_id, "candidate_id": cursor.lastrowid}
+    
+    except Exception as e:
+        conn.rollback()
+        return {"success": False, "error": str(e)}
+    
+    finally:
+        cursor.close()
+        conn.close()
 
 def register_institute(data):
 
@@ -6,10 +46,17 @@ def register_institute(data):
     cursor = conn.cursor(dictionary=True)
 
     try:
+        # create a user for company
+        cursor.execute(
+            "INSERT INTO users (role_code, email, name, contact_no, dob) VALUES (200, %s, %s, %s, %s)",
+            (data.email, data.user_name, data.contact_no, date.today())
+        )
+        user_id = cursor.lastrowid
+        
         # store company details int DB
         cursor.execute(
-            "INSERT INTO institutes (name, address, contact_no, email) VALUES(%s, %s, %s, %s)",
-            (data.name, data.address, data.contact_no, data.email)
+            "INSERT INTO institutes (name, institute_code, user_id, address, contact_no, email) VALUES(%s, %s, %s, %s, %s, %s)",
+            (data.name, data.cin, user_id, data.address, data.contact_no, data.email)
         )
         conn.commit()
 
@@ -68,9 +115,12 @@ def view_institute_profile(institute_id: int):
             u.name as student_name, u.email as student_contact,
             u.contact_no as student_contact, c.course, c.passout_year,
             c.skills, c.future_plan, co.name as company_name, e.designation
-        FROM users u, candidates c, employees e, companies co
-        WHERE u.user_id = c.user_id and u.user_id = e.user_id 
-            and co.company_id = e.company_id and c.institute_id = %s
+        FROM candidates c
+        LEFT JOIN users u ON u.user_id = c.user_id
+        LEFT JOIN employees e ON e.user_id = u.user_id
+        LEFT JOIN companies co ON co.company_id = e.company_id
+
+        WHERE c.institute_id = %s
         '''
         cursor.execute(students_query, (institute_id,))
         institute_students = cursor.fetchall()
