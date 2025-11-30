@@ -1,67 +1,61 @@
 import { useEffect, useState } from "react";
-import companyAPI from "../../api/modules/companyAPI";
 import { Box, Card, CardContent, Divider, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import instituteAPI from "../../api/modules/instituteAPI";
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
 
     // Fetch all data
     useEffect(() => {
-        companyAPI.companyProfile(1)
+        instituteAPI.instituteProfile(1)
             .then(res => {setProfile(res.data)})
             .catch(err => console.log(err));
     }, []);
 
-    if (!profile) return <Typography>Loading company profile...</Typography>;
+    if (!profile) return <Typography>Loading Institute profile...</Typography>;
 
     return (
         // <>
         //     {console.log("full data : ",profile)}
-        //     {console.log("company info : ",profile.company_info.name)}
         // </>
         <Box>
             <Typography variant="h4" sx={{ mb: 3 }}>
-                Company Profile
+                Institute Profile
             </Typography>
 
             {/* Company Information */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
-                    <Typography variant="h6">Company Information</Typography>
+                    <Typography variant="h6">Institute Information</Typography>
                     <Divider sx={{ my: 1 }} />
 
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
                             <Typography>
-                                <b>Name:</b> {profile.company_info.name}
+                                <b>Name:</b> {profile.institute_info.name}
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
                             <Typography>
-                                <b>Email:</b> {profile.company_info.email}
+                                <b>Email:</b> {profile.institute_info.email}
                             </Typography>
                         </Grid>
 
                         <Grid item xs={6}>
                             <Typography>
-                                <b>CIN:</b> {profile.company_info.cin}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Typography>
-                                <b>Contact:</b> {profile.company_info.contact_no}
+                                <b>Contact:</b> {profile.institute_info.contact_no}
                             </Typography>
                         </Grid>
 
                         <Grid item xs={12}>
                             <Typography>
-                                <b>Address:</b> {profile.company_info.address}
+                                <b>Address:</b> {profile.institute_info.address}
                             </Typography>
                         </Grid>
 
                         <Grid item xs={12}>
                             <Typography>
-                                <b>Verification Status:</b> {profile.company_info.verification_status}
+                                <b>Verification Status:</b> {profile.institute_info.verification_status}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -71,32 +65,32 @@ const Profile = () => {
             {/* Employee List */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
-                    <Typography variant="h6">Employee List</Typography>
+                    <Typography variant="h6">Alumni List</Typography>
                     <Divider sx={{ my: 1 }} />
 
                     <Table>
                         <TableHead>
                             <TableRow>
                                 <TableCell>Name</TableCell>
-                                <TableCell>Email</TableCell>
                                 <TableCell>Contact</TableCell>
+                                <TableCell>Course</TableCell>
+                                <TableCell>Passout</TableCell>
+                                <TableCell>Skills</TableCell>
+                                <TableCell>Workeing at</TableCell>
                                 <TableCell>Designation</TableCell>
-                                <TableCell>Joining Date</TableCell>
-                                <TableCell>Exit Date</TableCell>
-                                <TableCell>Status</TableCell>
                             </TableRow>
                         </TableHead>
 
                         <TableBody>
-                            {profile.company_employees.map((emp, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{emp.employee_name}</TableCell>
-                                    <TableCell>{emp.employee_email}</TableCell>
-                                    <TableCell>{emp.employee_contact}</TableCell>
-                                    <TableCell>{emp.designation}</TableCell>
-                                    <TableCell>{emp.joining_date}</TableCell>
-                                    <TableCell>{emp.exit_date || "Present"}</TableCell>
-                                    <TableCell>{emp.employee_status}</TableCell>
+                            {profile.institute_students.map((student, index) => (
+                                <TableRow key={student.user_id}>
+                                    <TableCell>{student.student_name}</TableCell>
+                                    <TableCell>{student.student_contact}</TableCell>
+                                    <TableCell>{student.course}</TableCell>
+                                    <TableCell>{student.passout_year}</TableCell>
+                                    <TableCell>{student.skills}</TableCell>
+                                    <TableCell>{student.company_name || "N/A"}</TableCell>
+                                    <TableCell>{student.designation || "N/A"}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
