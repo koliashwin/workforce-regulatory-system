@@ -141,3 +141,14 @@
       - insitute register, 
       - institute profile, 
       - company profile
+#
+
+### Date : 29-Nov-2025
+  - **Work :**
+    - Refactor backend & some DB tables for Login logic
+#
+
+### Date : 30-Nov-2025
+  - **Work :**
+    - Created Login api and connected with frontend
+#
