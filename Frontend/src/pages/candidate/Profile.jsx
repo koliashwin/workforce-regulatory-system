@@ -1,13 +1,14 @@
 import { Box, Card, CardContent, Divider, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import candidateAPI from '../../api/modules/candidateAPI';
-import companyAPI from '../../api/modules/companyAPI';
+import { useAuth } from '../../context/AuthContext';
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
+    const {user} = useAuth();
 
     useEffect(() => {
-        candidateAPI.getProfile(1)
+        candidateAPI.getProfile(user.user_id)
             .then(res => {setProfile(res.data)})
             .catch(err => console.log(err));
     }, [])

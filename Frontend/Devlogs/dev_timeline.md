@@ -69,3 +69,15 @@
 ### Date : 28-Nov-2025
 - **Work :**
   - Yesterday's Documentation
+#
+
+### Date : 29-Nov-2025
+- **Work :**
+  - Created 2 profiles (company & institute)
+#
+
+### Date : 30-Nov-2025
+  - **Work :**
+    - Updated the login page
+    - Integrated the login API with frontend
+    - Tested the login feature. it seems to work ok
