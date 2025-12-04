@@ -1,8 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from schema.candidates import CandidateCreate, CandidateResponse
 from schema.companies import CompanyCreate
-from services.candidates import all_candidates_list
-from services.institutes import view_institute_profile, register_institute, all_institutes_list, clg_onboard_candidate
+from services.institutes import view_institute_profile, register_institute, all_institutes_list, clg_onboard_candidate, all_candidates_list
 
 router = APIRouter(prefix='/institute', tags=['institute'])
 
@@ -32,8 +31,8 @@ def create_candidate(candidate: CandidateCreate):
     return {'message': 'Candidate Created Successfully.'}
 
 @router.get('/candidate_list', response_model=list[CandidateResponse])
-def candidate_list():
-    result = all_candidates_list()
+def candidate_list(institute_id: int):
+    result = all_candidates_list(institute_id)
     if not result['success']:
         raise HTTPException(status_code=400, detail=result['error'])
     return result['data']

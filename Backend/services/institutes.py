@@ -1,6 +1,44 @@
 from datetime import date
 from config.db import get_db_connection
 
+def all_candidates_list(institute_id: int):
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    try:
+        query = """
+        SELECT 
+            u.user_id AS user_id,
+            u.role_code AS role_code,
+            u.name AS user_name,
+            u.email AS user_email,
+            c.candidate_id AS candidate_id,
+            c.course AS course,
+            c.passout_year AS passout_year,
+            c.skills AS skills,
+            i.institute_id AS institute_id,
+            i.name AS institute_name,
+            i.email AS institute_email
+        FROM users u, candidates c, institutes i
+        WHERE u.user_id = c.user_id and i.institute_id = c.institute_id
+            and i.institute_id = %s
+        """
+        cursor.execute(query, (institute_id,))
+        results = cursor.fetchall()
+        # print("DB REsults :", results)
+        if not results:
+            return {'success': True, 'data': []}
+        return {'success': True, 'data': results}
+    
+    except Exception as e:
+        conn.rollback()
+        return {"success": False, "error": str(e)}
+    
+    finally:
+        cursor.close()
+        conn.close()
+
+
 def clg_onboard_candidate(data):
     '''
     function description goes here
@@ -9,13 +47,13 @@ def clg_onboard_candidate(data):
     cursor = conn.cursor(dictionary=True)
 
     try:
-        cursor.execute("SELECT institute_id FROM institutes WHERE email = %s", (data.institute_email,))
-        result = cursor.fetchone()
+        # cursor.execute("SELECT institute_id FROM institutes WHERE email = %s", (data.institute_email,))
+        # result = cursor.fetchone()
 
-        if not result:
-            return {"success": False, "error": "College not found"}
+        # if not result:
+        #     return {"success": False, "error": "College not found"}
         
-        institute_id = result['institute_id']
+        # institute_id = result['institute_id']
 
         cursor.execute(
             "insert into users (role_code, email, name, contact_no, dob) VALUES (100, %s, %s, %s, %s)",
@@ -26,11 +64,11 @@ def clg_onboard_candidate(data):
 
         cursor.execute(
             "INSERT INTO candidates (institute_id, user_id, course, passout_year, skills) VALUES (%s, %s, %s, %s, %s)",
-            (institute_id, user_id, data.course, data.passout_year, data.skills)
+            (data.institute_id, user_id, data.course, data.passout_year, data.skills)
         )
         conn.commit()
 
-        return {"success": True, "user_id":user_id, "institute_id": institute_id, "candidate_id": cursor.lastrowid}
+        return {"success": True, "user_id":user_id, "candidate_id": cursor.lastrowid}
     
     except Exception as e:
         conn.rollback()

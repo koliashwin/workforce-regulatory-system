@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 class EmployeeCreate(BaseModel):
     # employee info
+    company_id: int
     company_cin: str
     user_email: str
     designation: str

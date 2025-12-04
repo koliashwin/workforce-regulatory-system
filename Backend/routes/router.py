@@ -4,6 +4,7 @@ from .institute_routes import router as institute_router
 from .company_routes import router as company_router
 from .candidate_routes import router as candidate_router
 from .auth_routes import router as auth_router
+from .admin_routes import router as admin_router
 
 main_router = APIRouter()
 # main_router.include_router(test_college_router)
@@ -11,3 +12,4 @@ main_router.include_router(institute_router)
 main_router.include_router(company_router)
 main_router.include_router(candidate_router)
 main_router.include_router(auth_router)
+main_router.include_router(admin_router)

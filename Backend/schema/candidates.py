@@ -35,7 +35,7 @@ class CandidateResponse(BaseModel):
     # academic info identifires
     candidate_id: int
     course: str
-    # passout_year: str
+    passout_year: int
     skills: str
 
     # college/institure identifires

@@ -33,31 +33,6 @@ def register_company(data):
         cursor.close()
         conn.close()
 
-def all_company_list():
-
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-
-    try:
-        # returive the data from DB
-        query = """SELECT * FROM companies"""
-
-        cursor.execute(query)
-        results = cursor.fetchall()
-        
-        # return empty list or fetched records
-        if not results:
-            return {'success': True, 'data':[]}
-        return {'success': True, 'data':results}
-    
-    except Exception as e:
-        conn.rollback()
-        return {"success": False, "error": str(e)}
-    
-    finally:
-        cursor.close()
-        conn.close()
-
 def verify_company(cin: str):
     # this is a dummy function to test the verification logic with dummy data
     
@@ -103,15 +78,15 @@ def onboard_employee(data):
         # fetch company_id
         # for now will need to fetch the company_id via following query 
         # when the front-end is setup will store it in session or localstorage and collect directly form there
-        cursor.execute(
-            "SELECT company_id FROM companies WHERE cin = %s", (data.company_cin,)
-        )
-        company_data = cursor.fetchone()
+        # cursor.execute(
+        #     "SELECT company_id FROM companies WHERE cin = %s", (data.company_cin,)
+        # )
+        # company_data = cursor.fetchone()
 
-        if not company_data:
-            return {"success": False, "error": "Company not found"}
+        # if not company_data:
+        #     return {"success": False, "error": "Company not found"}
 
-        company_id = company_data['company_id']         # till here its the optional code (will change afte frontend setup)
+        # company_id = company_data['company_id']         # till here its the optional code (will change afte frontend setup)
 
         # fetch user_id
         # this is also optional code 
@@ -128,17 +103,17 @@ def onboard_employee(data):
 
         cursor.execute(
             "INSERT INTO employees (company_id, user_id, designation) VALUES (%s, %s, %s)",
-            (company_id, user_id, data.designation)
+            (data.company_id, user_id, data.designation)
         )
         emp_id = cursor.lastrowid
 
         cursor.execute(
             "INSERT INTO employee_history (company_id, emp_id, joining_date, status) VALUES (%s, %s, %s, 'Joined Company')",
-            (company_id, emp_id, data.joining_date)
+            (data.company_id, emp_id, data.joining_date)
         )
         conn.commit()
 
-        return {"success": True, "user_id":user_id, "compnay_id": company_id, "emp_id": emp_id, "emp_history_id": cursor.lastrowid}
+        return {"success": True, "user_id":user_id, "emp_id": emp_id, "emp_history_id": cursor.lastrowid}
 
     except Exception as e:
         conn.rollback()
@@ -156,15 +131,15 @@ def exit_employee(data):
         # fetch company_id
         # for now will need to fetch the company_id via following query 
         # when the front-end is setup will store it in session or localstorage and collect directly form there
-        cursor.execute(
-            "SELECT company_id FROM companies WHERE cin = %s", (data.company_cin,)
-        )
-        company_data = cursor.fetchone()
+        # cursor.execute(
+        #     "SELECT company_id FROM companies WHERE cin = %s", (data.company_cin,)
+        # )
+        # company_data = cursor.fetchone()
 
-        if not company_data:
-            return {"success": False, "error": "Company not found"}
+        # if not company_data:
+        #     return {"success": False, "error": "Company not found"}
 
-        company_id = company_data['company_id']         # till here its the optional code (will change afte frontend setup)
+        # company_id = company_data['company_id']         # till here its the optional code (will change afte frontend setup)
 
         # fetch user_id
         # this is also optional code 
@@ -181,7 +156,7 @@ def exit_employee(data):
 
         # fetch emp_id
         cursor.execute(
-            "SELECT emp_id FROM employees WHERE company_id = %s and user_id = %s", (company_id, user_id)
+            "SELECT emp_id FROM employees WHERE company_id = %s and user_id = %s", (data.company_id, user_id)
         )
         emp_data = cursor.fetchone()
 
@@ -193,7 +168,7 @@ def exit_employee(data):
         # check if exit date exist in the employee_history table
         cursor.execute(
             "SELECT exit_date FROM employee_history WHERE company_id = %s and emp_id = %s",
-            (company_id, emp_id)
+            (data.company_id, emp_id)
         )
         emp_history_record = cursor.fetchone()
         
@@ -204,11 +179,11 @@ def exit_employee(data):
         
         cursor.execute(
             "UPDATE employee_history SET exit_date = %s WHERE company_id = %s and emp_id = %s",
-            (data.exit_date, company_id, emp_id)
+            (data.exit_date, data.company_id, emp_id)
         )
         conn.commit()
 
-        return {"success": True, "message": 'Exit date updated by company', "user_id":user_id, "emp_id": emp_id, "compnay_id": company_id, "emp_history_id": cursor.lastrowid}
+        return {"success": True, "message": 'Exit date updated by company', "user_id":user_id, "emp_id": emp_id, "emp_history_id": cursor.lastrowid}
 
     except Exception as e:
         conn.rollback()
@@ -218,7 +193,7 @@ def exit_employee(data):
         cursor.close()
         conn.close()
 
-def all_employee_list():
+def all_employee_list(id: int):
 
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -237,8 +212,9 @@ def all_employee_list():
             eh.status as employment_status
         FROM employees e, users u, companies c, employee_history eh
         where e.user_id = u.user_id and e.company_id = c.company_id and eh.emp_id = e.emp_id
+            and c.company_id = %s
         '''
-        cursor.execute(query)
+        cursor.execute(query, (id,))
         results = cursor.fetchall()
 
         if not results:
