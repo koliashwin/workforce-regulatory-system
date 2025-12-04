@@ -4,6 +4,7 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 
 const RegisterCompany = () => {
     const [form, setForm] = useState({
+        "user_name": "",
         "name": "",
         "cin": "",
         "address": "",
@@ -42,11 +43,12 @@ const RegisterCompany = () => {
             </Typography>
 
             <form onSubmit={handleSubmit}>
+                <TextField label="CIN" name='cin' fullWidth margin='normal' onChange={handleChange}/>
                 <TextField label="Company Name" name='name' fullWidth margin='normal' onChange={handleChange}/>
+                <TextField label="Company User" name='user_name' fullWidth margin='normal' onChange={handleChange}/>
                 <TextField label="Email" name='email' fullWidth margin='normal' onChange={handleChange}/>
                 <TextField label="Contact No." name='contact_no' fullWidth margin='normal' onChange={handleChange}/>
                 <TextField label="Address" name='address' fullWidth margin='normal' onChange={handleChange}/>
-                <TextField label="CIN" name='cin' fullWidth margin='normal' onChange={handleChange}/>
 
                 <Button variant='contained' type='submit' fullWidth sx={{mt: 2}}>
                     Submit

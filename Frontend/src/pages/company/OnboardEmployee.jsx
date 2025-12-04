@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material';
 import companyAPI from '../../api/modules/companyAPI';
+import { useAuth } from '../../context/AuthContext';
 
 const OnboardEmployee = () => {
+    const { user } = useAuth();
     const [form, setForm] = useState({
-        "company_cin": "",          // this should be fetched via query or localstorage
+        "company_id": user.company_id,          // this should be fetched via query or localstorage
         "user_email": "",
         "designation": "",
         "joining_date": "",
 
         // extra fields
         "exit_date": "2025-11-25",                  
-        "status": "string"
+        "status": "string",
+        "company_cin": ""
     });
 
     const handleChange = (e) => {
@@ -42,7 +45,7 @@ const OnboardEmployee = () => {
             </Typography>
 
             <form onSubmit={handleSubmit}>
-                <TextField label="CIN" name='company_cin' fullWidth margin='normal' onChange={handleChange}/>
+                <TextField label="Company ID" name='company_id' defaultValue={form.company_id} fullWidth margin='normal' disabled />
                 <TextField label="Employee Email" name='user_email' fullWidth margin='normal' onChange={handleChange}/>
                 <TextField label="Designation/Role" name='designation' fullWidth margin='normal' onChange={handleChange}/>
                 <TextField label="Joining (YYYY-MM-DD)" name='joining_date' fullWidth margin='normal' onChange={handleChange}/>

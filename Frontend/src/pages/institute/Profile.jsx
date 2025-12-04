@@ -1,14 +1,44 @@
 import { useEffect, useState } from "react";
-import { Box, Card, CardContent, Divider, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Card, CardContent, Divider, Grid, Typography } from "@mui/material";
 import instituteAPI from "../../api/modules/instituteAPI";
+import { useAuth } from "../../context/AuthContext";
+import PreviewTable from "../../components/PreviewTable";
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
+    const { user } = useAuth();
+
+    const studentListColumns = [
+        { label: "Name", key: "student_name" },
+        { label: "Contact", key: "student_contact" },
+        { label: "Course", key: "course" },
+        { label: "Passout", key: "passout_year" },
+        { label: "Skills", key: "skills" },
+
+        {
+            label: "Working At",
+            key: "company_name",
+            render: (row) => row.company_name || "N/A"
+        },
+        {
+            label: "Designation",
+            key: "designation",
+            render: (row) => row.designation || "N/A"
+        },
+    ]
+
+    const disputeListColumns = [
+        { label: "Raised By", key: "raised_by_type" },
+        { label: "Against", key: "raised_against_type" },
+        { label: "Reason", key: "topic" },
+        { label: "Status", key: "status" },
+        { label: "Created At", key: "created_on" },
+    ]
 
     // Fetch all data
     useEffect(() => {
-        instituteAPI.instituteProfile(1)
-            .then(res => {setProfile(res.data)})
+        instituteAPI.instituteProfile(user.institute_id)
+            .then(res => { setProfile(res.data) })
             .catch(err => console.log(err));
     }, []);
 
@@ -23,7 +53,8 @@ const Profile = () => {
                 Institute Profile
             </Typography>
 
-            {/* Company Information */}
+
+            {/* institute Information */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6">Institute Information</Typography>
@@ -62,39 +93,19 @@ const Profile = () => {
                 </CardContent>
             </Card>
 
-            {/* Employee List */}
+            {/* Student List */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6">Alumni List</Typography>
                     <Divider sx={{ my: 1 }} />
 
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Contact</TableCell>
-                                <TableCell>Course</TableCell>
-                                <TableCell>Passout</TableCell>
-                                <TableCell>Skills</TableCell>
-                                <TableCell>Workeing at</TableCell>
-                                <TableCell>Designation</TableCell>
-                            </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                            {profile.institute_students.map((student, index) => (
-                                <TableRow key={student.user_id}>
-                                    <TableCell>{student.student_name}</TableCell>
-                                    <TableCell>{student.student_contact}</TableCell>
-                                    <TableCell>{student.course}</TableCell>
-                                    <TableCell>{student.passout_year}</TableCell>
-                                    <TableCell>{student.skills}</TableCell>
-                                    <TableCell>{student.company_name || "N/A"}</TableCell>
-                                    <TableCell>{student.designation || "N/A"}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <PreviewTable
+                        title="Recent Students"
+                        maxRows='3'
+                        data={profile.institute_students}
+                        viewAllPath='/institute/candidates'
+                        columns={studentListColumns}
+                    />
                 </CardContent>
             </Card>
 
@@ -104,33 +115,20 @@ const Profile = () => {
                     <Typography variant="h6">Disputes History</Typography>
                     <Divider sx={{ my: 1 }} />
 
-                    {profile.dispute_history.length === 0 ? (
-                        <Typography>No disputes found</Typography>
+                    {profile.dispute_history.length == 0 ? (
+                        <Typography>
+                            No disputes yet
+                        </Typography>
                     ) : (
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Raised By</TableCell>
-                                    <TableCell>Against</TableCell>
-                                    <TableCell>Reason</TableCell>
-                                    <TableCell>Status</TableCell>
-                                    <TableCell>Created At</TableCell>
-                                </TableRow>
-                            </TableHead>
-
-                            <TableBody>
-                                {profile.dispute_history.map((d, index) => (
-                                    <TableRow key={d.dispute_id}>
-                                        <TableCell>{d.raised_by_type}</TableCell>
-                                        <TableCell>{d.raised_against_type}</TableCell>
-                                        <TableCell>{d.topic}</TableCell>
-                                        <TableCell>{d.status}</TableCell>
-                                        <TableCell>{d.created_on}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                        <PreviewTable
+                            title="Recent Disputes"
+                            maxRows='5'
+                            data={profile.dispute_history}
+                            viewAllPath='/institute/disputes'
+                            columns={disputeListColumns}
+                        />
                     )}
+
                 </CardContent>
             </Card>
         </Box>

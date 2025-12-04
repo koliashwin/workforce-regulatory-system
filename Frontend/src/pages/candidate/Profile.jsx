@@ -1,15 +1,32 @@
-import { Box, Card, CardContent, Divider, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import candidateAPI from '../../api/modules/candidateAPI';
 import { useAuth } from '../../context/AuthContext';
+import PreviewTable from '../../components/PreviewTable';
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
-    const {user} = useAuth();
+    const { user } = useAuth();
+
+    const employmentListColumns = [
+        { label: "Company Name", key: "name" },
+        { label: "CIN", key: "cin" },
+        { label: "Joining", key: "joining_date" },
+        { label: "Exit", key: "exit_date" },
+        { label: "Status", key: "status" },
+    ]
+
+    const disputeListColumns = [
+        { label: "Raised By", key: "raised_by_type" },
+        { label: "Against", key: "raised_against_type" },
+        { label: "Reason", key: "topic" },
+        { label: "Status", key: "status" },
+        { label: "Created At", key: "created_on" },
+    ]
 
     useEffect(() => {
         candidateAPI.getProfile(user.user_id)
-            .then(res => {setProfile(res.data)})
+            .then(res => { setProfile(res.data) })
             .catch(err => console.log(err));
     }, [])
 
@@ -91,28 +108,19 @@ const Profile = () => {
                     <Typography variant="h6">Employment History</Typography>
                     <Divider sx={{ my: 1 }} />
 
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Company</TableCell>
-                                <TableCell>CIN</TableCell>
-                                <TableCell>Joining</TableCell>
-                                <TableCell>Exit</TableCell>
-                                <TableCell>Status</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {profile.employment_history.map((emp_history, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{emp_history.name}</TableCell>
-                                    <TableCell>{emp_history.cin}</TableCell>
-                                    <TableCell>{emp_history.joining_date}</TableCell>
-                                    <TableCell>{emp_history.exit_date || "Present"}</TableCell>
-                                    <TableCell>{emp_history.status}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    {profile.employment_history.length == 0 ? (
+                        <Typography>
+                            Not employed yet
+                        </Typography>
+                    ) : (
+                        <PreviewTable
+                            title="Recent employment"
+                            maxRows='5'
+                            data={profile.employment_history}
+                            viewAllPath='/candidate/disputes'
+                            columns={employmentListColumns}
+                        />
+                    )}
                 </CardContent>
             </Card>
 
@@ -122,32 +130,18 @@ const Profile = () => {
                     <Typography variant="h6">Disputes History</Typography>
                     <Divider sx={{ my: 1 }} />
 
-                    {profile.length === 0 ? (
-                        <Typography>No disputes found</Typography>
+                    {profile.dispute_history.length == 0 ? (
+                        <Typography>
+                            No disputes yet
+                        </Typography>
                     ) : (
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Raised By</TableCell>
-                                    <TableCell>Raised Against</TableCell>
-                                    <TableCell>Reason</TableCell>
-                                    <TableCell>Status</TableCell>
-                                    <TableCell>Created</TableCell>
-                                </TableRow>
-                            </TableHead>
-
-                            <TableBody>
-                                {profile.dispute_history.map((dispute, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell>{dispute.raised_by_type}</TableCell>
-                                        <TableCell>{dispute.raised_against_type}</TableCell>
-                                        <TableCell>{dispute.topic}</TableCell>
-                                        <TableCell>{dispute.status}</TableCell>
-                                        <TableCell>{dispute.created_on}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                        <PreviewTable
+                            title="Recent Disputes"
+                            maxRows='5'
+                            data={profile.dispute_history}
+                            viewAllPath='/candidate/disputes'
+                            columns={disputeListColumns}
+                        />
                     )}
                 </CardContent>
             </Card>

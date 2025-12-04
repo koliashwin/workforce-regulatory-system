@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import instituteAPI from '../../api/modules/instituteAPI';
 import { Box } from '@mui/material';
 import FullTable from '../../components/FullTable';
-import { useAuth } from '../../context/AuthContext';
+import adminAPI from '../../api/modules/adminAPI';
 
-const CandidateList = () => {
+const AllCandidateList = () => {
     const [candidates, setCandidates] = useState([]);
-    const { user } = useAuth();
 
     const candidateListColumns = [
         { label: "Name", key: "user_name" },
@@ -17,7 +16,7 @@ const CandidateList = () => {
         { label: "Graduate On", key: "passout_year"}
     ]
     useEffect(() => {
-        instituteAPI.getCandidateList(user.institute_id)
+        adminAPI.allCandidateList()
             .then(res => setCandidates(res.data))
             .catch(err => console.log(err))
     }, []);
@@ -35,4 +34,4 @@ const CandidateList = () => {
     )
 }
 
-export default CandidateList
+export default AllCandidateList

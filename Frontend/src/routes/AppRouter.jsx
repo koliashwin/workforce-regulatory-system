@@ -11,7 +11,6 @@ import OnboardStudent from '../pages/institute/OnboardStudent'
 import CandidateList from '../pages/institute/CandidateList'
 import OnboardEmployee from '../pages/company/OnboardEmployee'
 import EmployeeList from '../pages/company/EmployeeList'
-import CompanyList from '../pages/company/CompanyList'
 import RegisterCompany from '../pages/company/RegisterCompany'
 import VerifyCompany from '../pages/company/VerifyCompany'
 import EmployeeExits from '../pages/company/EmployeeExits'
@@ -19,6 +18,10 @@ import JoiningConfirm from '../pages/candidate/JoiningConfirm'
 import Profile from '../pages/candidate/Profile'
 import ExitConfirm from '../pages/candidate/ExitConfirm'
 import DisputesList from '../pages/candidate/DisputesList'
+import AdminHome from '../pages/admin/Home'
+import CompanyList from '../pages/admin/CompanyList'
+import AllCandidateList from '../pages/admin/CandidateList'
+import InstituteList from '../pages/admin/InstituteList'
 
 const AppRouter = () => {
     return (
@@ -57,14 +60,17 @@ const AppRouter = () => {
                             <Route path='onboard' element={<OnboardEmployee />} />
                             <Route path='employee_exit' element={<EmployeeExits />} />
                             <Route path='employees' element={<EmployeeList />} />
-                            <Route path='company_list' element={<CompanyList />} />
+                            {/* <Route path='company_list' element={<CompanyList />} /> */}
                             <Route path='register' element={<RegisterCompany />} />
                             <Route path='verify' element={<VerifyCompany />} />
                         </Route>
 
-                        {/* <Route element={<ProtectedRoute allowedRoles={['admin']}/>}>
-                            <Route path='/admin' element={<AdminHome />} />
-                        </Route> */}
+                        <Route path='/admin' element={<ProtectedRoute allowedRoles={['admin']}/>}>
+                            <Route path='' element={<AdminHome />} />
+                            <Route path='company_list' element={<CompanyList />} />
+                            <Route path='candidate_list' element={<AllCandidateList />} />
+                            <Route path='institute_list' element={<InstituteList />} />
+                        </Route>
 
                     </Route>
                 </Route>

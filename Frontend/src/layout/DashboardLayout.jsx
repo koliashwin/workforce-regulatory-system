@@ -27,12 +27,14 @@ const DashboardLayout = () => {
             {label: "Onbord Employee", path: "/company/onboard"},
             {label: "Employee Exits", path: "/company/employee_exit"},
             {label: "Employee List", path: "/company/employees"},
-            {label: "Company List", path: "/company/company_list"},
             {label: "Register Company", path: "/company/register"},
             {label: "Varify Company", path: "/company/verify"}
         ],
         admin: [
-            {label: "Dashboard", path: "/admin"}
+            {label: "Dashboard", path: "/admin"},
+            {label: "Company List", path: "/admin/company_list"},
+            {label: "Institute List", path: "/admin/institute_list"},
+            {label: "Candidate List", path: "/admin/candidate_list"}
         ]
     };
 

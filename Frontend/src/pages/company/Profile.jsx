@@ -1,31 +1,49 @@
 import { useEffect, useState } from "react";
 import companyAPI from "../../api/modules/companyAPI";
-import { Box, Card, CardContent, Divider, Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Card, CardContent, Divider, Grid, Typography } from "@mui/material";
+import { useAuth } from "../../context/AuthContext";
+import PreviewTable from "../../components/PreviewTable";
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
+    const { user } = useAuth();
+
+    const employeeListColumns = [
+        { label: "Name", key: "employee_name" },
+        { label: "Email", key: "employee_email" },
+        { label: "Contact", key: "employee_contact" },
+        { label: "Designation", key: "designation" },
+        { label: "Joining Date", key: "joining_date" },
+        { label: "Exit Date", key: "exit_date", render: (row) => row.exit_date || "Present"},
+        { label: "Status", key: "employee_status" },
+    ]
+
+    const disputeListColumns = [
+        { label: "Raised By", key: "raised_by_type" },
+        { label: "Against", key: "raised_against_type" },
+        { label: "Reason", key: "topic" },
+        { label: "Status", key: "status" },
+        { label: "Created At", key: "created_on" },
+    ]
 
     // Fetch all data
     useEffect(() => {
-        companyAPI.companyProfile(1)
-            .then(res => {setProfile(res.data)})
+        companyAPI.companyProfile(user.company_id)
+            .then(res => { setProfile(res.data) })
             .catch(err => console.log(err));
     }, []);
 
     if (!profile) return <Typography>Loading company profile...</Typography>;
 
     return (
-        // <>
-        //     {console.log("full data : ",profile)}
-        //     {console.log("company info : ",profile.company_info.name)}
-        // </>
-        <Box>
+
+        <Box sx={{ p: 4 }}>
             <Typography variant="h4" sx={{ mb: 3 }}>
                 Company Profile
             </Typography>
 
             {/* Company Information */}
-            <Card sx={{ mb: 3 }}>
+            <Card sx={{ mb: 3, borderRadius: 3, maxWidth: '600px' }}>
                 <CardContent>
                     <Typography variant="h6">Company Information</Typography>
                     <Divider sx={{ my: 1 }} />
@@ -69,38 +87,18 @@ const Profile = () => {
             </Card>
 
             {/* Employee List */}
-            <Card sx={{ mb: 3 }}>
+            <Card sx={{ mb: 3, borderRadius: 3 }}>
                 <CardContent>
                     <Typography variant="h6">Employee List</Typography>
                     <Divider sx={{ my: 1 }} />
 
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Contact</TableCell>
-                                <TableCell>Designation</TableCell>
-                                <TableCell>Joining Date</TableCell>
-                                <TableCell>Exit Date</TableCell>
-                                <TableCell>Status</TableCell>
-                            </TableRow>
-                        </TableHead>
-
-                        <TableBody>
-                            {profile.company_employees.map((emp, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{emp.employee_name}</TableCell>
-                                    <TableCell>{emp.employee_email}</TableCell>
-                                    <TableCell>{emp.employee_contact}</TableCell>
-                                    <TableCell>{emp.designation}</TableCell>
-                                    <TableCell>{emp.joining_date}</TableCell>
-                                    <TableCell>{emp.exit_date || "Present"}</TableCell>
-                                    <TableCell>{emp.employee_status}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                    <PreviewTable 
+                        title={'Recent Joinees'}
+                        maxRows={5}
+                        data={profile.company_employees}
+                        viewAllPath={'/company/employees'}
+                        columns={employeeListColumns}
+                    />
                 </CardContent>
             </Card>
 
@@ -110,33 +108,20 @@ const Profile = () => {
                     <Typography variant="h6">Disputes History</Typography>
                     <Divider sx={{ my: 1 }} />
 
-                    {profile.dispute_history.length === 0 ? (
-                        <Typography>No disputes found</Typography>
+                    {profile.dispute_history.length == 0 ? (
+                        <Typography>
+                            No disputes yet
+                        </Typography>
                     ) : (
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Raised By</TableCell>
-                                    <TableCell>Against</TableCell>
-                                    <TableCell>Reason</TableCell>
-                                    <TableCell>Status</TableCell>
-                                    <TableCell>Created At</TableCell>
-                                </TableRow>
-                            </TableHead>
-
-                            <TableBody>
-                                {profile.dispute_history.map((d, index) => (
-                                    <TableRow key={d.dispute_id}>
-                                        <TableCell>{d.raised_by_type}</TableCell>
-                                        <TableCell>{d.raised_against_type}</TableCell>
-                                        <TableCell>{d.topic}</TableCell>
-                                        <TableCell>{d.status}</TableCell>
-                                        <TableCell>{d.created_on}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                        <PreviewTable
+                            title="Recent Disputes"
+                            maxRows='5'
+                            data={profile.dispute_history}
+                            viewAllPath='/institute/disputes'
+                            columns={disputeListColumns}
+                        />
                     )}
+
                 </CardContent>
             </Card>
         </Box>

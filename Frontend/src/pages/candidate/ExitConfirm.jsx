@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Box, Button, TextField, Typography } from '@mui/material';
 import candidateAPI from '../../api/modules/candidateAPI';
+import { useAuth } from '../../context/AuthContext';
 
 const ExitConfirm = () => {
+    const {user} = useAuth();
     const [form, setForm] = useState({
         "company_id": "",          // this should be fetched via query or localstorage
-        "user_id": "",              // this should be fetched via query or localstorage
+        "user_id": user.user_id,              // this should be fetched via query or localstorage
         "date": "",
     });
 
@@ -38,7 +40,7 @@ const ExitConfirm = () => {
 
             <form onSubmit={handleSubmit}>
                 <TextField label="Company ID" name='company_id' fullWidth margin='normal' onChange={handleChange}/>
-                <TextField label="Candidate ID" name='user_id' fullWidth margin='normal' onChange={handleChange}/>
+                <TextField label="Candidate ID" name='user_id' defaultValue={form.user_id} fullWidth margin='normal' disabled/>
                 <TextField label="Exit Date (YYYY-MM-DD)" name='date' fullWidth margin='normal' onChange={handleChange}/>
 
                 <Button variant='contained' type='submit' fullWidth sx={{mt: 2}}>

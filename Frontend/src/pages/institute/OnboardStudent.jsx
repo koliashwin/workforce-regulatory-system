@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import instituteAPI from '../../api/modules/instituteAPI';
+import { useAuth } from "../../context/AuthContext";
 import { Box, Button, TextField, Typography } from '@mui/material';
 
 const OnboardStudent = () => {
+    const {user} = useAuth();
+
     const [form, setFrom] = useState({
-        "role_id": 100,
+        "role_code": 100,
         "email": "",
         "password_hash": "Abc@123",      // TODO: shoud generate at backend
         "name": "",
         "contact_no": "",
         "dob": "",
-        "institute_id": 1,               // TODO: should be read from local storage
+        "institute_id": user.institute_id,               // TODO: should be read from local storage
         "course": "",
         "passout_year": "",
         "skills": "",
