@@ -81,3 +81,38 @@
     - Updated the login page
     - Integrated the login API with frontend
     - Tested the login feature. it seems to work ok
+#
+
+### Date : 01-Dec-2025
+  - **Work :**
+    - tested flow and refactor the frontend
+#
+
+### Date : 02-Dec-2025
+  - **Work :**
+    - created reusable component (to preview tables)
+    - done some refactoring as per new component
+#
+
+### Date : 03-Dec-2025
+  - **Work :**
+    - Created reusable component (to veiw full table)
+    - some refactoring as per new component
+#
+
+### Date : 04-Dec-2025
+  - **Work :**
+    - Created admin routes and some features
+    - polish the application
+#
+
+### Date: 05-Dec-2025
+  - **Work :**
+    - Started testing end-to-end application flow 
+    - Worked on documentation for current features and their limitaions
+#
+
+### Date: 06-Dec-2025
+  - **Work :**
+    - Continue testing end-to-end application flow 
+    - Continue to work on 

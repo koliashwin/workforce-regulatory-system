@@ -152,3 +152,19 @@
   - **Work :**
     - Created Login api and connected with frontend
 #
+
+### Date : 01-Dec-2025
+  - **Work :**
+    - review and fixed some schemas and logic
+#
+
+### Date : 02-Dec-2025
+  - **Work :**
+    - Tested some backend api
+#
+
+### Date : 04-Dec-2025
+  - **Work :**
+    - Separated some features and created Admin services
+    - done some refactoring as per new fetures
+#
