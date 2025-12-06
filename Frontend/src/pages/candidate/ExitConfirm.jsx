@@ -35,7 +35,7 @@ const ExitConfirm = () => {
     return (
         <Box sx={{maxWidth: 500}}>
             <Typography variant='h5' sx={{mb: 2}}>
-                Onboard Employee
+                Employee Exit Confirm
             </Typography>
 
             <form onSubmit={handleSubmit}>
