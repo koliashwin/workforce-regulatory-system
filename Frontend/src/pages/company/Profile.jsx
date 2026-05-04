@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import companyAPI from "../../api/modules/companyAPI";
 import { Box, Card, CardContent, Divider, Grid, Typography } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
-import PreviewTable from "../../components/PreviewTable";
+import DataTable from "../../components/DataTable";
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
@@ -15,14 +15,14 @@ const Profile = () => {
         { label: "Designation", key: "designation" },
         { label: "Joining Date", key: "joining_date" },
         { label: "Exit Date", key: "exit_date", render: (row) => row.exit_date || "Present"},
-        { label: "Status", key: "employee_status" },
+        { label: "Status", key: "employee_status", isStatus: true },
     ]
 
     const disputeListColumns = [
         { label: "Raised By", key: "raised_by_type" },
         { label: "Against", key: "raised_against_type" },
         { label: "Reason", key: "topic" },
-        { label: "Status", key: "status" },
+        { label: "Status", key: "status", isStatus: true },
         { label: "Created At", key: "created_on" },
     ]
 
@@ -92,8 +92,8 @@ const Profile = () => {
                     <Typography variant="h6">Employee List</Typography>
                     <Divider sx={{ my: 1 }} />
 
-                    <PreviewTable 
-                        title={'Recent Joinees'}
+                    <DataTable 
+                        // title={'Recent Joinees'}
                         maxRows={5}
                         data={profile.company_employees}
                         viewAllPath={'/company/employees'}
@@ -113,8 +113,8 @@ const Profile = () => {
                             No disputes yet
                         </Typography>
                     ) : (
-                        <PreviewTable
-                            title="Recent Disputes"
+                        <DataTable
+                            // title="Recent Disputes"
                             maxRows='5'
                             data={profile.dispute_history}
                             viewAllPath='/institute/disputes'

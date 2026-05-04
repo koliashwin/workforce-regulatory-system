@@ -2,7 +2,7 @@ import { Box, Card, CardContent, Divider, Grid, Typography } from '@mui/material
 import React, { useEffect, useState } from 'react'
 import candidateAPI from '../../api/modules/candidateAPI';
 import { useAuth } from '../../context/AuthContext';
-import PreviewTable from '../../components/PreviewTable';
+import DataTable from '../../components/DataTable';
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
@@ -13,14 +13,14 @@ const Profile = () => {
         { label: "CIN", key: "cin" },
         { label: "Joining", key: "joining_date" },
         { label: "Exit", key: "exit_date" },
-        { label: "Status", key: "status" },
+        { label: "Status", key: "status", isStatus: true},
     ]
 
     const disputeListColumns = [
         { label: "Raised By", key: "raised_by_type" },
         { label: "Against", key: "raised_against_type" },
         { label: "Reason", key: "topic" },
-        { label: "Status", key: "status" },
+        { label: "Status", key: "status", isStatus: true},
         { label: "Created At", key: "created_on" },
     ]
 
@@ -113,9 +113,9 @@ const Profile = () => {
                             Not employed yet
                         </Typography>
                     ) : (
-                        <PreviewTable
-                            title="Recent employment"
-                            maxRows='5'
+                        <DataTable
+                            // title="Recent employment"
+                            maxRows={5}
                             data={profile.employment_history}
                             viewAllPath='/candidate/disputes'
                             columns={employmentListColumns}
@@ -135,9 +135,10 @@ const Profile = () => {
                             No disputes yet
                         </Typography>
                     ) : (
-                        <PreviewTable
-                            title="Recent Disputes"
-                            maxRows='5'
+
+                        <DataTable
+                            // title="Recent employment"
+                            maxRows={5}
                             data={profile.dispute_history}
                             viewAllPath='/candidate/disputes'
                             columns={disputeListColumns}

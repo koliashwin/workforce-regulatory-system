@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Card, CardContent, Divider, Grid, Typography } from "@mui/material";
 import instituteAPI from "../../api/modules/instituteAPI";
 import { useAuth } from "../../context/AuthContext";
-import PreviewTable from "../../components/PreviewTable";
+import DataTable from "../../components/DataTable";
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
@@ -31,7 +31,7 @@ const Profile = () => {
         { label: "Raised By", key: "raised_by_type" },
         { label: "Against", key: "raised_against_type" },
         { label: "Reason", key: "topic" },
-        { label: "Status", key: "status" },
+        { label: "Status", key: "status", isStatus: true},
         { label: "Created At", key: "created_on" },
     ]
 
@@ -99,8 +99,8 @@ const Profile = () => {
                     <Typography variant="h6">Alumni List</Typography>
                     <Divider sx={{ my: 1 }} />
 
-                    <PreviewTable
-                        title="Recent Students"
+                    <DataTable
+                        // title="Recent Students"
                         maxRows='3'
                         data={profile.institute_students}
                         viewAllPath='/institute/candidates'
@@ -120,8 +120,8 @@ const Profile = () => {
                             No disputes yet
                         </Typography>
                     ) : (
-                        <PreviewTable
-                            title="Recent Disputes"
+                        <DataTable
+                            // title="Recent Disputes"
                             maxRows='5'
                             data={profile.dispute_history}
                             viewAllPath='/institute/disputes'
