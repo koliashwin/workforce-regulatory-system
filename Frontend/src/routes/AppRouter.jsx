@@ -22,6 +22,9 @@ import AdminHome from '../pages/admin/Home'
 import CompanyList from '../pages/admin/CompanyList'
 import AllCandidateList from '../pages/admin/CandidateList'
 import InstituteList from '../pages/admin/InstituteList'
+import PublicHome from '../pages/public/LandingPage'
+import InstituteSearchPage from '../pages/public/InstituteSearchPage'
+import CompanySearchPage from '../pages/public/CompanySearchPage'
 
 const AppRouter = () => {
     return (
@@ -30,8 +33,11 @@ const AppRouter = () => {
 
                 {/* Public Pages */}
                 <Route element={<PublicLayout />}>
-                    <Route path='/login' element={<Login />} />
-                    <Route path='/' element={<Home />} />
+                    <Route index                element={<PublicHome />} />
+                    <Route path='/login'        element={<Login />} />
+                    {/* <Route path='/'         element={<Home />} /> */}
+                    <Route path="institutes"    element={<InstituteSearchPage />} />
+                    <Route path="companies"     element={<CompanySearchPage />} />
                 </Route>
 
                 {/* Protected Pages */}
@@ -39,37 +45,37 @@ const AppRouter = () => {
                     <Route element={<DashboardLayout />}>
 
                         {/* Candidate Routes */}
-                        <Route path='/candidate' element={<ProtectedRoute allowedRoles={['candidate']}/>}>
-                            <Route path='' element={<CandidateHome />} />
-                            <Route path='profile' element={<Profile />} />
-                            <Route path='joining_confirm' element={<JoiningConfirm />} />
-                            <Route path='exit_confirm' element={<ExitConfirm />} />
-                            <Route path='disputes' element={<DisputesList />} />
+                        <Route path='/candidate'            element={<ProtectedRoute allowedRoles={['candidate']}/>}>
+                            <Route path=''                  element={<CandidateHome />} />
+                            <Route path='profile'           element={<Profile />} />
+                            <Route path='joining_confirm'   element={<JoiningConfirm />} />
+                            <Route path='exit_confirm'      element={<ExitConfirm />} />
+                            <Route path='disputes'          element={<DisputesList />} />
                         </Route>
                         
                         {/* Institute Routes */}
-                        <Route path='/institute' element={<ProtectedRoute allowedRoles={['institute']}/>}>
-                            <Route path='' element={<InstituteHome />} />
-                            <Route path='onboard' element={<OnboardStudent />} />
-                            <Route path='candidates' element={<CandidateList />} />
+                        <Route path='/institute'        element={<ProtectedRoute allowedRoles={['institute']}/>}>
+                            <Route path=''              element={<InstituteHome />} />
+                            <Route path='onboard'       element={<OnboardStudent />} />
+                            <Route path='candidates'    element={<CandidateList />} />
                         </Route>
 
                         {/* Company Routes */}
-                        <Route path='/company' element={<ProtectedRoute allowedRoles={['company']}/>}>
-                            <Route path='' element={<CompanyHome />} />
-                            <Route path='onboard' element={<OnboardEmployee />} />
-                            <Route path='employee_exit' element={<EmployeeExits />} />
-                            <Route path='employees' element={<EmployeeList />} />
+                        <Route path='/company'              element={<ProtectedRoute allowedRoles={['company']}/>}>
+                            <Route path=''                  element={<CompanyHome />} />
+                            <Route path='onboard'           element={<OnboardEmployee />} />
+                            <Route path='employee_exit'     element={<EmployeeExits />} />
+                            <Route path='employees'         element={<EmployeeList />} />
                             {/* <Route path='company_list' element={<CompanyList />} /> */}
-                            <Route path='register' element={<RegisterCompany />} />
-                            <Route path='verify' element={<VerifyCompany />} />
+                            <Route path='register'          element={<RegisterCompany />} />
+                            <Route path='verify'            element={<VerifyCompany />} />
                         </Route>
 
-                        <Route path='/admin' element={<ProtectedRoute allowedRoles={['admin']}/>}>
-                            <Route path='' element={<AdminHome />} />
-                            <Route path='company_list' element={<CompanyList />} />
-                            <Route path='candidate_list' element={<AllCandidateList />} />
-                            <Route path='institute_list' element={<InstituteList />} />
+                        <Route path='/admin'                element={<ProtectedRoute allowedRoles={['admin']}/>}>
+                            <Route path=''                  element={<AdminHome />} />
+                            <Route path='company_list'      element={<CompanyList />} />
+                            <Route path='candidate_list'    element={<AllCandidateList />} />
+                            <Route path='institute_list'    element={<InstituteList />} />
                         </Route>
 
                     </Route>
