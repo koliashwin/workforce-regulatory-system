@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const backend_url = import.meta.env.VITE_BACKEND_URL
+console.log(backend_url)
 // connect with backend 
 const axiosClient = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: backend_url,
     timeout: 10000,
     headers: {
         "Content-Type": "application/json"
