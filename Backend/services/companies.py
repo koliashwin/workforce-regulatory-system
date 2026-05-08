@@ -1,5 +1,6 @@
 from datetime import date
 from config.db import get_db_connection
+from services.audit import log_action
 import json
 import os
 
@@ -21,7 +22,18 @@ def register_company(data):
             "INSERT INTO companies (name, cin, user_id, address, contact_no, email) VALUES(%s, %s, %s, %s, %s, %s)",
             (data.name, data.cin, user_id, data.address, data.contact_no, data.email)
         )
+        company_id = cursor.lastrowid
         conn.commit()
+
+        # audit log for company registrations
+        log_action(
+            action="COMPANY_REGISTRED",
+            performed_by="system",
+            target_type="companies",
+            target_id=company_id,
+            description=f"Company Registred on Platform",
+            metadata={"cin": data.cin}
+        )
 
         return {"success": True, "company_id": cursor.lastrowid}
     
@@ -54,11 +66,29 @@ def verify_company(cin: str):
                     ('Registered', cin)
                 )
                 conn.commit()
+                # audit log for verified company
+                log_action(
+                    action="COMPANY_VERIFIED",
+                    performed_by="system",
+                    target_type="companies",
+                    target_id=cin,
+                    description=f"Company verified via CIN lookup",
+                    metadata={"cin": cin, "result": "registered"}
+                )
                 return {"success": True, "verified": True, "details": company}
         
         # can have the another update query her but since default status is Unknown it not required for now
         # query goes here if required
 
+        # audit log for verified company
+        log_action(
+            action="UNKNOWN_COMPANY",
+            performed_by="system",
+            target_type="companies",
+            target_id=cin,
+            description=f"Company verification failed via CIN lookup",
+            metadata={"cin": cin, "result": "unknown"}
+        )
         return {"success": True, "verified": False, "details": None}
 
     except Exception as e:
@@ -113,6 +143,16 @@ def onboard_employee(data):
         )
         conn.commit()
 
+        # audit log for onboarding employee
+        log_action(
+            action="EMPLOYEE_ONBOARDING_INITIATED",
+            performed_by="companies",
+            performed_by_id=data.company_id,
+            target_type="employee",
+            target_id=emp_id,
+            description=f"Employee {emp_id} Onboarding initiated by Company {data.company_id}",
+            metadata={"company_id": data.company_id, "emp_id": emp_id}
+        )
         return {"success": True, "user_id":user_id, "emp_id": emp_id, "emp_history_id": cursor.lastrowid}
 
     except Exception as e:
@@ -182,6 +222,17 @@ def exit_employee(data):
             (data.exit_date, data.company_id, emp_id)
         )
         conn.commit()
+
+        # audit log for onboarding employee
+        log_action(
+            action="EMPLOYEE_EXIT_INITIATED",
+            performed_by="companies",
+            performed_by_id=data.company_id,
+            target_type="employee",
+            target_id=emp_id,
+            description=f"Employee {emp_id} Exit initiated by Company {data.company_id}",
+            metadata={"company_id": data.company_id, "emp_id": emp_id}
+        )
 
         return {"success": True, "message": 'Exit date updated by company', "user_id":user_id, "emp_id": emp_id, "emp_history_id": cursor.lastrowid}
 

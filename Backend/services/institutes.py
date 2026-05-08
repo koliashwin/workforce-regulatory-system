@@ -1,5 +1,6 @@
 from datetime import date
 from config.db import get_db_connection
+from services.audit import log_action
 
 def all_candidates_list(institute_id: int):
     conn = get_db_connection()
@@ -66,7 +67,19 @@ def clg_onboard_candidate(data):
             "INSERT INTO candidates (institute_id, user_id, course, passout_year, skills) VALUES (%s, %s, %s, %s, %s)",
             (data.institute_id, user_id, data.course, data.passout_year, data.skills)
         )
+        candidate_id = cursor.lastrowid
         conn.commit()
+
+        # audit log for onboarding candidates on portal
+        log_action(
+            action="CANDIDATE_ONBOARDED",
+            performed_by="institutes",
+            performed_by_id=data.institute_id,
+            target_type="candidates",
+            target_id=candidate_id,
+            description=f"Candidate {candidate_id} Onboarded on the platform by Institute {data.institute_id}",
+            metadata={"institute_id": data.institute_id, "candidate_id": candidate_id}
+        )
 
         return {"success": True, "user_id":user_id, "candidate_id": cursor.lastrowid}
     
@@ -96,8 +109,18 @@ def register_institute(data):
             "INSERT INTO institutes (name, institute_code, user_id, address, contact_no, email) VALUES(%s, %s, %s, %s, %s, %s)",
             (data.name, data.cin, user_id, data.address, data.contact_no, data.email)
         )
+        institute_id = cursor.lastrowid
         conn.commit()
 
+        # audit log for registering institute
+        log_action(
+            action="INSTITUTE_REGISTRED_ON_PORTAL",
+            performed_by="system",
+            target_type="institutes",
+            target_id=institute_id,
+            description=f"Institute {institute_id} Registred on Platform",
+            metadata={"institute_id": institute_id}
+        )
         return {"success": True, "institute_id": cursor.lastrowid}
     
     except Exception as e:

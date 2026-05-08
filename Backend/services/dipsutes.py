@@ -1,4 +1,5 @@
 from config.db import get_db_connection
+from services.audit import log_action
 
 # raise the dispute
 def raise_dispute(raised_by_type: str, raised_by_id: int, raised_against_type: str, raised_against_id: int, topic: str):
@@ -12,6 +13,22 @@ def raise_dispute(raised_by_type: str, raised_by_id: int, raised_against_type: s
         )
         dispute_id = cursor.lastrowid
         conn.commit()
+
+        # audit log for disputes
+        log_action(
+            action="DISPUTE_RAISED",
+            performed_by="system",
+            target_type="disputes",
+            target_id=dispute_id,
+            description=f"Dispute auto-raised: {topic}",
+            metadata={
+                "raised_by_type": raised_by_type,
+                "raised_by_id": raised_by_id,
+                "raised_against_type": raised_against_type,
+                "raised_against_id": raised_against_id
+            }
+        )
+
         return {"success": True, 'dispute_id': dispute_id, 'message': f"Dispute raised by {raised_by_type}({raised_by_id}) against {raised_against_type}({raised_against_id})"}
 
     except Exception as e:

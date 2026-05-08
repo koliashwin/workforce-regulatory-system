@@ -1,5 +1,6 @@
 from config.db import get_db_connection
 from services.dipsutes import raise_dispute
+from services.audit import log_action
 
 def view_candidate_profile(user_id: int):
     conn = get_db_connection()
@@ -111,6 +112,18 @@ def confirm_exit(data):
                     (emp_id, data.company_id)
                 )
                 conn.commit()
+
+                # audit log for employee exit confirmation
+                log_action(
+                    action="CANDIDATE_EXIT_CONFIRMED",
+                    performed_by="employee",
+                    performed_by_id=emp_id,
+                    target_type="company",
+                    target_id=data.company_id,
+                    description=f"Employee {emp_id} confirmed exit from company {data.company_id}",
+                    metadata={"exit_date": str(data.date), "company_id": data.company_id}
+                )
+
                 return {"success": True , "message": "Employee Exits Safely"}
             
             # raise a dispute on exit date mismatch
@@ -167,6 +180,18 @@ def confirm_joining(data):
                     (emp_id, data.company_id)
                 )
                 conn.commit()
+
+                # audit log for successfull joining
+                log_action(
+                    action="CANDIDATE_JOINING_CONFIRMED",
+                    performed_by="employee",
+                    performed_by_id=emp_id,
+                    target_type="company",
+                    target_id=data.company_id,
+                    description=f"Employee {emp_id} confirmed joining the company {data.company_id}",
+                    metadata={"joining_date": str(data.date), "company_id": data.company_id}
+                )
+
                 return {"success": True , "message": "Employee joines Safely"} 
             
             # logic to raise the dispute goes here
