@@ -25,13 +25,12 @@ const employmentCols = [
 ];
 
 const CandidateHome = () => {
-    const { user } = useAuth();
     const navigate = useNavigate();
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        candidateAPI.getProfile(user.user_id)
+        candidateAPI.getProfile()
             .then(res => setProfile(res.data))
             .catch(err => console.error(err))
             .finally(() => setLoading(false));

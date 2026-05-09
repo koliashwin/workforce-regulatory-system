@@ -6,7 +6,6 @@ import { useAuth } from '../../context/AuthContext';
 
 const EmployeeList = () => {
     const [emoloyees, setEmployees] = useState([]);
-    const { user } = useAuth();
 
     const employeeListColumns = [
         { label: "Name", key: "user_name" },
@@ -21,7 +20,7 @@ const EmployeeList = () => {
     ]
 
     useEffect(() => {
-        companyAPI.employeeList(user.company_id)
+        companyAPI.employeeList()
             .then(res => setEmployees(res.data))
             .catch(err => console.log(err))
     }, []);

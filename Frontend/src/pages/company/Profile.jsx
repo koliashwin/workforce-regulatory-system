@@ -6,7 +6,6 @@ import DataTable from "../../components/DataTable";
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
-    const { user } = useAuth();
 
     const employeeListColumns = [
         { label: "Name", key: "employee_name" },
@@ -28,7 +27,7 @@ const Profile = () => {
 
     // Fetch all data
     useEffect(() => {
-        companyAPI.companyProfile(user.company_id)
+        companyAPI.companyProfile()
             .then(res => { setProfile(res.data) })
             .catch(err => console.log(err));
     }, []);

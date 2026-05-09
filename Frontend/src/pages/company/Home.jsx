@@ -24,13 +24,12 @@ const employeeCols = [
 ];
 
 const CompanyHome = () => {
-    const { user } = useAuth();
     const navigate = useNavigate();
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        companyAPI.companyProfile(user.company_id)
+        companyAPI.companyProfile()
             .then(res => setProfile(res.data))
             .catch(err => console.error(err))
             .finally(() => setLoading(false));

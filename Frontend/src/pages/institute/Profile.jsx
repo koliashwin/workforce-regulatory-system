@@ -6,7 +6,6 @@ import DataTable from "../../components/DataTable";
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
-    const { user } = useAuth();
 
     const studentListColumns = [
         { label: "Name", key: "student_name" },
@@ -37,7 +36,7 @@ const Profile = () => {
 
     // Fetch all data
     useEffect(() => {
-        instituteAPI.instituteProfile(user.institute_id)
+        instituteAPI.instituteProfile()
             .then(res => { setProfile(res.data) })
             .catch(err => console.log(err));
     }, []);

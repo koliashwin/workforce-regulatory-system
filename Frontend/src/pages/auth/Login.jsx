@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import authAPI from '../../api/modules/authAPI';
 import ShieldIcon from '@mui/icons-material/Shield';
 import { tokens } from '../../theme/theme';
-import { decodeToken } from '../../utils/docodeToken';
+import { decodeToken } from '../../utils/decodeToken';
 
 const redirectMap = { candidate: '/candidate', institute: '/institute', company: '/company', admin: '/admin' };
 

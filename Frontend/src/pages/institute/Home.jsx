@@ -23,13 +23,12 @@ const studentCols = [
 ];
 
 const InstituteHome = () => {
-    const { user } = useAuth();
     const navigate = useNavigate();
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        instituteAPI.instituteProfile(user.institute_id)
+        instituteAPI.instituteProfile()
             .then(res => setProfile(res.data))
             .catch(err => console.error(err))
             .finally(() => setLoading(false));
