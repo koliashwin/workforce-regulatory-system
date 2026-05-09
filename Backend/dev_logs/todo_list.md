@@ -17,8 +17,8 @@
 - [x] Implement Employee Exits Company
 - [x] Implement Candidate Exit confirmation
 - [x] Implement Profile/dashboard details logic for every actor
-- [ ] Implement Dispute logic
-- [ ] Implement Employment history tracker
+- [x] Implement Dispute logic (basic dispute auto generation completed)
+- [x] Implement Employment history tracker (basic employment data exist)
 #
 
 ## Testing
