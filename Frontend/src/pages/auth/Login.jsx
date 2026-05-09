@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import authAPI from '../../api/modules/authAPI';
 import ShieldIcon from '@mui/icons-material/Shield';
 import { tokens } from '../../theme/theme';
+import { decodeToken } from '../../utils/docodeToken';
 
 const redirectMap = { candidate: '/candidate', institute: '/institute', company: '/company', admin: '/admin' };
 
@@ -27,7 +28,19 @@ const Login = () => {
         setLoading(true);
         try {
             const res = await authAPI.login({ email: form.email, password: form.password });
-            login({ role: res.data.role, user_id: res.data.user_id, company_id: res.data.company_id, institute_id: res.data.institute_id });
+            const decoded = decodeToken(res.data.access_token)
+            console.log(decoded)
+            // login({ role: res.data.role, user_id: res.data.user_id, company_id: res.data.company_id, institute_id: res.data.institute_id });
+            login({
+                access_token:   res.data.access_token,
+                token_type:     res.data.token_type,
+                role:           decoded.role,
+                user_id:        decoded.user_id,
+                email:          decoded.email,
+                role_code:      decoded.role_code,
+                institute_id:   decoded.institute_id,
+                company_id:     decoded.company_id
+            })
         } catch {
             setError('Invalid email or password. Please try again.');
         } finally {

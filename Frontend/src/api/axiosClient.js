@@ -14,10 +14,15 @@ const axiosClient = axios.create({
 // Check for token
 axiosClient.interceptors.request.use(
     (config) => {
-        const savedUser = localStorage.getItem('user');
-        if (savedUser) {
-            const { token } = JSON.parse(savedUser);
-            if (token) config.headers.Authorization = `Bearer ${token}`;
+        // const savedUser = localStorage.getItem('user');
+        // if (savedUser) {
+        //     const { token } = JSON.parse(savedUser);
+        //     if (token) config.headers.Authorization = `Bearer ${token}`;
+        // }
+
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user?.access_token) {
+            config.headers.Authorization =`Bearer ${user.access_token}`
         }
         // console.log(token)
         return config;
@@ -29,6 +34,10 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
     (response) => response,
     (error) => {
+        if (error.response?.status === 401) {
+            localStorage.removeItem('user');
+            window.location.href = '/login';
+        }
         console.error("API ERROR : ", error.response?.data || error.message);
         return Promise.reject(error);
     }
