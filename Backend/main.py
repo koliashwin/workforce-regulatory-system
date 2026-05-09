@@ -21,4 +21,4 @@ app.include_router(main_router)
 
 @app.get('/')
 def root():
-    return {'message':'Backend running succesfully'+os.getenv('FRONTEND_URL')+os.getenv('DB_HOST')}
+    return {'message':'Backend running succesfully'}
