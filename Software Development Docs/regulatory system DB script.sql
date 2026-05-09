@@ -99,3 +99,15 @@ create table disputes (
     created_on datetime default current_timestamp,
     updated_on datetime default current_timestamp on update current_timestamp
 );
+
+create table audit_logs (
+	log_id int primary key auto_increment,
+    action varchar(200) not null,
+    performed_by varchar(100),
+    performed_by_id int,
+    target_type varchar(100),
+    target_id int,
+    description text,
+    metadata json,
+    created_on datetime default current_timestamp
+);
