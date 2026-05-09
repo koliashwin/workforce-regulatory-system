@@ -1,7 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from schema.employees import EmpDatesConfirmation, EmployeeResponse
 from services.candidates import confirm_joining, confirm_exit, view_candidate_profile
 from services.dipsutes import view_all_disputes
+from utils.auth_dependency import get_current_user
 
 router = APIRouter(prefix="/candidates", tags=['candidates'])
 
@@ -24,7 +25,8 @@ def employee_joining_confirmation(data: EmpDatesConfirmation):
     return {'message': 'Employee Joined safely'}
 
 @router.get('/view_profile')
-def view_profile(user_id: int):
+def view_profile(user=Depends(get_current_user)):
+    user_id = user["user_id"]
     result = view_candidate_profile(user_id)
 
     if not result['success']:

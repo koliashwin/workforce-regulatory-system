@@ -1,8 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from schema.companies import CompanyCreate
 from schema.employees import EmployeeCreate, EmployeeResponse
 from services.companies import register_company, verify_company, onboard_employee, exit_employee, all_employee_list, view_company_profile
-
+from utils.auth_dependency import get_current_user
 
 router = APIRouter(prefix='/company', tags=['company'])
 
@@ -43,7 +43,8 @@ def employ_exit(employee: EmployeeCreate):
     return result
 
 @router.get('/employee_list', response_model=list[EmployeeResponse])
-def employee_list(company_id: int):
+def employee_list(user=Depends(get_current_user)):
+    company_id = user["company_id"]
     result = all_employee_list(company_id)
 
     if not result['success']:
@@ -52,7 +53,8 @@ def employee_list(company_id: int):
     return result['data']
 
 @router.get('/view_profile')
-def view_profile(company_id: int):
+def view_profile(user=Depends(get_current_user)):
+    company_id = user["company_id"]
     result = view_company_profile(company_id)
 
     if not result['success']:

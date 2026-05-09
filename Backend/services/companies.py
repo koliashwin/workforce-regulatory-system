@@ -1,6 +1,7 @@
 from datetime import date
 from config.db import get_db_connection
 from services.audit import log_action
+from utils.password import hash_password
 import json
 import os
 
@@ -12,8 +13,8 @@ def register_company(data):
     try:
         # create a user for company
         cursor.execute(
-            "INSERT INTO users (role_code, email, name, contact_no, dob) VALUES (300, %s, %s, %s, %s)",
-            (data.email, data.user_name, data.contact_no, date.today())
+            "INSERT INTO users (role_code, email, password_hash, name, contact_no, dob) VALUES (300, %s, %s, %s, %s, %s)",
+            (data.email, hash_password("Abced@12345"), data.user_name, data.contact_no, date.today())
         )
         user_id = cursor.lastrowid
 

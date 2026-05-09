@@ -1,6 +1,7 @@
 from datetime import date
 from config.db import get_db_connection
 from services.audit import log_action
+from utils.password import hash_password
 
 def all_candidates_list(institute_id: int):
     conn = get_db_connection()
@@ -57,8 +58,8 @@ def clg_onboard_candidate(data):
         # institute_id = result['institute_id']
 
         cursor.execute(
-            "insert into users (role_code, email, name, contact_no, dob) VALUES (100, %s, %s, %s, %s)",
-            (data.email, data.name, data.contact_no, data.dob)
+            "insert into users (role_code, email, password_hash, name, contact_no, dob) VALUES (100, %s, %s, %s, %s, %s)",
+            (data.email, hash_password("Abced@12345"), data.name, data.contact_no, data.dob)
         )
 
         user_id = cursor.lastrowid
@@ -99,11 +100,11 @@ def register_institute(data):
     try:
         # create a user for company
         cursor.execute(
-            "INSERT INTO users (role_code, email, name, contact_no, dob) VALUES (200, %s, %s, %s, %s)",
-            (data.email, data.user_name, data.contact_no, date.today())
+            "INSERT INTO users (role_code, email, password_hash, name, contact_no, dob) VALUES (200, %s, %s, %s, %s, %s)",
+            (data.email, hash_password("Abced@12345"), data.user_name, data.contact_no, date.today())
         )
         user_id = cursor.lastrowid
-        
+        print(hash_password("Abced@12345"))
         # store company details int DB
         cursor.execute(
             "INSERT INTO institutes (name, institute_code, user_id, address, contact_no, email) VALUES(%s, %s, %s, %s, %s, %s)",

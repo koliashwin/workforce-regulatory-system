@@ -4,7 +4,7 @@ from services.auth import login_user
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-@router.post("/login", response_model=LoginResponse)
+@router.post("/login")
 def login(data: LoginRequest):
     result = login_user(data)
 
