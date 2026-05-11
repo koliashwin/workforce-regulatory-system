@@ -1,60 +1,76 @@
-import React, { useState } from 'react'
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Alert, Box, Button, Card, CardContent, CircularProgress, TextField, Typography } from '@mui/material';
 import companyAPI from '../../api/modules/companyAPI';
-import { useAuth } from '../../context/AuthContext';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const EmployeeExits = () => {
-    const { user } = useAuth();
     const [form, setForm] = useState({
-        "company_id": user.company_id,          // this should be fetched via query or localstorage
-        "user_email": "",
-        "exit_date": "",
-
-        // extra fields
-        "company_cin": "",
-        "designation": "",
-        "joining_date": "2025-11-25",                  
-        "status": "string"
+        user_email: '',
+        exit_date:  '',
     });
+    const [loading, setLoading] = useState(false);
+    const [result, setResult]   = useState(null);
 
-    const handleChange = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        });
-    }
+    const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
+        setResult(null);
         try {
-            const res = await companyAPI.employeeExits(form);
-            console.log("Employee Exits Company : ", res.data);
-            console.log("Form Data : ", form);
-            alert("Employee Exit Initiated");
-        } catch (error) {
-            console.log(error);
-            alert("Failed to initiate employee exit process");
+            const res = await companyAPI.exitInitiate(form);
+            setResult({ success: true, data: res.data });
+        } catch (err) {
+            setResult({ success: false, error: err.response?.data?.detail || 'Failed to initiate exit' });
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     return (
-        <Box sx={{maxWidth: 500}}>
-            <Typography variant='h5' sx={{mb: 2}}>
-                Employee Exits Company
+        <Box sx={{ maxWidth: 520 }}>
+            <Typography variant="h3" sx={{ mb: 0.5 }}>Record Employee Exit</Typography>
+            <Typography variant="subtitle1" sx={{ mb: 3 }}>
+                Step 1 of the exit process — set the employee's last working day
             </Typography>
 
-            <form onSubmit={handleSubmit}>
-                <TextField label="Company ID" name='company_id' defaultValue={form.company_id} fullWidth margin='normal' disabled />
-                <TextField label="Employee Email" name='user_email' fullWidth margin='normal' onChange={handleChange}/>
-                <TextField label="Exit Date (YYYY-MM-DD)" name='exit_date' fullWidth margin='normal' onChange={handleChange}/>
+            {result?.success && (
+                <Alert severity="success" icon={<CheckCircleIcon />} sx={{ mb: 2 }}>
+                    Exit initiated. The candidate must confirm their exit date and verify exit documents.
+                </Alert>
+            )}
+            {result && !result.success && (
+                <Alert severity="error" sx={{ mb: 2 }}>{result.error}</Alert>
+            )}
 
-                <Button variant='contained' type='submit' fullWidth sx={{mt: 2}}>
-                    Submit
-                </Button>
-            </form>
+            <Card>
+                <CardContent>
+                    <Alert severity="warning" sx={{ mb: 2, fontSize: '12px' }}>
+                        The candidate must have completed their joining process before exit can be initiated.
+                    </Alert>
+
+                    <Box component="form" onSubmit={handleSubmit}>
+                        <TextField
+                            fullWidth label="Employee Email" name="user_email" type="email"
+                            value={form.user_email} onChange={handleChange}
+                            required sx={{ mb: 2 }}
+                        />
+                        <TextField
+                            fullWidth label="Last Working Day" name="exit_date" type="date"
+                            value={form.exit_date} onChange={handleChange}
+                            required InputLabelProps={{ shrink: true }} sx={{ mb: 2 }}
+                            helperText="The official last working day on your records"
+                        />
+                        <Button
+                            type="submit" variant="contained" fullWidth disabled={loading}
+                            sx={{ py: 1.25 }}>
+                            {loading ? <CircularProgress size={20} sx={{ color: '#fff' }} /> : 'Initiate Exit →'}
+                        </Button>
+                    </Box>
+                </CardContent>
+            </Card>
         </Box>
-    )
-}
+    );
+};
 
 export default EmployeeExits;

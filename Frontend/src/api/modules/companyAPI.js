@@ -1,13 +1,19 @@
 import axiosClient from "../axiosClient";
 
 const companyAPI = {
-    registerCompany : (payload) => axiosClient.post("/company/register", payload),
-    companyList : () => axiosClient.get("/company/company_list"),       // this endpoint should be in admin
-    employeeList : () => axiosClient.get(`/company/employee_list`),     // this endpoint should be in admin
-    verifyComapny : (payload) => axiosClient.post("/company/verify_company", payload),
-    onboardEmployee : (payload) => axiosClient.post("/company/onboard_employee", payload),
-    employeeExits : (payload) => axiosClient.post("/company/employee_exit", payload),
-    companyProfile : () => axiosClient.get(`/company/view_profile`)
+    // Profile
+    companyProfile:     ()     => axiosClient.get("/company/view_profile"),
+    employeeList:       ()     => axiosClient.get("/company/employee_list"),
+
+    // Company registration
+    registerCompany:    (data) => axiosClient.post("/company/register",          data),
+    verifyCompany:      (data) => axiosClient.post("/company/verify_company",    data),
+
+    // Joining flow
+    joiningInitiate:    (data) => axiosClient.post("/company/joining_initiate",  data),
+
+    // Exit flow
+    exitInitiate:       (data) => axiosClient.post("/company/exit_initiate",     data),
 };
 
 export default companyAPI;

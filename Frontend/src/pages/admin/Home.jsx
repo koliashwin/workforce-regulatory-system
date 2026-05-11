@@ -48,7 +48,7 @@ const AdminHome = () => {
             adminAPI.allCompanyList().catch(() => ({ data: [] })),
             adminAPI.allCandidateList().catch(() => ({ data: [] })),
             adminAPI.allInstituteList().catch(() => ({ data: [] })),
-            candidateAPI.disputeList().catch(() => ({ data: [] })),
+            adminAPI.disputeList().catch(() => ({ data: [] })),
         ]).then(([comp, cand, inst, disp]) => {
             setCompanies(comp.data || []);
             setCandidates(cand.data || []);
@@ -57,9 +57,23 @@ const AdminHome = () => {
         }).finally(() => setLoading(false));
     }, []);
 
-    const handleDisputeAction = (dispute, action) => {
-        // Placeholder — wire to your dispute update API when ready
-        alert(`Action "${action}" on dispute #${dispute.dispute_id} — connect to PUT /disputes/{id} endpoint`);
+    const handleDisputeAction = async (dispute, action) => {
+        const statusMap = {
+            resolve: 'resolved',
+            reject: 'rejected',
+            review: 'under review'
+        };
+        try {
+            await adminAPI.updateDispute(dispute.dispute_id, statusMap[action]);
+            // Refresh disputes list
+            setDisputes(prev => prev.map(d =>
+                d.dispute_id === dispute.dispute_id
+                    ? { ...d, status: statusMap[action] }
+                    : d
+            ));
+        } catch (err) {
+            alert('Failed to update dispute status');
+        }
     };
 
     const filteredDisputes = dispFilter === 'All'

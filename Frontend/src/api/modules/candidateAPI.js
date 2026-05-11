@@ -1,10 +1,17 @@
 import axiosClient from "../axiosClient";
 
 const candidateAPI = {
-    getProfile: () => axiosClient.get(`candidates/view_profile`),
-    exitConfirm: (payload) => axiosClient.post("candidates/exit_confirm", payload),
-    joiningConfirm: (payload) => axiosClient.post("candidates/joining_confirm", payload),
-    disputeList: () =>axiosClient.get("candidates/disputes_list")
+    // Profile
+    getProfile:         ()     => axiosClient.get("/candidates/view_profile"),
+    disputeList:        ()     => axiosClient.get("/candidates/disputes_list"),
+
+    // Joining flow
+    joiningConfirm:     (data) => axiosClient.post("/candidates/joining_confirm",   data),
+    joiningDocuments:   (data) => axiosClient.post("/candidates/joining_documents", data),
+
+    // Exit flow
+    exitConfirm:        (data) => axiosClient.post("/candidates/exit_confirm",      data),
+    exitDocuments:      (data) => axiosClient.post("/candidates/exit_documents",    data),
 };
 
 export default candidateAPI;
