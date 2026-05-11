@@ -2,6 +2,8 @@ from fastapi import APIRouter, HTTPException
 from schema.employees import EmployeeResponse
 from schema.companies import CompanyResponse
 from schema.candidates import CandidateResponse
+from schema.lifecycle import DisputeUpdate
+from services.dipsutes import update_dispute, view_all_disputes
 from services.admin import all_employee_list, all_company_list, all_candidates_list, all_institute_list
 
 router = APIRouter(prefix='/admin', tags=['admin'])
@@ -41,3 +43,18 @@ def company_list():
         raise HTTPException(status_code=400, detail=result['error'])
     
     return result['data']
+
+@router.get("/disputes_list")
+def dispute_list():
+    result = view_all_disputes()
+    if not result["success"]:
+        raise HTTPException(status_code=400, detail=result["error"])
+    return result["data"]
+
+@router.put("/disputes/{dispute_id}")
+def resolve_dispute(dispute_id: int, data: DisputeUpdate):
+    """Admin resolves, rejects, or marks a dispute under review."""
+    result = update_dispute(dispute_id, data.status, data.resolution_note)
+    if not result["success"]:
+        raise HTTPException(status_code=400, detail=result["error"])
+    return result
