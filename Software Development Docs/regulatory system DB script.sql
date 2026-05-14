@@ -111,3 +111,108 @@ create table audit_logs (
     metadata json,
     created_on datetime default current_timestamp
 );
+
+-- DB alteration in iteration 2
+
+-- ── 1. Add joining_date_company & exit_date_company columns ──
+-- Separate company-submitted dates from candidate-confirmed dates
+-- This is how we detect mismatches cleanly
+
+ALTER TABLE employee_history
+    ADD COLUMN joining_date_company DATE,
+    ADD COLUMN joining_date_candidate DATE,
+    ADD COLUMN exit_date_company DATE,
+    ADD COLUMN exit_date_candidate DATE;
+
+-- Migrate existing data — treat existing joining_date as company-submitted
+UPDATE employee_history SET joining_date_company = joining_date where joining_date is not null;
+UPDATE employee_history SET exit_date_company = exit_date WHERE exit_date IS NOT NULL;
+
+DESCRIBE employee_history;
+
+-- ── 2. Update status ENUM with full lifecycle states ──────────
+ALTER TABLE employee_history
+    MODIFY COLUMN status ENUM(
+        'joining initiated',
+        'joining confirmed',
+        'joining date mismatch',
+        'joining completed',
+        'joining documents incomplete',
+        'exit initiated',
+        'exit confirmed',
+        'exit date mismatch',
+        'exit completed',
+        'exit documents incomplete'
+    ) DEFAULT 'joining initiated';
+
+-- ── 3. Joining documents table ────────────────────────────────
+CREATE TABLE joining_documents (
+    doc_id          INT PRIMARY KEY AUTO_INCREMENT,
+    history_id      INT NOT NULL,
+    emp_id          INT NOT NULL,
+
+    -- Documents company gives to candidate (received by candidate)
+    offer_letter            BOOLEAN DEFAULT FALSE,
+    appointment_letter      BOOLEAN DEFAULT FALSE,
+    salary_breakdown        BOOLEAN DEFAULT FALSE,
+    nda_agreement           BOOLEAN DEFAULT FALSE,
+    id_card_issued          BOOLEAN DEFAULT FALSE,
+
+    -- Documents candidate submits to company
+    aadhaar_submitted       BOOLEAN DEFAULT FALSE,
+    pan_submitted           BOOLEAN DEFAULT FALSE,
+    form_11_submitted       BOOLEAN DEFAULT FALSE,
+    bank_details_submitted  BOOLEAN DEFAULT FALSE,
+    photos_submitted        BOOLEAN DEFAULT FALSE,
+    education_docs_submitted BOOLEAN DEFAULT FALSE,
+    prev_exp_docs_submitted BOOLEAN DEFAULT FALSE,
+
+    -- Meta
+    submitted_by    INT NOT NULL,       -- user_id of candidate
+    submitted_on    DATETIME DEFAULT CURRENT_TIMESTAMP,
+    notes           TEXT,
+
+    FOREIGN KEY (history_id) REFERENCES employee_history(history_id),
+    FOREIGN KEY (emp_id)     REFERENCES employees(emp_id)
+);
+
+-- ── 4. Exit documents table ───────────────────────────────────
+CREATE TABLE exit_documents (
+    doc_id          INT PRIMARY KEY AUTO_INCREMENT,
+    history_id      INT NOT NULL,
+    emp_id          INT NOT NULL,
+
+    -- Documents candidate receives from company
+    experience_letter       BOOLEAN DEFAULT FALSE,
+    relieving_letter        BOOLEAN DEFAULT FALSE,
+    fnf_settlement          BOOLEAN DEFAULT FALSE,
+    salary_slip_last3       BOOLEAN DEFAULT FALSE,
+    pf_contribution_letter  BOOLEAN DEFAULT FALSE,
+    no_dues_certificate     BOOLEAN DEFAULT FALSE,
+    form_16                 BOOLEAN DEFAULT FALSE,
+
+    -- Documents candidate submits to company
+    resignation_email       BOOLEAN DEFAULT FALSE,
+    company_id_returned     BOOLEAN DEFAULT FALSE,
+    company_assets_returned BOOLEAN DEFAULT FALSE,
+    nda_compliance          BOOLEAN DEFAULT FALSE,
+
+    -- Meta
+    submitted_by    INT NOT NULL,       -- user_id of candidate
+    submitted_on    DATETIME DEFAULT CURRENT_TIMESTAMP,
+    notes           TEXT,
+
+    FOREIGN KEY (history_id) REFERENCES employee_history(history_id),
+    FOREIGN KEY (emp_id)     REFERENCES employees(emp_id)
+);
+
+-- ── 5. Fix disputes status ENUM ───────────────────────────────
+-- Standardise to use spaces (matches your service code)
+ALTER TABLE disputes
+    MODIFY COLUMN status ENUM(
+        'pending',
+        'under review',
+        'resolved',
+        'rejected'
+    ) NOT NULL DEFAULT 'pending';
+    
