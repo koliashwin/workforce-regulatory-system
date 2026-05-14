@@ -49,7 +49,7 @@ const CandidateHome = () => {
     const disputes = profile?.dispute_history || [];
     const academic = profile?.acdemic_info?.[0] || {};
     const personal = profile?.personal_info || {};
-    const activeJob = emp.find(e => !e.exit_date);
+    const activeJob = emp.find(e => e.status === 'joining completed' || e.status === 'exit initiated');
     const pendingDisp = disputes.filter(d => d.status === 'pending').length;
 
     return (

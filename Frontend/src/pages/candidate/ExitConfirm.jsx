@@ -44,24 +44,34 @@ const ExitConfirm = () => {
     const [notes, setNotes] = useState('');
 
     // Auto-detect step from profile status
-    useEffect(() => {
-        candidateAPI.getProfile()
-            .then(res => {
-                const emp = res.data?.employment_history || [];
-                const latest = emp[0];
-                if (!latest) return;
+    // useEffect(() => {
+    //     candidateAPI.getProfile()
+    //         .then(res => {
+    //             const emp = res.data?.employment_history || [];
+    //             const latest = emp[0];
+    //             if (!latest) return;
 
-                const status = latest.status;
+    //             const status = latest.status;
                 
-                if (status === 'exit completed'){
-                    setActiveStep(2);
-                } else if (status === 'exit confirmed') {
-                    setActiveStep(1);
-                    setCompanyId(String(latest.company_id))
-                };
-            })
-            .catch(() => { });
-    }, []);
+    //             if (status === 'exit completed'){
+    //                 setActiveStep(2);
+    //             } else if (status === 'exit confirmed') {
+    //                 setActiveStep(1);
+    //                 setCompanyId(String(latest.company_id))
+    //             };
+    //         })
+    //         .catch(() => { });
+    // }, []);
+
+    useEffect(() => {
+            candidateAPI.getProfile().then(res => {
+                const latest = res.data?.employment_history?.[0];
+                if (!latest) return;
+                setCompanyId(String(latest.company_id)); // ← always set it
+                if (latest.status === 'exit completed') setActiveStep(2);
+                else if (latest.status === 'exit confirmed') setActiveStep(1);
+            });
+        }, []);
 
     const toggleDoc = (key) => setDocs(prev => ({ ...prev, [key]: !prev[key] }));
 
@@ -157,6 +167,7 @@ const ExitConfirm = () => {
                                 fullWidth label="Company ID" type="number"
                                 value={companyId} onChange={e => setCompanyId(e.target.value)}
                                 required sx={{ mb: 2 }}
+                                disabled
                             />
                             <TextField
                                 fullWidth label="Your Last Working Day" type="date"

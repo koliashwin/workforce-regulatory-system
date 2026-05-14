@@ -23,7 +23,6 @@ const AllCandidateList = () => {
 
     return (
         <Box>
-            {console.log(candidates)}
             <FullTable 
                 title='All Candidates'
                 data={candidates}

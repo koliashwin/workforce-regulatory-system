@@ -45,7 +45,7 @@ const Profile = () => {
             <Typography variant='h3'>
                 Candidate Profile
             </Typography>
-            {console.log("full personal: ", profile)}
+
             {/* personal info */}
             <Card sx={{ mb: 3 }}>
                 <CardContent>

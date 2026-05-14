@@ -11,33 +11,33 @@ import GavelIcon from '@mui/icons-material/Gavel';
 
 // ── Document lists ────────────────────────────────────────────
 const RECEIVED_DOCS = [
-    { key: 'offer_letter',       label: 'Offer Letter' },
+    { key: 'offer_letter', label: 'Offer Letter' },
     { key: 'appointment_letter', label: 'Appointment Letter' },
-    { key: 'salary_breakdown',   label: 'Salary Breakdown / CTC Structure' },
-    { key: 'nda_agreement',      label: 'NDA / Non-Compete Agreement' },
-    { key: 'id_card_issued',     label: 'Company ID Card' },
+    { key: 'salary_breakdown', label: 'Salary Breakdown / CTC Structure' },
+    { key: 'nda_agreement', label: 'NDA / Non-Compete Agreement' },
+    { key: 'id_card_issued', label: 'Company ID Card' },
 ];
 
 const SUBMITTED_DOCS = [
-    { key: 'aadhaar_submitted',          label: 'Aadhaar Card' },
-    { key: 'pan_submitted',              label: 'PAN Card' },
-    { key: 'form_11_submitted',          label: 'Form 11 (PF Declaration)' },
-    { key: 'bank_details_submitted',     label: 'Bank Account Details' },
-    { key: 'photos_submitted',           label: 'Passport Size Photos' },
-    { key: 'education_docs_submitted',   label: 'Education Certificates' },
-    { key: 'prev_exp_docs_submitted',    label: 'Previous Experience Letters' },
+    { key: 'aadhaar_submitted', label: 'Aadhaar Card' },
+    { key: 'pan_submitted', label: 'PAN Card' },
+    { key: 'form_11_submitted', label: 'Form 11 (PF Declaration)' },
+    { key: 'bank_details_submitted', label: 'Bank Account Details' },
+    { key: 'photos_submitted', label: 'Passport Size Photos' },
+    { key: 'education_docs_submitted', label: 'Education Certificates' },
+    { key: 'prev_exp_docs_submitted', label: 'Previous Experience Letters' },
 ];
 
 const STEPS = ['Confirm Joining Date', 'Verify Documents'];
 
 const JoiningConfirm = () => {
     const [activeStep, setActiveStep] = useState(0);
-    const [loading, setLoading]       = useState(false);
-    const [result, setResult]         = useState(null);   // null | {success, message, error, dispute_id}
+    const [loading, setLoading] = useState(false);
+    const [result, setResult] = useState(null);   // null | {success, message, error, dispute_id}
 
     // Step 1 state
-    const [companyId, setCompanyId]   = useState('');
-    const [date, setDate]             = useState('');
+    const [companyId, setCompanyId] = useState('');
+    const [date, setDate] = useState('');
 
     // Step 2 state — document checkboxes
     const [docs, setDocs] = useState(() => {
@@ -49,22 +49,13 @@ const JoiningConfirm = () => {
 
     // Auto-detect step from profile status
     useEffect(() => {
-        candidateAPI.getProfile()
-            .then(res => {
-                const emp = res.data?.employment_history || [];
-                const latest = emp[0];
-                if (!latest) return;
-
-                const status = latest.status;
-
-                if (status === 'joining completed') {
-                    setActiveStep(2);
-                } else if (status === 'joining confirmed') {
-                    setActiveStep(1);
-                    setCompanyId(String(latest.company_id))
-                };
-            })
-            .catch(() => {});
+        candidateAPI.getProfile().then(res => {
+            const latest = res.data?.employment_history?.[0];
+            if (!latest) return;
+            setCompanyId(String(latest.company_id)); // ← always set it
+            if (latest.status === 'joining completed') setActiveStep(2);
+            else if (latest.status === 'joining confirmed') setActiveStep(1);
+        });
     }, []);
 
     const toggleDoc = (key) => setDocs(prev => ({ ...prev, [key]: !prev[key] }));
@@ -108,7 +99,7 @@ const JoiningConfirm = () => {
         }
     };
 
-    const isComplete = activeStep === 2 ;
+    const isComplete = activeStep === 2;
 
     return (
         <Box sx={{ maxWidth: 600 }}>
@@ -164,7 +155,7 @@ const JoiningConfirm = () => {
                                 fullWidth label="Company ID" type="number"
                                 value={companyId} onChange={e => setCompanyId(e.target.value)}
                                 required sx={{ mb: 2 }}
-                                helperText="Your employer's Company ID — visible on your profile"
+                                disabled
                             />
                             <TextField
                                 fullWidth label="Your Joining Date" type="date"
@@ -193,8 +184,10 @@ const JoiningConfirm = () => {
 
                         <Box component="form" onSubmit={handleDocsSubmit}>
                             {/* Received documents */}
-                            <Typography sx={{ fontWeight: 600, fontSize: '13px', fontFamily: 'monospace',
-                                textTransform: 'uppercase', letterSpacing: '0.06em', mb: 1, color: '#718096' }}>
+                            <Typography sx={{
+                                fontWeight: 600, fontSize: '13px', fontFamily: 'monospace',
+                                textTransform: 'uppercase', letterSpacing: '0.06em', mb: 1, color: '#718096'
+                            }}>
                                 Documents received from company
                             </Typography>
                             <Alert severity="info" sx={{ mb: 1.5, fontSize: '12px' }}>
@@ -211,8 +204,10 @@ const JoiningConfirm = () => {
                             <Divider sx={{ my: 2 }} />
 
                             {/* Submitted documents */}
-                            <Typography sx={{ fontWeight: 600, fontSize: '13px', fontFamily: 'monospace',
-                                textTransform: 'uppercase', letterSpacing: '0.06em', mb: 1, color: '#718096' }}>
+                            <Typography sx={{
+                                fontWeight: 600, fontSize: '13px', fontFamily: 'monospace',
+                                textTransform: 'uppercase', letterSpacing: '0.06em', mb: 1, color: '#718096'
+                            }}>
                                 Documents submitted to company
                             </Typography>
                             <Alert severity="success" sx={{ mb: 1.5, fontSize: '12px' }}>

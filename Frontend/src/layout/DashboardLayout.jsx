@@ -39,8 +39,8 @@ const menuItems = {
         { label: 'Onboard Employee', path: '/company/onboard', icon: GroupAddIcon },
         { label: 'Employee Exits', path: '/company/employee_exit', icon: ExitToAppIcon },
         { label: 'Employee List', path: '/company/employees', icon: GroupIcon },
-        { label: 'Register Company', path: '/company/register', icon: BusinessIcon },
-        { label: 'Verify Company', path: '/company/verify', icon: VerifiedIcon },
+        // { label: 'Register Company', path: '/company/register', icon: BusinessIcon },
+        // { label: 'Verify Company', path: '/company/verify', icon: VerifiedIcon },
     ],
     admin: [
         { label: 'Dashboard', path: '/admin', icon: DashboardIcon },

@@ -29,7 +29,7 @@ const Login = () => {
         try {
             const res = await authAPI.login({ email: form.email, password: form.password });
             const decoded = decodeToken(res.data.access_token)
-            console.log(decoded)
+
             // login({ role: res.data.role, user_id: res.data.user_id, company_id: res.data.company_id, institute_id: res.data.institute_id });
             login({
                 access_token:   res.data.access_token,

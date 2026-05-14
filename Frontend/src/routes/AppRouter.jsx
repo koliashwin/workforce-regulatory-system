@@ -11,7 +11,6 @@ import OnboardStudent from '../pages/institute/OnboardStudent'
 import CandidateList from '../pages/institute/CandidateList'
 import OnboardEmployee from '../pages/company/OnboardEmployee'
 import EmployeeList from '../pages/company/EmployeeList'
-import RegisterCompany from '../pages/company/RegisterCompany'
 import VerifyCompany from '../pages/company/VerifyCompany'
 import EmployeeExits from '../pages/company/EmployeeExits'
 import JoiningConfirm from '../pages/candidate/JoiningConfirm'
@@ -25,6 +24,9 @@ import InstituteList from '../pages/admin/InstituteList'
 import PublicHome from '../pages/public/LandingPage'
 import InstituteSearchPage from '../pages/public/InstituteSearchPage'
 import CompanySearchPage from '../pages/public/CompanySearchPage'
+import GetStarted          from '../pages/public/GetStarted'
+import RegisterCompany     from '../pages/public/RegisterCompany'
+import RegisterInstitute   from '../pages/public/RegisterInstitute'
 
 const AppRouter = () => {
     return (
@@ -38,6 +40,10 @@ const AppRouter = () => {
                     {/* <Route path='/'         element={<Home />} /> */}
                     <Route path="institutes"    element={<InstituteSearchPage />} />
                     <Route path="companies"     element={<CompanySearchPage />} />
+
+                    <Route path='/get-started'        element={<GetStarted />} />
+                    <Route path='/register/company'   element={<RegisterCompany />} />
+                    <Route path='/register/institute' element={<RegisterInstitute />} />
                 </Route>
 
                 {/* Protected Pages */}
@@ -67,7 +73,7 @@ const AppRouter = () => {
                             <Route path='employee_exit'     element={<EmployeeExits />} />
                             <Route path='employees'         element={<EmployeeList />} />
                             {/* <Route path='company_list' element={<CompanyList />} /> */}
-                            <Route path='register'          element={<RegisterCompany />} />
+                            {/* <Route path='register'          element={<RegisterCompany />} /> */}
                             <Route path='verify'            element={<VerifyCompany />} />
                         </Route>
 

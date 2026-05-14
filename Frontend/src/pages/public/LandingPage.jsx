@@ -306,7 +306,7 @@ const PublicHome = () => {
                     <Typography sx={{ color: '#718096', fontSize: '0.9375rem', mb: 3 }}>
                         Create your verified profile and join the platform that makes fraud impossible.
                     </Typography>
-                    <Button variant="contained" size="large" component="a" href="/login"
+                    <Button variant="contained" size="large" component="a" onClick={() => navigate('/get-started')}
                         sx={{
                             background: '#f59e0b', color: '#0d1117', fontWeight: 600, px: 4,
                             '&:hover': { background: '#fbbf24' }

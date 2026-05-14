@@ -41,8 +41,7 @@ const OnboardStudent = () => {
 
         try {
             const res = await instituteAPI.onboardStudent(form);
-            console.log("Student onboarded : ", res.data);
-            console.log("Form Data : ", form);
+
             alert("Student Created successfully");
         } catch (error) {
             console.log(error);

@@ -27,8 +27,7 @@ const RegisterCompany = () => {
 
         try {
             const res = await companyAPI.registerCompany(form);
-            console.log("company data : ", res.data);
-            console.log("Form Data : ", form);
+            
             alert("Company Created successfully");
         } catch (error) {
             console.log(error);

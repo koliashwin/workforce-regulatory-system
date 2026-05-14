@@ -26,8 +26,6 @@ const VerifyCompany = () => {
 
         try {
             const res = await companyAPI.verifyComapny(form);
-            console.log("company cin : ", res.data);
-            console.log("Form Data : ", form);
 
             const alert_msg = res.data.verified ? "Company is Registered in India" : "Company does not exist in MCA DB";
 
