@@ -333,7 +333,7 @@
         "Subcategory":"Government company",
         "Class":"Private",
         "Active compliance":"ACTIVE Compliant",
-        "Status":"Dissolved"
+        "Status":"Active"
     },
     {
         "CIN":"U61599RJ2005PLC189112",
@@ -347,6 +347,20 @@
         "Subcategory":"Government company",
         "Class":"Public",
         "Active compliance":"INACTIVE Non-Compliant",
+        "Status":"Active"
+    },
+    {
+        "CIN":"U71025RJ2005QIN571028",
+        "Company Name":"Fakebook India",
+        "ROC Name":"ROC Pune",
+        "Registration Number":708998,
+        "Date of Incorporation":"22-11-1894",
+        "Email Id":"fakebook@gmail.com",
+        "Registered Address":"625, Tower, Tech Park, Pune, India",
+        "Category":"Company limited by guarantee",
+        "Subcategory":"Government company",
+        "Class":"Public",
+        "Active compliance":"ACTIVE Compliant",
         "Status":"Active"
     }
 ]

@@ -2,28 +2,30 @@ from datetime import date
 from pydantic import BaseModel
 
 class CandidateCreate(BaseModel):
-    # personal info (users table)
-    role_code: int
+    # # personal info (users table)
+    # role_code: int
     email: str
-    password_hash: str
+    # password_hash: str
     name: str
     contact_no: str
     dob: date
-    created_on: str
-    updated_on: str
-    last_login: str
+    # created_on: str
+    # updated_on: str
+    # last_login: str
 
-    # Academic info (candidates table)
-    user_id: int
+    # # Academic info (candidates table)
+    # user_id: int
     institute_id: int
     course: str
     passout_year: int
     skills: str
 
-    # College/Institute reference (institutes table)
-    institute_name: str
-    institute_email: str
-    institute_code: int
+    # # College/Institute reference (institutes table)
+    # institute_name: str
+    # institute_email: str
+    # institute_code: int
+
+    
 
 class CandidateResponse(BaseModel):
     # personal info identifires

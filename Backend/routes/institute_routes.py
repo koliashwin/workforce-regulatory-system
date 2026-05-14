@@ -6,23 +6,23 @@ from utils.auth_dependency import get_current_user
 
 router = APIRouter(prefix='/institute', tags=['institute'])
 
-@router.post('/register')
-def create_institute(institute: CompanyCreate):
-    result = register_institute(institute)
+# @router.post('/register')
+# def create_institute(institute: CompanyCreate):
+#     result = register_institute(institute)
     
-    if not result['success']:
-        raise HTTPException(status_code=400, detail=result['error'])
+#     if not result['success']:
+#         raise HTTPException(status_code=400, detail=result['error'])
     
-    return {'message': 'Institute Created Successfully'}
+#     return {'message': 'Institute Created Successfully'}
 
-@router.get('/institute_list')
-def institute_list():
-    result = all_institutes_list()
+# @router.get('/institute_list')
+# def institute_list():
+#     result = all_institutes_list()
 
-    if not result['success']:
-        raise HTTPException(status_code=400, detail=result['error'])
+#     if not result['success']:
+#         raise HTTPException(status_code=400, detail=result['error'])
     
-    return result['data']
+#     return result['data']
 
 @router.post('/onboard_students')
 def create_candidate(candidate: CandidateCreate):

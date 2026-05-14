@@ -104,7 +104,7 @@ def register_institute(data):
             (data.email, hash_password("Abced@12345"), data.user_name, data.contact_no, date.today())
         )
         user_id = cursor.lastrowid
-        print(hash_password("Abced@12345"))
+
         # store company details int DB
         cursor.execute(
             "INSERT INTO institutes (name, institute_code, user_id, address, contact_no, email) VALUES(%s, %s, %s, %s, %s, %s)",

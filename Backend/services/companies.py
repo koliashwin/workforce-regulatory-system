@@ -11,6 +11,17 @@ def register_company(data):
     cursor = conn.cursor(dictionary=True)
 
     try:
+        # ── 1. Verify CIN before creating anything ────────────────
+        file_path = os.path.join(os.path.dirname(__file__), "../dummy DB/MCA companies.json")
+        with open(file_path, "r") as f:
+            mca_data = json.load(f)
+
+        verification_status = "Unknown"
+        for company in mca_data:
+            if (company['CIN'].strip().upper() == data.cin.strip().upper()
+                    and company["Status"].lower() == "active"):
+                verification_status = "Registered"
+
         # create a user for company
         cursor.execute(
             "INSERT INTO users (role_code, email, password_hash, name, contact_no, dob) VALUES (300, %s, %s, %s, %s, %s)",
@@ -20,8 +31,8 @@ def register_company(data):
 
         # store company details int DB
         cursor.execute(
-            "INSERT INTO companies (name, cin, user_id, address, contact_no, email) VALUES(%s, %s, %s, %s, %s, %s)",
-            (data.name, data.cin, user_id, data.address, data.contact_no, data.email)
+            "INSERT INTO companies (name, cin, user_id, address, contact_no, email, verification_status) VALUES(%s, %s, %s, %s, %s, %s, %s)",
+            (data.name, data.cin, user_id, data.address, data.contact_no, data.email, verification_status)
         )
         company_id = cursor.lastrowid
         conn.commit()
@@ -33,10 +44,10 @@ def register_company(data):
             target_type="companies",
             target_id=company_id,
             description=f"Company Registred on Platform",
-            metadata={"cin": data.cin}
+            metadata={"cin": data.cin, "verification_status": verification_status}
         )
 
-        return {"success": True, "company_id": cursor.lastrowid}
+        return {"success": True, "company_id": cursor.lastrowid, "verification_status": verification_status}
     
     except Exception as e:
         conn.rollback()
@@ -91,151 +102,6 @@ def verify_company(cin: str):
             metadata={"cin": cin, "result": "unknown"}
         )
         return {"success": True, "verified": False, "details": None}
-
-    except Exception as e:
-        conn.rollback()
-        return {"success": False, "error": str(e)}
-    
-    finally:
-        cursor.close()
-        conn.close()
-
-def onboard_employee(data):
-
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-
-    try:
-        # fetch company_id
-        # for now will need to fetch the company_id via following query 
-        # when the front-end is setup will store it in session or localstorage and collect directly form there
-        # cursor.execute(
-        #     "SELECT company_id FROM companies WHERE cin = %s", (data.company_cin,)
-        # )
-        # company_data = cursor.fetchone()
-
-        # if not company_data:
-        #     return {"success": False, "error": "Company not found"}
-
-        # company_id = company_data['company_id']         # till here its the optional code (will change afte frontend setup)
-
-        # fetch user_id
-        # this is also optional code 
-        # will have to alter once jobs related modules are implemented
-        cursor.execute(
-            "SELECT user_id FROM users WHERE email = %s", (data.user_email,)
-        )
-        user_data = cursor.fetchone()
-
-        if not user_data:
-            return {"success": False, "error": "User not found"}
-
-        user_id = user_data['user_id']                  # till here its the optional code (will change afte implementation for jobs module)
-
-        cursor.execute(
-            "INSERT INTO employees (company_id, user_id, designation) VALUES (%s, %s, %s)",
-            (data.company_id, user_id, data.designation)
-        )
-        emp_id = cursor.lastrowid
-
-        cursor.execute(
-            "INSERT INTO employee_history (company_id, emp_id, joining_date, status) VALUES (%s, %s, %s, 'Joined Company')",
-            (data.company_id, emp_id, data.joining_date)
-        )
-        conn.commit()
-
-        # audit log for onboarding employee
-        log_action(
-            action="EMPLOYEE_ONBOARDING_INITIATED",
-            performed_by="companies",
-            performed_by_id=data.company_id,
-            target_type="employee",
-            target_id=emp_id,
-            description=f"Employee {emp_id} Onboarding initiated by Company {data.company_id}",
-            metadata={"company_id": data.company_id, "emp_id": emp_id}
-        )
-        return {"success": True, "user_id":user_id, "emp_id": emp_id, "emp_history_id": cursor.lastrowid}
-
-    except Exception as e:
-        conn.rollback()
-        return {"success": False, "error": str(e)}
-    
-    finally:
-        cursor.close()
-        conn.close()
-
-def exit_employee(data):
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-
-    try:
-        # fetch company_id
-        # for now will need to fetch the company_id via following query 
-        # when the front-end is setup will store it in session or localstorage and collect directly form there
-        # cursor.execute(
-        #     "SELECT company_id FROM companies WHERE cin = %s", (data.company_cin,)
-        # )
-        # company_data = cursor.fetchone()
-
-        # if not company_data:
-        #     return {"success": False, "error": "Company not found"}
-
-        # company_id = company_data['company_id']         # till here its the optional code (will change afte frontend setup)
-
-        # fetch user_id
-        # this is also optional code 
-        # will have to alter once jobs related modules are implemented
-        cursor.execute(
-            "SELECT user_id FROM users WHERE email = %s", (data.user_email,)
-        )
-        user_data = cursor.fetchone()
-
-        if not user_data:
-            return {"success": False, "error": "User not found"}
-
-        user_id = user_data['user_id']                  # till here its the optional code (will change afte implementation for jobs module)
-
-        # fetch emp_id
-        cursor.execute(
-            "SELECT emp_id FROM employees WHERE company_id = %s and user_id = %s", (data.company_id, user_id)
-        )
-        emp_data = cursor.fetchone()
-
-        if not emp_data:
-            return {"success": False, "error": "Employee not found"}
-
-        emp_id = emp_data['emp_id']
-
-        # check if exit date exist in the employee_history table
-        cursor.execute(
-            "SELECT exit_date FROM employee_history WHERE company_id = %s and emp_id = %s",
-            (data.company_id, emp_id)
-        )
-        emp_history_record = cursor.fetchone()
-        
-
-        if emp_history_record and emp_history_record['exit_date']:
-            # here comes the dispute logic (right now module is not emplimented)
-            return {'success': True, 'message': 'Exit_date already exists'}
-        
-        cursor.execute(
-            "UPDATE employee_history SET exit_date = %s WHERE company_id = %s and emp_id = %s",
-            (data.exit_date, data.company_id, emp_id)
-        )
-        conn.commit()
-
-        # audit log for onboarding employee
-        log_action(
-            action="EMPLOYEE_EXIT_INITIATED",
-            performed_by="companies",
-            performed_by_id=data.company_id,
-            target_type="employee",
-            target_id=emp_id,
-            description=f"Employee {emp_id} Exit initiated by Company {data.company_id}",
-            metadata={"company_id": data.company_id, "emp_id": emp_id}
-        )
-
-        return {"success": True, "message": 'Exit date updated by company', "user_id":user_id, "emp_id": emp_id, "emp_history_id": cursor.lastrowid}
 
     except Exception as e:
         conn.rollback()

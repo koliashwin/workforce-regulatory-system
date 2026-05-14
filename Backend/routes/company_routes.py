@@ -8,12 +8,12 @@ from utils.auth_dependency import get_current_user
 router = APIRouter(prefix="/company", tags=["company"])
 
 
-@router.post("/register")
-def create_company(company: CompanyCreate):
-    result = register_company(company)
-    if not result["success"]:
-        raise HTTPException(status_code=400, detail=result["error"])
-    return {"message": "Company Created Successfully"}
+# @router.post("/register")
+# def create_company(company: CompanyCreate):
+#     result = register_company(company)
+#     if not result["success"]:
+#         raise HTTPException(status_code=400, detail=result["error"])
+#     return {"message": "Company Created Successfully"}
 
 
 @router.post("/verify_company")

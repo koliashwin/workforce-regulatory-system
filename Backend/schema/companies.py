@@ -8,7 +8,7 @@ class CompanyCreate(BaseModel):
     address: str
     contact_no: str
     email: str
-    verification_status: str
+    # verification_status: str
 
 class CompanyResponse(BaseModel):
     company_id: int

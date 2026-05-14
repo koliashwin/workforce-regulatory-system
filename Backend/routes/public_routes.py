@@ -1,6 +1,7 @@
+from schema.companies import CompanyCreate
 from fastapi import APIRouter, HTTPException
-from services.institutes import view_institute_profile, all_institutes_list
-from services.companies import view_company_profile
+from services.institutes import register_institute, view_institute_profile, all_institutes_list
+from services.companies import register_company, verify_company, view_company_profile
 from services.admin import all_company_list
 from services.dipsutes import view_all_disputes
 from services.public import overall_states, _safe_company, _safe_institute
@@ -72,3 +73,47 @@ def public_company_profile(company_id: int):
     if not result["success"]:
         raise HTTPException(status_code=404, detail=result["error"])
     return _safe_company(result["data"])
+
+
+@router.post('/register/company')
+def register_company_public(data: CompanyCreate):
+    """
+    Public endpoint — anyone can register a company.
+    After registration, company must verify via CIN before onboarding employees.
+    Default password: Abced@12345 (user should change on first login).
+    """
+    result = register_company(data)
+    if not result['success']:
+        raise HTTPException(status_code=400, detail=result['error'])
+    return {
+        'message': 'Company registered successfully. Please login with your email.',
+        'company_id': result['company_id']
+    }
+
+
+@router.post('/register/institute')
+def register_institute_public(data: CompanyCreate):
+    """
+    Public endpoint — anyone can register an institute.
+    Uses CompanyCreate schema since the fields are identical.
+    Default password: Abced@12345 (user should change on first login).
+    """
+    result = register_institute(data)
+    if not result['success']:
+        raise HTTPException(status_code=400, detail=result['error'])
+    return {
+        'message': 'Institute registered successfully. Please login with your email.',
+        'institute_id': result['institute_id']
+    }
+
+
+@router.post('/verify/company')
+def verify_company_public(cin: str):
+    """
+    Public CIN verification — can be called before or after login.
+    Used on the registration page to check CIN validity instantly.
+    """
+    result = verify_company(cin)
+    if not result['success']:
+        raise HTTPException(status_code=400, detail=result['error'])
+    return result
