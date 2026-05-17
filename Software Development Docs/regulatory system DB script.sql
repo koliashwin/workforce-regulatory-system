@@ -215,4 +215,20 @@ ALTER TABLE disputes
         'resolved',
         'rejected'
     ) NOT NULL DEFAULT 'pending';
-    
+
+
+-- Notifications 
+
+CREATE TABLE notifications (
+    notification_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id         INT NOT NULL,
+    type            VARCHAR(60) NOT NULL,
+    title           VARCHAR(160) NOT NULL,
+    message         TEXT NOT NULL,
+    is_read         BOOLEAN DEFAULT FALSE,
+    created_on      DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_notifications_user_unread
+    ON notifications (user_id, is_read, created_on DESC);
