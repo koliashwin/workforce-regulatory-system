@@ -168,3 +168,48 @@
     - Separated some features and created Admin services
     - done some refactoring as per new fetures
 #
+
+### Date : 02-May-2026
+  - **Work :**
+    - revise the project and planed next tasks
+#
+
+### Date : 03-May-2026
+  - **Work :**
+    - created some public apis to showcase the company and institute states
+#
+
+### Date : 04-May-2026
+  - **Work :**
+    - deployed backend on render.com
+    - some debuging
+#
+
+### Date : 05-May-2026
+  - **Work :**
+    - made some adjustments regarding deployment (.env & some debugging)
+#
+
+### Date : 07-May-2026
+  - **Work :**
+    - implemented the logic for audit logs
+#
+
+### Date : 08-May-2026
+  - **Work :**
+    - implemented JWT logic
+    - password encryption & decryption
+    - refactoing (tweeks as per jwt and password encryption)
+#
+
+### Date : 10-May-2026
+  - **Work :**
+    - improved the joining and exit logic for candidate and institute module
+#
+
+### Date : 12-May-2026
+  - **Work :**
+    - improved the company and institute register logic
+    - DB script improvement
+#
+

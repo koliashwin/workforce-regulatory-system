@@ -115,4 +115,56 @@
 ### Date: 06-Dec-2025
   - **Work :**
     - Continue testing end-to-end application flow 
-    - Continue to work on 
+#
+
+### Date : 02-May-2026
+  - **Work :**
+    - revise the project and planed next tasks
+#
+
+### Date : 03-May-2026
+  - **Work :**
+    - created dashboards for candidates, company and institute
+    - worked on UI theme
+#
+
+### Date : 04-May-2026
+  - **Work :**
+    - created Landing page, company and instituet search pages
+#
+
+### Date : 05-May-2026
+  - **Work :**
+    - deployed the frontend on vercle.com
+    - debugging
+#
+
+### Date : 08-May-2026
+  - **Work :**
+    - minor tweeks in landing page
+#
+
+### Date : 09-May-2026
+  - **Work :**
+    - refactored the frontend to as per JWT and password encryption backend logic
+#
+
+### Date : 11-May-2026
+  - **Work :**
+    - updated joining and exit pages as per improved backend logic
+#
+
+### Date : 13-May-2026
+  - **Work :**
+    - updated existing pages as per improved joining and exit logic
+#
+
+### Date : 14-May-2026
+  - **Work :**
+    - Worked on bulkupload feature for candidate onboard, student onboard and candidate exit
+#
+
+### Date : 15-May-2026
+  - **Work :**
+    - Application flow testing
+#
