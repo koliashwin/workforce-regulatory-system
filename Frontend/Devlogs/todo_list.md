@@ -18,22 +18,44 @@
   - [x] Employee Exit (company)
   - [x] Joining confirmation (candidate)
   - [x] Exit confirmation (candidate)
-- [ ] Frontend views
+  - [x] joining doc checklist (candidate)
+  - [x] exit doc checklist (candidate)
+- [x] Frontend views
   - [x] Candidate List (institute)
   - [x] Candidate Profile (candidate)
   - [x] Company Profile
   - [x] Institute Profile
   - [x] Employee List (company)
   - [x] Company List (company) 
-  - [ ] Dispute List (all)
+  - [x] Dispute List 
+  - [x] admin dashboard
+  - [x] public view for company stats
+  - [x] public view for institute stats
 - [x] API interation logic (basic)
 - [x] Connect all Forms to backend
 - [x] Connect all views to backend
+- [x] Employee bulk onboarding
+- [x] Candidate bulk onboarding
+- [x] Presistant Login
+- [x] JWT based authenticaton
+- [x] basic landing page with sample data
+- [x] resuable components for (table display, KPI display, status display)
 #
 
 ## Testing
 - [x] Test API communication between Froentend & Backend
 
-## Streched Features
-- [x] Presistant Login
-- [x] JWT based authenticaton
+## Known Gaps
+
+- [ ] `/unautorized` page missing
+- [ ] Company ID should be replaced with company name in `JoiningConfirm` and `ExitConfirm` flow
+- [ ] some `console.log(...)` statements in the codebase (left for debugging purpose)
+
+
+## Planed features (future)
+
+- [ ] better analytic presentation on public pages (InstituteSearchPage and CompanySearchPage)
+- [ ] forgot/reset password page
+- [ ] filters on employee list
+- [ ] email integration
+- [ ] mobile responsive layout

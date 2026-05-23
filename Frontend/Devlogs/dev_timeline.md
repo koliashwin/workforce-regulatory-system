@@ -168,3 +168,29 @@
   - **Work :**
     - Application flow testing
 #
+
+### Date : 17-May-2026
+  - **Work :**
+    - Added notification component
+#
+
+### Date : 18-May-2026
+  - **Work :**
+    - integrated backend notification logic with frontend
+#
+
+### Date : 19-May-2026
+  - **Work :**
+    - Tweek related to notification integration
+    - Basic flow testing
+#
+
+### Date : 20-May-2026
+  - **Work :**
+    - frontend workflow documentation
+#
+
+### Date : 22-May-2026
+  - **Work :**
+    - feature testing documentation
+#
