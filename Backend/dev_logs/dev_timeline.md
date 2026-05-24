@@ -233,3 +233,13 @@
   - **Work :**
     - feature testing documentation
 #
+
+### Date : 23-May-2026
+  - **Work :**
+    - API payload and response documentation
+#
+
+### Date : 24-May-2026
+  - **Work :**
+    - API payload and response documentation complete
+#
