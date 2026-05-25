@@ -1,11 +1,11 @@
-drop table candidates;
-drop table employee_history;
-drop table employees;
-drop table institutes;
-drop table companies;
-drop table disputes;
-drop table Users;
-drop table roles;
+drop table if exists candidates;
+drop table if exists employee_history;
+drop table if exists employees;
+drop table if exists institutes;
+drop table if exists companies;
+drop table if exists disputes;
+drop table if exists Users;
+drop table if exists roles;
 
 create table roles (
 	role_id int primary key auto_increment,
