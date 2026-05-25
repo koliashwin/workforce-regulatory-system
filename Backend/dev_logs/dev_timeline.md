@@ -243,3 +243,10 @@
   - **Work :**
     - API payload and response documentation complete
 #
+
+### Date : 25-May-2026
+  - **Work :**
+    - Created SETUP.md doc 
+    - Updated README.md
+    - small refactor in db script
+#
