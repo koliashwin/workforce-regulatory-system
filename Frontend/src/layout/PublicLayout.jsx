@@ -44,7 +44,7 @@ const PublicLayout = () => {
                             <Typography sx={{
                                 fontFamily: 'Georgia, serif', fontWeight: 700, fontSize: '1rem',
                                 color: '#fff', lineHeight: 1
-                            }}>Scame</Typography>
+                            }}>Workforce</Typography>
                             <Typography sx={{
                                 fontSize: '9px', color: '#4a5568', fontFamily: 'monospace',
                                 letterSpacing: '0.08em'
@@ -118,7 +118,7 @@ const PublicLayout = () => {
                 <Container maxWidth="lg">
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}>
                         <Typography sx={{ fontFamily: 'monospace', fontSize: '11px', color: '#4a5568', letterSpacing: '0.06em' }}>
-                            SCAME REGULATORY SYSTEM — EMPLOYMENT LIFECYCLE & VERIFICATION PLATFORM
+                            WORKFORCE REGULATORY SYSTEM — EMPLOYMENT LIFECYCLE & VERIFICATION PLATFORM
                         </Typography>
                         <Typography sx={{ fontSize: '11px', color: '#4a5568' }}>
                             Built by Ashwin Koli · Open-source prototype

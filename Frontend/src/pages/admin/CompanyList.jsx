@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Box } from '@mui/material';
-import FullTable from '../../components/FullTable';
+import { Box, Typography } from '@mui/material';
 import adminAPI from '../../api/modules/adminAPI';
+import DataTable from '../../components/DataTable';
 
 const CompanyList = () => {
     const [companies, setCompanies] = useState([]);
@@ -23,10 +23,12 @@ const CompanyList = () => {
 
     return (
         <Box>
-            <FullTable
-                title="All Comapanies"
+            <Typography variant="h3" sx={{ mb: 0.5 }}>All Companies</Typography>
+            <DataTable
+                // title="All Comapanies"
                 data={companies}
                 columns={companyListColumns}
+                emptyText='No companies exist yet'
             />
 
         </Box>

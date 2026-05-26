@@ -194,3 +194,10 @@
   - **Work :**
     - feature testing documentation
 #
+
+### Date : 26-May-2026
+  - **Work :**
+    - solved date format bug in bulk upload component
+    - Static content tweeks in multiple files
+    - other minor tweeks
+#

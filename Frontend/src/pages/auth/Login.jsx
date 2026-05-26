@@ -63,7 +63,7 @@ const Login = () => {
                         <ShieldIcon sx={{ fontSize: 22, color: tokens.navy[900] }} />
                     </Box>
                     <Box>
-                        <Typography sx={{ fontFamily: '"Fraunces", serif', fontWeight: 700, fontSize: '1.375rem', color: '#fff', lineHeight: 1 }}>Scame</Typography>
+                        <Typography sx={{ fontFamily: '"Fraunces", serif', fontWeight: 700, fontSize: '1.375rem', color: '#fff', lineHeight: 1 }}>Workforce</Typography>
                         <Typography sx={{ fontSize: '0.65rem', color: tokens.slate[300], fontFamily: '"DM Mono", monospace', letterSpacing: '0.1em' }}>REGULATORY SYSTEM</Typography>
                     </Box>
                 </Box>
@@ -101,7 +101,7 @@ const Login = () => {
                             <Box sx={{ width: 32, height: 32, borderRadius: '8px', background: tokens.amber[500], display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <ShieldIcon sx={{ fontSize: 18, color: tokens.navy[900] }} />
                             </Box>
-                            <Typography sx={{ fontFamily: '"Fraunces", serif', fontWeight: 700, color: tokens.navy[800] }}>Scame</Typography>
+                            <Typography sx={{ fontFamily: '"Fraunces", serif', fontWeight: 700, color: tokens.navy[800] }}>Workforce</Typography>
                         </Box>
 
                         <Typography variant="h4" sx={{ mb: 0.5 }}>Sign in</Typography>

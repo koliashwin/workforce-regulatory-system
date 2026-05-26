@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
-// Scame Regulatory System — "Trust Infrastructure" aesthetic
+// Workforce Regulatory System — "Trust Infrastructure" aesthetic
 // Dark navy authority with amber accent. Feels like a government-grade tool
 // that a startup actually wants to use. No purple gradients.
 

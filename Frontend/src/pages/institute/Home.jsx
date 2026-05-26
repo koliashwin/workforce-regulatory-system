@@ -48,6 +48,7 @@ const InstituteHome = () => {
     const disputes = profile?.dispute_history || [];
     const employed = students.filter(s => s.company_name).length;
     const pendingD = disputes.filter(d => d.status === 'pending').length;
+    const isVerified = info.verification_status?.toLowerCase() === 'registered';
 
     return (
         <Box>
@@ -55,7 +56,9 @@ const InstituteHome = () => {
                 <Typography variant="h3">{info.name || 'Institute Dashboard'}</Typography>
                 <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
                     {info.address} &nbsp;·&nbsp;
-                    <span style={{ color: tokens.green[600], fontWeight: 600 }}>✓ {info.verification_status}</span>
+                    <span style={{ color: isVerified ? tokens.green[600] : tokens.amber[600], fontWeight: 600 }}>
+                        {isVerified ? '✓ Verified' : '⚠ Unverified'}
+                    </span>
                 </Typography>
             </Box>
 

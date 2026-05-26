@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import instituteAPI from '../../api/modules/instituteAPI';
-import { Box } from '@mui/material';
-import FullTable from '../../components/FullTable';
+import { Box, Typography } from '@mui/material';
 import { useAuth } from '../../context/AuthContext';
+import DataTable from '../../components/DataTable';
 
 const CandidateList = () => {
     const [candidates, setCandidates] = useState([]);
@@ -23,10 +23,12 @@ const CandidateList = () => {
 
     return (
         <Box>
-            <FullTable 
-                title='All Candidates'
+            <Typography variant="h3" sx={{ mb: 0.5 }}>All Candidates</Typography>
+            <DataTable 
+                // title='All Candidates'
                 data={candidates}
                 columns={candidateListColumns}
+                emptyText='No candidates exist yet. you can initiate onboarding process in onbording section'
             />
 
         </Box>

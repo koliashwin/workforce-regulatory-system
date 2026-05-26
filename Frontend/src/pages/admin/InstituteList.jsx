@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import adminAPI from '../../api/modules/adminAPI';
-import { Box } from '@mui/material';
-import FullTable from '../../components/FullTable';
+import { Box, Typography } from '@mui/material';
+import DataTable from '../../components/DataTable';
 
 const InstituteList = () => {
   const [institutes, setInstitutes] = useState([]);
@@ -23,10 +23,12 @@ const InstituteList = () => {
   
       return (
           <Box>
-              <FullTable
-                  title="All Institutes"
+            <Typography variant="h3" sx={{ mb: 0.5 }}>All Institutes</Typography>
+              <DataTable
+                //   title="All Institutes"
                   data={institutes}
                   columns={instituteListColumns}
+                  emptyText='No Institutes exist yet'
               />
   
           </Box>

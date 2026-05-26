@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import { useAuth } from '../../context/AuthContext';
 import instituteAPI from '../../api/modules/instituteAPI';
-import BulkUpload from '../../components/BulkUpload';
+import BulkUpload, {normalizeExcelDate} from '../../components/BulkUpload';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
@@ -99,7 +99,7 @@ const OnboardStudent = () => {
             name: row.name,
             email: row.email,
             contact_no: row.contact_no,
-            dob: row.dob,
+            dob: normalizeExcelDate(row.dob),
             course: row.course,
             passout_year: parseInt(row.passout_year),
             skills: row.skills || '',

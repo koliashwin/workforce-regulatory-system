@@ -110,8 +110,8 @@ const PublicHome = () => {
                         fontSize: '1.0625rem', color: '#718096', lineHeight: 1.75,
                         maxWidth: 600, mx: 'auto', mb: 4
                     }}>
-                        A verified, tamper-proof record of every employment event in India.
-                        Protecting candidates from fake experience letters, companies from fraudulent hires,
+                        A verified, traceable record of every employment event in India.
+                        Protecting candidates from unethical exit and joining, companies from fraudulent hires,
                         and institutes from impersonation.
                     </Typography>
 
@@ -159,20 +159,20 @@ const PublicHome = () => {
                                 fontFamily: 'Georgia, serif', fontSize: '1.75rem', fontWeight: 700,
                                 lineHeight: 1.3, mt: 1, mb: 2
                             }}>
-                                Fake experience letters are an industry. This kills that industry.
+                                Unethical hiring and exit, Unemployment, Underemployment
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.8 }}>
                                 India's hiring market is riddled with fraudulent resumes, backdated experience letters,
-                                unethical exit practices, and unverifiable degree claims. The cost is borne entirely
-                                by honest candidates who get filtered out, and companies who unknowingly hire frauds.
+                                unethical exit practices, unverifiable degree claims and degree holders with next to no domain knowledge. The cost is borne entirely
+                                by honest candidates who get filtered out and companies who unknowingly hire frauds.
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={7}>
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                                 <ProblemCard icon={WarningAmberIcon} color="#d97706" title="Fake experience letters"
                                     desc="Candidates forge employment records, inflating tenures by months or years. No mechanism existed to cross-verify." />
-                                <ProblemCard icon={LockIcon} color="#dc2626" title="Backdated joining and exit records"
-                                    desc="Companies manipulate onboarding dates. Candidates manipulate exit dates. Both happen routinely — with no audit trail." />
+                                <ProblemCard icon={LockIcon} color="#dc2626" title="Backdated onboarding and exit records"
+                                    desc="Companies manipulate onboarding dates. Candidates manipulate exit dates or documents. Both happen routinely — with no audit trail." />
                                 <ProblemCard icon={GavelIcon} color="#0d9488" title="Unverifiable degree claims"
                                     desc="Degrees from unaccredited or fake institutes are passed off as legitimate. No way for a recruiter to confirm without manually contacting the college." />
                             </Box>
@@ -199,13 +199,13 @@ const PublicHome = () => {
                                 desc="The journey starts when an institute adds a student's academic record to the system — programme, year, and credentials."
                                 actors={['Institute']} />
                             <Step num={2} title="Company onboards employee"
-                                desc="When hired, the company registers the candidate's joining date. This timestamp is immutable."
+                                desc="When hired, the company registers the candidate's joining date. This record is locked and dispute-tracked."
                                 actors={['Company']} />
                             <Step num={3} title="Candidate confirms joining"
                                 desc="The candidate independently confirms their joining date. If it doesn't match, a dispute is automatically raised."
                                 actors={['Candidate']} />
                             <Step num={4} title="Exit is recorded by both"
-                                desc="Both company and candidate log the exit date. Mismatches trigger disputes. Disputes are publicly visible."
+                                desc="Both company and candidate log the exit date. Mismatches trigger disputes. Disputes counts are publicly visible."
                                 actors={['Company', 'Candidate']} />
                             <Step num={5} title="Record is verified and permanent"
                                 desc="Once all dates match, the employment event is locked as verified — tamper-proof and available for any recruiter to check."
@@ -218,15 +218,15 @@ const PublicHome = () => {
                                 {[
                                     {
                                         icon: SchoolIcon, title: 'Institutes', color: '#161b26',
-                                        points: ['Track alumni employment outcomes', 'Prove degrees are legitimate', 'Dispute fraudulent impersonation claims']
+                                        points: ['Track alumni employment outcomes', 'Prove degrees are legitimate', 'Protection against degree impersonation']
                                     },
                                     {
                                         icon: BusinessIcon, title: 'Companies', color: '#0d9488',
-                                        points: ['Verified onboarding records', 'Transparent exit history', 'Dispute protection when candidate misrepresents']
+                                        points: ['Verified onboarding records', 'Transparent exit history', 'Evidence trail when a candidate misrepresents history']
                                     },
                                     {
                                         icon: VerifiedIcon, title: 'Candidates', color: '#d97706',
-                                        points: ['Tamper-proof employment history', 'No more "we can\'t verify" rejections', 'Protection from unethical exit practices']
+                                        points: ['Tamper-proof employment history', 'Evidence trail in case of disputes', 'Protection from unethical exit practices']
                                     },
                                 ].map(({ icon: Icon, title, color, points }) => (
                                     <Card key={title} sx={{ border: '1px solid #e2e8f0' }} elevation={0}>
@@ -266,10 +266,10 @@ const PublicHome = () => {
                             fontFamily: 'Georgia, serif', fontSize: '1.75rem', fontWeight: 700,
                             lineHeight: 1.3, mt: 1
                         }}>
-                            Every institution's record is visible to everyone.
+                            Every institution's stats are visible to everyone.
                         </Typography>
                         <Typography variant="body2" color="text.secondary" sx={{ mt: 1, maxWidth: 520, mx: 'auto' }}>
-                            Placement rates, dispute counts, verification status — public by default.
+                            Placement rates, dispute counts, verification status - public by default.<br/>
                             Accountability is not optional.
                         </Typography>
                     </Box>
@@ -304,7 +304,7 @@ const PublicHome = () => {
                         Are you a candidate, institute, or company?
                     </Typography>
                     <Typography sx={{ color: '#718096', fontSize: '0.9375rem', mb: 3 }}>
-                        Create your verified profile and join the platform that makes fraud impossible.
+                        Create your verified profile and join the platform that makes fraud harder to hide.
                     </Typography>
                     <Button variant="contained" size="large" component="a" onClick={() => navigate('/get-started')}
                         sx={{

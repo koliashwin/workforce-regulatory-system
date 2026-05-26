@@ -76,7 +76,7 @@ const DashboardLayout = () => {
                     <Box>
                         <Typography sx={{ fontFamily: '"Fraunces", serif', fontWeight: 700,
                                           fontSize: '1rem', color: '#fff', lineHeight: 1.1 }}>
-                            Scame
+                            Workforce
                         </Typography>
                         <Typography sx={{ fontSize: '0.65rem', color: tokens.slate[300],
                                           fontFamily: '"DM Mono", monospace', letterSpacing: '0.08em' }}>
@@ -147,16 +147,19 @@ const DashboardLayout = () => {
 
                         {/* ── Notification bell ── */}
                         <NotificationBell />  {/* ← ONE LINE */}
-
+                        
                         {/* User avatar */}
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1.5 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1 }}>
+                            <Typography sx={{ fontSize: '0.8rem', color: tokens.slate[200] }}>
+                                {user?.role || 'Guest'}
+                            </Typography>
                             <Box sx={{ width: 28, height: 28, borderRadius: '50%',
                                        background: tokens.navy[700], display: 'flex',
                                        alignItems: 'center', justifyContent: 'center' }}>
                                 <RoleIcon sx={{ fontSize: 14, color: tokens.amber[400] }} />
                             </Box>
                             <Typography sx={{ fontSize: '0.8rem', color: tokens.slate[200] }}>
-                                {user?.role || 'Guest'}
+                                {user?.email || 'Guest'}
                             </Typography>
                         </Box>
                     </Toolbar>

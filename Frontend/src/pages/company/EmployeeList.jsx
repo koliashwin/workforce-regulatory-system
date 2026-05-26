@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import companyAPI from '../../api/modules/companyAPI';
-import { Box } from '@mui/material';
-import FullTable from '../../components/FullTable';
+import { Box, Typography } from '@mui/material';
 import { useAuth } from '../../context/AuthContext';
+import DataTable from '../../components/DataTable';
 
 const EmployeeList = () => {
     const [emoloyees, setEmployees] = useState([]);
@@ -27,10 +27,12 @@ const EmployeeList = () => {
 
     return (
         <Box>
-            <FullTable
-                title="All Employees"
+            <Typography variant="h3" sx={{ mb: 0.5 }}>All Employees</Typography>
+            <DataTable
+                // title="All Employees"
                 data={emoloyees}
                 columns={employeeListColumns}
+                emptyText='No employees exist yet. you can start onboarding process in onboarding section'
             />
         </Box>
     )
