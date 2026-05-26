@@ -250,3 +250,8 @@
     - Updated README.md
     - small refactor in db script
 #
+
+### Date : 26-May-2026
+  - **Work :**
+    - added poling logic for database connection
+#
