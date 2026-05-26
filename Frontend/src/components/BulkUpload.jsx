@@ -9,6 +9,30 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import DownloadIcon from '@mui/icons-material/Download';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
+// normalize dates
+export const normalizeExcelDate = (value) => {
+    if (!value) return value;
+
+    // JavaScript Date object (from cellDates: true)
+    if (value instanceof Date) {
+        return value.toISOString().split('T')[0];
+    }
+
+    // Excel serial number (e.g. 45123)
+    if (!isNaN(value) && String(value).length <= 5) {
+        const date = new Date((Number(value) - 25569) * 86400 * 1000);
+        return date.toISOString().split('T')[0];
+    }
+
+    // Already a date string — normalize to YYYY-MM-DD
+    const parsed = new Date(value);
+    if (!isNaN(parsed.getTime())) {
+        return parsed.toISOString().split('T')[0];
+    }
+
+    return value;
+};
+
 // ── Row status chip ───────────────────────────────────────────────────────────
 const RowStatus = ({ status, error }) => {
     if (!status || status === 'pending')
@@ -48,20 +72,20 @@ const BulkUpload = ({
     infoMessage,
     templateSample = [],
 }) => {
-    const fileInputRef            = useRef();
-    const [rows, setRows]         = useState([]);
+    const fileInputRef = useRef();
+    const [rows, setRows] = useState([]);
     const [parseError, setParseError] = useState('');
-    const [uploading, setUploading]   = useState(false);
-    const [done, setDone]             = useState(false);
+    const [uploading, setUploading] = useState(false);
+    const [done, setDone] = useState(false);
 
-    const requiredKeys   = columns.map(c => c.key);
-    const displayCols    = previewCols
+    const requiredKeys = columns.map(c => c.key);
+    const displayCols = previewCols
         ? columns.filter(c => previewCols.includes(c.key))
         : columns.slice(0, 4);
 
     const successCount = rows.filter(r => r._status === 'success').length;
-    const failCount    = rows.filter(r => r._status === 'error').length;
-    const progress     = rows.length
+    const failCount = rows.filter(r => r._status === 'error').length;
+    const progress = rows.length
         ? Math.round((successCount + failCount) / rows.length * 100)
         : 0;
 
@@ -89,9 +113,9 @@ const BulkUpload = ({
         const reader = new FileReader();
         reader.onload = (evt) => {
             try {
-                const wb   = XLSX.read(evt.target.result, { type: 'binary' });
-                const ws   = wb.Sheets[wb.SheetNames[0]];
-                const data = XLSX.utils.sheet_to_json(ws, { raw: false });
+                const wb = XLSX.read(evt.target.result, { type: 'binary' });
+                const ws = wb.Sheets[wb.SheetNames[0]];
+                const data = XLSX.utils.sheet_to_json(ws, { raw: false, cellDates: true });
 
                 if (!data.length) {
                     setParseError('File is empty. Add rows to the spreadsheet and try again.');
@@ -100,7 +124,7 @@ const BulkUpload = ({
 
                 // Validate columns — case-insensitive
                 const fileCols = Object.keys(data[0]).map(c => c.toLowerCase().trim());
-                const missing  = requiredKeys.filter(k => !fileCols.includes(k.toLowerCase()));
+                const missing = requiredKeys.filter(k => !fileCols.includes(k.toLowerCase()));
                 if (missing.length) {
                     setParseError(`Missing columns: ${missing.join(', ')}. Download the template to see the correct format.`);
                     return;
@@ -255,8 +279,10 @@ const BulkUpload = ({
 
                         {uploading && (
                             <LinearProgress variant="determinate" value={progress}
-                                sx={{ mb: 2, height: 6, borderRadius: 3,
-                                    '& .MuiLinearProgress-bar': { background: '#0d9488' } }} />
+                                sx={{
+                                    mb: 2, height: 6, borderRadius: 3,
+                                    '& .MuiLinearProgress-bar': { background: '#0d9488' }
+                                }} />
                         )}
 
                         <Box sx={{ overflowX: 'auto' }}>
@@ -273,8 +299,8 @@ const BulkUpload = ({
                                     {rows.map((row, i) => (
                                         <TableRow key={i} sx={{
                                             background:
-                                                row._status === 'error'   ? '#fef2f2' :
-                                                row._status === 'success' ? '#f0fdf4' : 'transparent'
+                                                row._status === 'error' ? '#fef2f2' :
+                                                    row._status === 'success' ? '#f0fdf4' : 'transparent'
                                         }}>
                                             {displayCols.map(c => (
                                                 <TableCell key={c.key}
