@@ -86,13 +86,13 @@ const CompanyCard = ({ company, onClick }) => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <PeopleIcon sx={{ fontSize: 13, color: '#718096' }} />
             <Typography sx={{ fontSize: '12px', color: '#4a5568', fontFamily: 'monospace' }}>
-              {company.employee_count ?? '—'} employees
+              {company.employee_count ?? '-'} employees
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <WorkIcon sx={{ fontSize: 13, color: '#718096' }} />
             <Typography sx={{ fontSize: '12px', color: '#4a5568', fontFamily: 'monospace' }}>
-              {company.active_employees ?? '—'} active
+              {company.active_employees ?? '-'} active
             </Typography>
           </Box>
           {disputes.total > 0 && (
@@ -158,8 +158,8 @@ const CompanyDrawer = ({ company, open, onClose }) => {
         </Typography>
         <Grid container spacing={1.5} sx={{ mb: 2.5 }}>
           {[
-            { label: 'Total Employees', value: company.employee_count ?? '—',   color: '#161b26' },
-            { label: 'Currently Active', value: company.active_employees ?? '—', color: '#16a34a' },
+            { label: 'Total Employees', value: company.employee_count ?? '-',   color: '#161b26' },
+            { label: 'Currently Active', value: company.active_employees ?? '-', color: '#16a34a' },
           ].map(({ label, value, color }) => (
             <Grid item xs={6} key={label}>
               <Box sx={{ background: '#f7f9fc', borderRadius: '8px', p: 1.5, border: '1px solid #e2e8f0' }}>

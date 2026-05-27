@@ -34,7 +34,7 @@ const DisputesList = () => {
         <Box>
             <SectionHeader
                 title="Disputes"
-                sub="All disputes raised by or against you — auto-generated on date mismatches"
+                sub="All disputes raised by or against you - auto-generated on date mismatches"
                 Icon={GavelIcon}
             />
 
@@ -64,7 +64,7 @@ const DisputesList = () => {
                 </Card>
             )}
 
-            {/* How disputes work — shown when there are disputes */}
+            {/* How disputes work - shown when there are disputes */}
             {disputes.length > 0 && (
                 <Card sx={{ mb: 2.5, background: tokens.slate[50], border: `1px solid ${tokens.slate[100]}` }}>
                     <CardContent sx={{ py: '14px !important' }}>
@@ -72,7 +72,7 @@ const DisputesList = () => {
                         <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
                             {[
                                 ['Auto-generated', 'When joining or exit dates submitted by company and candidate do not match, a dispute is instantly created.'],
-                                ['Traceable', 'Each dispute records who raised it, against whom, and on what date — timestamped and immutable.'],
+                                ['Traceable', 'Each dispute records who raised it, against whom, and on what date - timestamped and immutable.'],
                                 ['Resolvable', 'Disputes are resolved by an admin after reviewing both parties\' submissions.'],
                             ].map(([title, desc]) => (
                                 <Box key={title} sx={{ flex: '1 1 180px', minWidth: 160 }}>

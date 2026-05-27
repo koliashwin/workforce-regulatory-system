@@ -56,7 +56,7 @@ const CompanyHome = () => {
             <Box sx={{ mb: 3 }}>
                 <Typography variant="h3">{info.name || 'Company Dashboard'}</Typography>
                 <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
-                    CIN: <span style={{ fontFamily: '"DM Mono", monospace', fontSize: '0.8rem' }}>{info.cin || '—'}</span>
+                    CIN: <span style={{ fontFamily: '"DM Mono", monospace', fontSize: '0.8rem' }}>{info.cin || '-'}</span>
                     &nbsp;·&nbsp;
                     <span style={{ color: isVerified ? tokens.green[600] : tokens.amber[600], fontWeight: 600 }}>
                         {isVerified ? '✓ Verified' : '⚠ Unverified'}
@@ -81,7 +81,7 @@ const CompanyHome = () => {
             {/* KPI row */}
             <Grid container spacing={2} sx={{ mb: 3 }}>
                 <Grid item xs={6} md={3}>
-                    <StatCard label="Total Employees" value={employees.length} icon={PeopleIcon} accent={tokens.teal[500]} />
+                    <StatCard label="Total Hires" value={employees.length} icon={PeopleIcon} accent={tokens.teal[500]} />
                 </Grid>
                 <Grid item xs={6} md={3}>
                     <StatCard label="Currently Active" value={active} icon={PersonAddIcon} accent={tokens.green[600]} />

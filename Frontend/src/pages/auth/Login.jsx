@@ -72,7 +72,7 @@ const Login = () => {
                     The system that makes scammers fear its existence.
                 </Typography>
                 <Typography variant="body2" sx={{ color: tokens.slate[300], lineHeight: 1.7 }}>
-                    A trusted platform for verifying employment history, academic credentials, and exit records — protecting candidates, companies, and institutes alike.
+                    A platform for verifying employment history, academic credentials and exit records. protecting candidates, companies and institutes alike.
                 </Typography>
 
                 <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', gap: 1.5 }}>

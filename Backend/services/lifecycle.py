@@ -117,7 +117,7 @@ def confirm_joining(data, user_id: int):
         if not history:
             return {"success": False, "error": "Company has not initiated the joining process yet"}
         if history['status'] != 'joining initiated':
-            return {"success": False, "error": f"Cannot confirm joining — current status is '{history['status']}'"}
+            return {"success": False, "error": f"Cannot confirm joining - current status is '{history['status']}'"}
 
         history_id = history['history_id']
         company_user_id = _get_company_user_id(cursor, data.company_id)
@@ -172,11 +172,11 @@ def confirm_joining(data, user_id: int):
                     "dispute_id": dispute.get('dispute_id')})
 
         # ── Notify both parties ───────────────────────────────────
-        notify(user_id, "DISPUTE_RAISED", "Dispute raised — joining date mismatch",
+        notify(user_id, "DISPUTE_RAISED", "Dispute raised - joining date mismatch",
                f"Your joining date ({data.joining_date}) doesn't match the company's record "
                f"({history['joining_date_company']}). Dispute #{dispute.get('dispute_id')} has been raised.")
         if company_user_id:
-            notify(company_user_id, "DISPUTE_RAISED", "Dispute raised — joining date mismatch",
+            notify(company_user_id, "DISPUTE_RAISED", "Dispute raised - joining date mismatch",
                    f"A candidate disputed their joining date. "
                    f"They submitted {data.joining_date}, your record shows {history['joining_date_company']}. "
                    f"Dispute #{dispute.get('dispute_id')} has been raised.")
@@ -223,7 +223,7 @@ def submit_joining_documents(data, user_id: int):
         if not history:
             return {"success": False, "error": "No employment history found"}
         if history['status'] != 'joining confirmed':
-            return {"success": False, "error": f"Cannot submit documents — current status is '{history['status']}'"}
+            return {"success": False, "error": f"Cannot submit documents - current status is '{history['status']}'"}
 
         history_id = history['history_id']
         company_user_id = _get_company_user_id(cursor, data.company_id)
@@ -286,11 +286,11 @@ def submit_joining_documents(data, user_id: int):
                    f"Missing joining docs for emp {emp_id}: {missing}",
                    {"missing_docs": missing, "dispute_id": dispute.get('dispute_id')})
 
-        notify(user_id, "DISPUTE_RAISED", "Dispute raised — joining documents missing",
+        notify(user_id, "DISPUTE_RAISED", "Dispute raised - joining documents missing",
                f"You reported missing documents: {', '.join(missing)}. "
                f"Dispute #{dispute.get('dispute_id')} has been raised automatically.")
         if company_user_id:
-            notify(company_user_id, "DISPUTE_RAISED", "Dispute raised — joining documents missing",
+            notify(company_user_id, "DISPUTE_RAISED", "Dispute raised - joining documents missing",
                    f"A candidate reported not receiving these joining documents: {', '.join(missing)}. "
                    f"Dispute #{dispute.get('dispute_id')} has been raised.")
 
@@ -342,7 +342,7 @@ def initiate_exit(data, company_id: int):
         if not history:
             return {"success": False, "error": "No employment history found"}
         if history['status'] != 'joining completed':
-            return {"success": False, "error": f"Cannot initiate exit — joining not completed. Status: '{history['status']}'"}
+            return {"success": False, "error": f"Cannot initiate exit - joining not completed. Status: '{history['status']}'"}
 
         cursor.execute(
             """UPDATE employee_history
@@ -397,7 +397,7 @@ def confirm_exit(data, user_id: int):
         if not history:
             return {"success": False, "error": "No employment history found"}
         if history['status'] != 'exit initiated':
-            return {"success": False, "error": f"Cannot confirm exit — current status is '{history['status']}'"}
+            return {"success": False, "error": f"Cannot confirm exit - current status is '{history['status']}'"}
 
         history_id = history['history_id']
         company_user_id = _get_company_user_id(cursor, data.company_id)
@@ -448,11 +448,11 @@ def confirm_exit(data, user_id: int):
                     "candidate_date": str(data.exit_date),
                     "dispute_id": dispute.get('dispute_id')})
 
-        notify(user_id, "DISPUTE_RAISED", "Dispute raised — exit date mismatch",
+        notify(user_id, "DISPUTE_RAISED", "Dispute raised - exit date mismatch",
                f"Your exit date ({data.exit_date}) doesn't match the company's record "
                f"({history['exit_date_company']}). Dispute #{dispute.get('dispute_id')} has been raised.")
         if company_user_id:
-            notify(company_user_id, "DISPUTE_RAISED", "Dispute raised — exit date mismatch",
+            notify(company_user_id, "DISPUTE_RAISED", "Dispute raised - exit date mismatch",
                    f"A candidate disputed their exit date. "
                    f"They submitted {data.exit_date}, your record shows {history['exit_date_company']}. "
                    f"Dispute #{dispute.get('dispute_id')} has been raised.")
@@ -499,7 +499,7 @@ def submit_exit_documents(data, user_id: int):
         if not history:
             return {"success": False, "error": "No employment history found"}
         if history['status'] != 'exit confirmed':
-            return {"success": False, "error": f"Cannot submit exit documents — current status is '{history['status']}'"}
+            return {"success": False, "error": f"Cannot submit exit documents - current status is '{history['status']}'"}
 
         history_id = history['history_id']
         company_user_id = _get_company_user_id(cursor, data.company_id)
@@ -560,11 +560,11 @@ def submit_exit_documents(data, user_id: int):
                    f"Missing exit docs for emp {emp_id}: {missing}",
                    {"missing_docs": missing, "dispute_id": dispute.get('dispute_id')})
 
-        notify(user_id, "DISPUTE_RAISED", "Dispute raised — exit documents missing",
+        notify(user_id, "DISPUTE_RAISED", "Dispute raised - exit documents missing",
                f"You reported missing exit documents: {', '.join(missing)}. "
                f"Dispute #{dispute.get('dispute_id')} has been raised.")
         if company_user_id:
-            notify(company_user_id, "DISPUTE_RAISED", "Dispute raised — exit documents missing",
+            notify(company_user_id, "DISPUTE_RAISED", "Dispute raised - exit documents missing",
                    f"A candidate reported not receiving these exit documents: {', '.join(missing)}. "
                    f"Dispute #{dispute.get('dispute_id')} has been raised.")
 

@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { tokens } from '../theme/theme';
 
 /**
- * StatCard — compact KPI tile for dashboards
+ * StatCard - compact KPI tile for dashboards
  * Props: label, value, icon (MUI SvgIcon), accent (CSS color), sub (secondary text)
  */
 const StatCard = ({ label, value, icon: Icon, accent, sub }) => (

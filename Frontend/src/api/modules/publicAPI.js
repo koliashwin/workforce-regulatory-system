@@ -1,6 +1,6 @@
 import axiosClient from "../axiosClient";
 
-// All public endpoints — no auth required
+// All public endpoints - no auth required
 const publicAPI = {
     // Lists
     getInstituteList: () => axiosClient.get("/public/institute_list"),

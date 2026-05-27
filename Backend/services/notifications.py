@@ -4,7 +4,7 @@ from config.db import get_db_connection
 def notify(user_id: int, type: str, title: str, message: str):
     """
     Insert one notification for a user.
-    Fails silently — never crashes the calling service.
+    Fails silently - never crashes the calling service.
     Call this anywhere in your services after a key event.
     """
     conn = get_db_connection()

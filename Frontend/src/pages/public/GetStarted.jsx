@@ -88,7 +88,7 @@ const GetStarted = () => {
                     background: '#fffbeb', border: '1px solid #fde68a',
                 }}>
                     <Typography sx={{ fontSize: '13px', color: '#92400e', lineHeight: 1.6 }}>
-                        <strong>Are you a candidate?</strong> Candidates are enrolled by their institute — you don't register yourself. Ask your college or training institute to add you to the platform.
+                        <strong>Are you a candidate?</strong> Candidates are enrolled by their institute, you don't register yourself. Ask your college or training institute to add you to the platform.
                     </Typography>
                 </Box>
 

@@ -1,4 +1,4 @@
-# Feature Testing Document — v0.0.2
+# Feature Testing Document - v0.0.2
 
 > Updated to reflect the current system. Replaces v0.0.1 which predated the lifecycle system, JWT auth, notifications, and public pages.
 
@@ -27,7 +27,7 @@ Allow institute, company, candidate, and admin users to authenticate and access 
 - Returns `access_token`, `token_type`, `role`, `user_id`, decoded `token_data`
 
 ### Known Issues
-- No rate limiting — unlimited login attempts
+- No rate limiting, unlimited login attempts
 - No account lockout after failed attempts
 - Token expiry is 9 hours with no refresh endpoint
 
@@ -84,7 +84,7 @@ Create verified candidate accounts linked to the institute. Forms the base datas
 
 ### Known Issues
 - Default password `Abced@12345` for all students
-- Duplicate email silently fails in bulk upload — shows as "Failed" row with error message from DB
+- Duplicate email silently fails in bulk upload, shows as "Failed" row with error message from DB
 - No candidate identity confirmation step after enrollment
 
 ### Ideal Behaviour
@@ -96,11 +96,11 @@ Create verified candidate accounts linked to the institute. Forms the base datas
 ## 2.3 Institute Profile & Dashboard
 
 ### Purpose
-Give institute admins visibility into their alumni — placement outcomes and dispute history.
+Give institute admins visibility into their alumni, placement outcomes and dispute history.
 
 ### Current Frontend Flow
 - On login, institute lands on `/institute`
-- `instituteAPI.instituteProfile()` called — user_id from token
+- `instituteAPI.instituteProfile()` calles user_id from token
 - Dashboard shows: KPI stats (total alumni, placed count, placement rate, open disputes), alumni table, disputes panel, quick actions
 
 ### Current Backend Flow
@@ -108,8 +108,8 @@ Give institute admins visibility into their alumni — placement outcomes and di
 - Returns institute info, student list (with employer names and designations), dispute summary
 
 ### Known Issues
-- No charts — placement rate shown as number only
-- Placement rate calculated as `placed/total` — "placed" means has a company_name in their record
+- No charts, placement rate shown as number only
+- Placement rate calculated as `placed/total` - "placed" means has a company_name in their record
 
 ### Ideal Behaviour
 - Bar/line charts for placement trends over years
@@ -137,15 +137,15 @@ Allow companies to create a verified account. CIN verification happens during re
 - Creates `users` record (role_code=300) + `companies` record
 
 ### Known Issues
-- MCA dataset is a local JSON file — not a live API
-- Company with unrecognised CIN can still register (intentional — shows as Unverified)
+- MCA dataset is a local JSON file, not a live API
+- Company with unrecognised CIN can still register (intentional, shows as Unverified)
 
 ### Ideal Behaviour
 - Live MCA API integration
 
 ---
 
-## 3.2 Onboard Employee (Joining — Step 1)
+## 3.2 Onboard Employee (Joining - Step 1)
 
 ### Purpose
 Company initiates the joining process by recording the official joining date.
@@ -174,7 +174,7 @@ Company initiates the joining process by recording the official joining date.
 
 ---
 
-## 3.3 Employee Exit (Exit — Step 1)
+## 3.3 Employee Exit (Exit - Step 1)
 
 ### Purpose
 Company initiates the exit process by recording the official last working day.
@@ -210,12 +210,12 @@ Candidate independently confirms their joining date and verifies receipt of onbo
 ### Current Frontend Flow
 - `/candidate/joining_confirm`
 - Two-step stepper. Auto-detects current step on mount from profile status.
-- **Step 0 — Date confirmation:**
+- **Step 0 - Date confirmation:**
   - Candidate enters joining date + company ID
   - `candidateAPI.joiningConfirm()` called
   - Match → advances to Step 1
   - Mismatch → shows dispute warning with both dates
-- **Step 1 — Document checklist:**
+- **Step 1 - Document checklist:**
   - Two sections: received from company (dispute if unchecked) + submitted to company (acknowledgement only)
   - `candidateAPI.joiningDocuments()` called
   - All received checked → `setActiveStep(2)` → complete screen
@@ -228,8 +228,8 @@ Candidate independently confirms their joining date and verifies receipt of onbo
 - Both read `user_id` from JWT token
 
 ### Known Issues
-- Company ID is a manual text input — candidate must know their company's internal DB ID
-- Step 1 requires company ID to still be in state — restored from profile on mount if page was refreshed
+- Company ID is a manual text input, candidate must know their company's internal DB ID
+- Step 1 requires company ID to still be in state, restored from profile on mount if page was refreshed
 
 ### Ideal Behaviour
 - Company ID should be a dropdown populated from the candidate's employment history
@@ -244,7 +244,7 @@ Candidate confirms exit date and verifies receipt of exit documents (experience 
 ### Current Frontend Flow
 - `/candidate/exit_confirm`
 - Same two-step stepper pattern as JoiningConfirm
-- Exit documents include legal entitlements — unchecked items raise a dispute against the company
+- Exit documents include legal entitlements, unchecked items raise a dispute against the company
 
 ### Current Backend Flow
 - `POST /candidates/exit_confirm` → `confirm_exit()`
@@ -262,7 +262,7 @@ Candidate's full verified employment and education timeline.
 
 ### Current Frontend Flow
 - `/candidate/profile`
-- Fetches `candidateAPI.getProfile()` — no arguments, user_id from token
+- Fetches `candidateAPI.getProfile()` - no arguments, user_id from token
 - Shows: personal info, academic details, employment history with status chips, disputes
 
 ### Current Backend Flow
@@ -287,10 +287,10 @@ Show candidate all disputes involving their account.
 
 ### Current Backend Flow
 - `GET /candidates/disputes_list`
-- Returns all disputes — currently returns all platform disputes, not just the candidate's own (known issue)
+- Returns all disputes. currently returns all platform disputes, not just the candidate's own (known issue)
 
 ### Known Issues
-- `view_all_disputes()` returns all disputes, not filtered by the requesting user — any candidate can see all disputes
+- `view_all_disputes()` returns all disputes, not filtered by the requesting user. any candidate can see all disputes
 
 ### Ideal Behaviour
 - Filter disputes by `raised_by_id = user_id OR raised_against_id = user_id`
@@ -312,14 +312,14 @@ Platform-wide visibility and dispute resolution.
 
 ### Current Backend Flow
 - `GET /admin/company_list`, `GET /admin/institute_list`, `GET /admin/candidate_list`
-- `PUT /admin/disputes/{id}` — status + resolution note
+- `PUT /admin/disputes/{id}` - status + resolution note
 
 ### Known Issues
 - Dispute resolution note overwrites the original dispute description
 - No audit trail shown for dispute status changes in the UI
 
 ### Ideal Behaviour
-- Separate `resolution_note` column — preserve original dispute description
+- Separate `resolution_note` column - preserve original dispute description
 - Show dispute history log in the admin panel
 
 ---
@@ -332,22 +332,22 @@ Platform-wide visibility and dispute resolution.
 Explain what the platform does, show live stats, link to registration and search.
 
 ### Current Frontend Flow
-- `/` — no login required
+- `/` - no login required
 - `publicAPI.getPlatformStats()` called on load
 - Shows: live stats (verified companies, institutes, candidates, disputes resolved), problem statement, how-it-works flow, actor benefit cards, transparency CTAs
 
 ### Known Issues
-- Stats show `—` if backend is cold (Render spin-up delay)
+- Stats show `-` if backend is cold (Render spin-up delay)
 
 ---
 
 ## 6.2 Institute Search
 
 ### Purpose
-Public transparency — anyone can see an institute's placement rate and dispute history.
+Public transparency. anyone can see an institute's placement rate and dispute history.
 
 ### Current Frontend Flow
-- `/institutes` — search by name or location
+- `/institutes` - search by name or location
 - Click card → right-side drawer fetches `publicAPI.getInstituteProfile(id)`
 - Shows: placement stats, breakdown by course, dispute summary, recent alumni
 
@@ -356,10 +356,10 @@ Public transparency — anyone can see an institute's placement rate and dispute
 ## 6.3 Company Search
 
 ### Purpose
-Public transparency — anyone can see a company's verification status and dispute history.
+Public transparency. anyone can see a company's verification status and dispute history.
 
 ### Current Frontend Flow
-- `/companies` — search by name or CIN, filter by verified/unverified/has-disputes
+- `/companies` - search by name or CIN, filter by verified/unverified/has-disputes
 - Click card → drawer fetches `publicAPI.getCompanyProfile(id)`
 - Shows: workforce stats, dispute counts, warning alert if pending disputes exist
 
@@ -370,7 +370,7 @@ Public transparency — anyone can see a company's verification status and dispu
 ## 7.1 In-App Notifications
 
 ### Purpose
-Alert users when lifecycle events affect them — without requiring them to check the platform manually.
+Alert users when lifecycle events affect them, without requiring them to check the platform manually.
 
 ### Current Frontend Flow
 - Bell icon in topbar polls unread count every 30 seconds
@@ -380,13 +380,13 @@ Alert users when lifecycle events affect them — without requiring them to chec
 - "Mark all read" button clears everything
 
 ### Current Backend Flow
-- `GET /notifications/unread_count` — fast index-backed count query
-- `GET /notifications` — last N notifications for the requesting user
+- `GET /notifications/unread_count` - fast index-backed count query
+- `GET /notifications` - last N notifications for the requesting user
 - `PUT /notifications/mark_all_read`, `PUT /notifications/{id}/read`
 
 ### Known Issues
-- Polling every 30 seconds — notifications are not real-time
-- No notification preferences — cannot mute specific event types
+- Polling every 30 seconds. notifications are not real-time
+- No notification preferences. cannot mute specific event types
 
 ### Ideal Behaviour
 - WebSocket connection for real-time delivery

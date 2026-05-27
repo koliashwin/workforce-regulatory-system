@@ -95,7 +95,7 @@ const NotificationBell = () => {
         return () => clearInterval(pollRef.current);
     }, [fetchCount]);
 
-    // ── Open dropdown — fetch notifications ───────────────────
+    // ── Open dropdown - fetch notifications ───────────────────
     const handleOpen = async (e) => {
         setAnchorEl(e.currentTarget);
         setOpen(true);

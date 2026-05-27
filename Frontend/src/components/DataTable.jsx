@@ -4,7 +4,7 @@ import StatusChip from './StatusChip';
 import { tokens } from '../theme/theme';
 
 /**
- * DataTable — replaces PreviewTable with proper design
+ * DataTable - replaces PreviewTable with proper design
  * columns: [{ label, key, render?, isStatus?, mono? }]
  * isStatus columns auto-render StatusChip
  * mono columns render in monospace (CIN, IDs, dates)
@@ -42,7 +42,7 @@ const DataTable = ({ data = [], columns = [], maxRows, viewAllPath, emptyText = 
                   } else if (col.isStatus) {
                     content = <StatusChip value={row[col.key]} />;
                   } else {
-                    content = row[col.key] ?? '—';
+                    content = row[col.key] ?? '-';
                   }
                   return (
                     <TableCell

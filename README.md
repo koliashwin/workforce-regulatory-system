@@ -19,7 +19,7 @@ The Workforce Regulatory System is a tracable, verified record of every employme
 ## What it does
 
 ### The core mechanism
-When a company says a candidate exits on December 4th, and the candidate says they exit on December 19th — the system catches the gap automatically, raises a dispute, and notifies both parties. Neither party filed a complaint. The system did it.
+When a company says a candidate exits on December 4th, and the candidate says they exit on December 19th, the system catches the gap automatically, raises a dispute, and notifies both parties. Neither party filed a complaint. The system did it.
 
 That's the whole idea. Fraud lives in the gaps between what different actors claim. This system is trying to close those gaps.
 
@@ -46,12 +46,12 @@ Each status transition is permanent and timestamped. Nothing can be backdated.
 | **Institute** | Enrolls students, creates candidate accounts, tracks alumni placements |
 | **Company** | Registers (verified via CIN), initiates joining and exit events |
 | **Candidate** | Independently confirms dates, submits document checklists |
-| **Admin** | Resolves disputes, platform-wide visibility |
-| **Public** | Views verified placement and dispute stats — no login needed |
+| **Admin** | Resolves disputes, platform wide visibility |
+| **Public** | Views verified placement and dispute stats. no login needed |
 
 ### Public transparency
 
-Anyone — a recruiter, a journalist, a student — can visit the platform and see:
+Anyone a recruiter, a journalist, a student can visit the platform and see:
 - Every institute's real placement rate and dispute history
 - Every company's verification status and open disputes
 - Platform-wide stats: verified companies, disputes resolved, safe joinings
@@ -90,7 +90,7 @@ No login. No paywall. Accountability is public by default.
 - Live row-by-row status during upload, retry failed rows
 
 **Dispute system**
-- Auto-generated — no manual filing needed
+- Auto-generated, no manual filing needed
 - Duplicate guard prevents repeated disputes
 - Admin resolve/reject/under review flow
 - Full dispute history per candidate, company, and institute
@@ -200,7 +200,7 @@ See **[SETUP.md](SETUP.md)** for complete local development instructions includi
 | Oct 2025 | Rough Idea validation, research, rough DB design |
 | Nov 2025 | Backend APIs from scratch, frontend connection, working POC |
 | Dec 2025 | Login, profiles, admin module, end-to-end testing, documentation |
-| May 2026 | Full redesign - JWT auth, lifecycle system, dispute engine, notifications, public pages, bulk upload, deployment |
+| May 2026 | Full redesign : JWT auth, lifecycle system, dispute engine, notifications, public pages, bulk upload, deployment |
 
 Detailed logs: [Backend timeline](Backend/dev_logs/dev_timeline.md) · [Frontend timeline](Frontend/Devlogs/dev_timeline.md)
 
@@ -223,7 +223,7 @@ Detailed logs: [Backend timeline](Backend/dev_logs/dev_timeline.md) · [Frontend
 
 This is a working prototype, not a production system. Known gaps:
 
-- Default password `Abced@12345` for all new accounts — no password reset flow yet
+- Default password `Abced@12345` for all new accounts, no password reset flow yet
 - MCA verification uses a local JSON dataset, not a live government API
 - No rate limiting on the login endpoint
 - `GET /candidates/disputes_list` returns all disputes, not filtered per user

@@ -18,8 +18,8 @@ const studentCols = [
     { label: 'Name', key: 'student_name' },
     { label: 'Course', key: 'course' },
     { label: 'Passout', key: 'passout_year', mono: true },
-    { label: 'Employer', key: 'company_name', render: r => r.company_name || '—' },
-    { label: 'Designation', key: 'designation', render: r => r.designation || '—' },
+    { label: 'Employer', key: 'company_name', render: r => r.company_name || '-' },
+    { label: 'Designation', key: 'designation', render: r => r.designation || '-' },
 ];
 
 const InstituteHome = () => {

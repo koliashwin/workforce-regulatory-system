@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { tokens } from '../theme/theme';
 
 /**
- * SectionHeader — consistent page/section heading
+ * SectionHeader - consistent page/section heading
  * Props: title, sub, action (text), onAction, icon (MUI SvgIcon)
  */
 const SectionHeader = ({ title, sub, action, onAction, Icon }) => (

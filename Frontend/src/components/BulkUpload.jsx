@@ -24,7 +24,7 @@ export const normalizeExcelDate = (value) => {
         return date.toISOString().split('T')[0];
     }
 
-    // Already a date string — normalize to YYYY-MM-DD
+    // Already a date string - normalize to YYYY-MM-DD
     const parsed = new Date(value);
     if (!isNaN(parsed.getTime())) {
         return parsed.toISOString().split('T')[0];
@@ -55,14 +55,14 @@ const RowStatus = ({ status, error }) => {
 };
 
 /**
- * BulkUpload — reusable bulk upload component.
+ * BulkUpload - reusable bulk upload component.
  *
  * Props:
- *   columns       — array of { key, label } defining required CSV columns and preview columns
- *   onUploadRow   — async fn(row) → called for each row. Should throw on failure.
- *   templateName  — filename for the downloaded template e.g. 'student_upload_template.xlsx'
- *   previewCols   — subset of column keys to show in the preview table (default: first 4)
- *   infoMessage   — optional string shown above the dropzone
+ *   columns       - array of { key, label } defining required CSV columns and preview columns
+ *   onUploadRow   - async fn(row) → called for each row. Should throw on failure.
+ *   templateName  - filename for the downloaded template e.g. 'student_upload_template.xlsx'
+ *   previewCols   - subset of column keys to show in the preview table (default: first 4)
+ *   infoMessage   - optional string shown above the dropzone
  */
 const BulkUpload = ({
     columns,
@@ -122,7 +122,7 @@ const BulkUpload = ({
                     return;
                 }
 
-                // Validate columns — case-insensitive
+                // Validate columns - case-insensitive
                 const fileCols = Object.keys(data[0]).map(c => c.toLowerCase().trim());
                 const missing = requiredKeys.filter(k => !fileCols.includes(k.toLowerCase()));
                 if (missing.length) {
@@ -252,7 +252,7 @@ const BulkUpload = ({
                                 {done && (
                                     <Typography variant="body2"
                                         sx={{ color: failCount ? '#d97706' : '#16a34a', fontWeight: 500 }}>
-                                        {successCount} uploaded{failCount ? `, ${failCount} failed` : ' — all done'}
+                                        {successCount} uploaded{failCount ? `, ${failCount} failed` : ' - all done'}
                                     </Typography>
                                 )}
                             </Box>
@@ -305,7 +305,7 @@ const BulkUpload = ({
                                             {displayCols.map(c => (
                                                 <TableCell key={c.key}
                                                     sx={c.mono ? { fontFamily: 'monospace', fontSize: '12px', color: '#718096' } : {}}>
-                                                    {row[c.key] ?? '—'}
+                                                    {row[c.key] ?? '-'}
                                                 </TableCell>
                                             ))}
                                             <TableCell>

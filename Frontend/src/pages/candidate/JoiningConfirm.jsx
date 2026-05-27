@@ -39,7 +39,7 @@ const JoiningConfirm = () => {
     const [companyId, setCompanyId] = useState('');
     const [date, setDate] = useState('');
 
-    // Step 2 state — document checkboxes
+    // Step 2 state - document checkboxes
     const [docs, setDocs] = useState(() => {
         const init = {};
         [...RECEIVED_DOCS, ...SUBMITTED_DOCS].forEach(d => { init[d.key] = false; });

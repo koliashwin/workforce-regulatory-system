@@ -40,7 +40,7 @@ def raise_dispute(
     """
     # Duplicate guard
     if check_duplicate_dispute(raised_by_id, raised_against_id, topic):
-        return {"success": False, "error": "Duplicate dispute — already pending"}
+        return {"success": False, "error": "Duplicate dispute, already pending"}
 
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)

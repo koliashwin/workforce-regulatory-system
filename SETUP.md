@@ -151,7 +151,7 @@ Frontend runs at `http://localhost:5173`
 
 ## 5. Verify everything is working
 
-Open `http://localhost:5173` — you should see the landing page with live platform stats loading from the backend.
+Open `http://localhost:5173` - you should see the landing page with live platform stats loading from the backend.
 
 If stats don't load, check:
 1. Backend is running at `http://localhost:8000`
@@ -164,22 +164,22 @@ If stats don't load, check:
 
 To test the complete lifecycle end-to-end, you need accounts for each role.
 
-**Step 1 — Register an institute** at `/register/institute`
+**Step 1 - Register an institute** at `/register/institute`
 
-**Step 2 — Log in as the institute** and enroll a student (creates their candidate account)
+**Step 2 - Log in as the institute** and enroll a student (creates their candidate account)
 - Default password for all created accounts: `Abced@12345`
 
-**Step 3 — Register a company** at `/register/company` (use any CIN from `Backend/dummy DB/MCA companies.json` to get a verified status)
+**Step 3 - Register a company** at `/register/company` (use any CIN from `Backend/dummy DB/MCA companies.json` to get a verified status)
 
-**Step 4 — Log in as the company** and initiate joining for the student's email
+**Step 4 - Log in as the company** and initiate joining for the student's email
 
-**Step 5 — Log in as the candidate** and confirm the joining date
+**Step 5 - Log in as the candidate** and confirm the joining date
 - Enter the same date → proceeds to documents
 - Enter a different date → dispute auto-raised
 
-**Step 6 — Complete document checklist** as the candidate
+**Step 6 - Complete document checklist** as the candidate
 
-**Step 7 — Log in as admin** (account you created in step 3 of setup) and view disputes
+**Step 7 - Log in as admin** (account you created in step 3 of setup) and view disputes
 
 ---
 
@@ -223,8 +223,8 @@ workforce-regulatory-system/
 ## Deployment
 
 The live version is deployed on:
-- **Frontend:** Vercel — [workforce-regulatory-system.vercel.app](https://workforce-regulatory-system.vercel.app)
-- **Backend:** Render — [workforce-regulatory-system-backend.onrender.com](https://workforce-regulatory-system-backend.onrender.com)
+- **Frontend:** Vercel - [workforce-regulatory-system.vercel.app](https://workforce-regulatory-system.vercel.app)
+- **Backend:** Render - [workforce-regulatory-system-backend.onrender.com](https://workforce-regulatory-system-backend.onrender.com)
 - **Database:** Aiven (MySQL)
 
 For your own deployment, add all `.env` variables as environment variables in your hosting platform. The `FRONTEND_URL` on the backend must match your deployed frontend URL exactly (CORS).
@@ -242,7 +242,7 @@ For your own deployment, add all `.env` variables as environment variables in yo
 → `FRONTEND_URL` in `Backend/.env` does not match the URL your frontend is running on. They must match exactly including the protocol (`http://`).
 
 **Blank page after login**
-→ The `/unauthorized` route is not yet implemented. If you see a blank page, check the browser URL — if it says `/unauthorized`, you're hitting a role mismatch in the route guard.
+→ The `/unauthorized` route is not yet implemented. If you see a blank page, check the browser URL - if it says `/unauthorized`, you're hitting a role mismatch in the route guard.
 
 **DB Script executeion issues**
 → check the table names and rename them as lowercase letters. some db tools are case sensitive and throw error while table creations.

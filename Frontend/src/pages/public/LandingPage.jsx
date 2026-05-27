@@ -139,10 +139,10 @@ const PublicHome = () => {
                         display: 'flex', justifyContent: 'center', gap: { xs: 2, md: 5 },
                         borderTop: '1px solid #1e2636', pt: 4, flexWrap: 'wrap'
                     }}>
-                        <HeroStat value={stats?.verified_companies ?? '—'} label="Verified Companies" loading={loading} />
-                        <HeroStat value={stats?.institutes ?? '—'} label="Institutes" loading={loading} />
-                        <HeroStat value={stats?.candidates ?? '—'} label="Candidates" loading={loading} />
-                        <HeroStat value={stats?.disputes_resolved ?? '—'} label="Disputes Resolved" loading={loading} />
+                        <HeroStat value={stats?.verified_companies ?? '-'} label="Verified Companies" loading={loading} />
+                        <HeroStat value={stats?.institutes ?? '-'} label="Institutes" loading={loading} />
+                        <HeroStat value={stats?.candidates ?? '-'} label="Candidates" loading={loading} />
+                        <HeroStat value={stats?.disputes_resolved ?? '-'} label="Disputes Resolved" loading={loading} />
                     </Box>
                 </Container>
             </Box>
@@ -172,7 +172,7 @@ const PublicHome = () => {
                                 <ProblemCard icon={WarningAmberIcon} color="#d97706" title="Fake experience letters"
                                     desc="Candidates forge employment records, inflating tenures by months or years. No mechanism existed to cross-verify." />
                                 <ProblemCard icon={LockIcon} color="#dc2626" title="Backdated onboarding and exit records"
-                                    desc="Companies manipulate onboarding dates. Candidates manipulate exit dates or documents. Both happen routinely — with no audit trail." />
+                                    desc="Companies manipulate onboarding dates. Candidates manipulate exit dates or documents. Both happen routinely with almost no audit trail." />
                                 <ProblemCard icon={GavelIcon} color="#0d9488" title="Unverifiable degree claims"
                                     desc="Degrees from unaccredited or fake institutes are passed off as legitimate. No way for a recruiter to confirm without manually contacting the college." />
                             </Box>
@@ -196,7 +196,7 @@ const PublicHome = () => {
                                 Every event is verified by all actors involved.
                             </Typography>
                             <Step num={1} title="Institute enrolls candidate"
-                                desc="The journey starts when an institute adds a student's academic record to the system — programme, year, and credentials."
+                                desc="The journey starts when an institute adds a student's academic record to the system : programme, year, and credentials."
                                 actors={['Institute']} />
                             <Step num={2} title="Company onboards employee"
                                 desc="When hired, the company registers the candidate's joining date. This record is locked and dispute-tracked."
@@ -208,7 +208,7 @@ const PublicHome = () => {
                                 desc="Both company and candidate log the exit date. Mismatches trigger disputes. Disputes counts are publicly visible."
                                 actors={['Company', 'Candidate']} />
                             <Step num={5} title="Record is verified and permanent"
-                                desc="Once all dates match, the employment event is locked as verified — tamper-proof and available for any recruiter to check."
+                                desc="Once all dates match, the employment event is locked as verified, tamper-proof and available for any recruiter to check."
                                 actors={['System', 'Public']} />
                         </Grid>
 
@@ -269,7 +269,7 @@ const PublicHome = () => {
                             Every institution's stats are visible to everyone.
                         </Typography>
                         <Typography variant="body2" color="text.secondary" sx={{ mt: 1, maxWidth: 520, mx: 'auto' }}>
-                            Placement rates, dispute counts, verification status - public by default.<br/>
+                            Placement rates, dispute counts, verification status, public by default.<br/>
                             Accountability is not optional.
                         </Typography>
                     </Box>

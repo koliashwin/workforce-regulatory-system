@@ -78,7 +78,7 @@ def public_company_profile(company_id: int):
 @router.post('/register/company')
 def register_company_public(data: CompanyCreate):
     """
-    Public endpoint — anyone can register a company.
+    Public endpoint - anyone can register a company.
     After registration, company must verify via CIN before onboarding employees.
     Default password: Abced@12345 (user should change on first login).
     """
@@ -94,7 +94,7 @@ def register_company_public(data: CompanyCreate):
 @router.post('/register/institute')
 def register_institute_public(data: CompanyCreate):
     """
-    Public endpoint — anyone can register an institute.
+    Public endpoint - anyone can register an institute.
     Uses CompanyCreate schema since the fields are identical.
     Default password: Abced@12345 (user should change on first login).
     """
@@ -110,7 +110,7 @@ def register_institute_public(data: CompanyCreate):
 @router.post('/verify/company')
 def verify_company_public(cin: str):
     """
-    Public CIN verification — can be called before or after login.
+    Public CIN verification - can be called before or after login.
     Used on the registration page to check CIN validity instantly.
     """
     result = verify_company(cin)

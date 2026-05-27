@@ -118,7 +118,7 @@ const RegisterInstitute = () => {
                                 />
 
                                 <Alert severity="info" sx={{ mb: 2, fontSize: '12px' }}>
-                                    Your default password will be <strong>Abced@12345</strong> — please change it after your first login.
+                                    Your default password will be <strong>Abced@12345</strong>, please change it after your first login.
                                 </Alert>
 
                                 <Button type="submit" variant="contained" fullWidth

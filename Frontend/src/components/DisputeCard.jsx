@@ -24,13 +24,13 @@ const accentByStatus = {
 };
 
 /**
- * DisputeCard — rich card for a single dispute record
+ * DisputeCard - rich card for a single dispute record
  * Props: dispute (object), onAction (optional callback)
  */
 const DisputeCard = ({ dispute, onAction }) => {
   const status  = (dispute.status || '').toLowerCase();
   const accent  = accentByStatus[status] || tokens.slate[200];
-  const created = dispute.created_on ? new Date(dispute.created_on).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+  const created = dispute.created_on ? new Date(dispute.created_on).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '-';
 
   return (
     <Box

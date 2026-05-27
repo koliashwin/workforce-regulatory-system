@@ -139,7 +139,7 @@ const RegisterCompany = () => {
                         <CardContent sx={{ p: '24px !important' }}>
                             {cinResult?.verified ?
                                 <Alert severity="success" icon={<VerifiedIcon />} sx={{ mb: 2.5 }}>
-                                    CIN verified — {cinResult.details?.['Company Name'] || 'Company'} is registered and active in MCA.
+                                    CIN verified. {cinResult.details?.['Company Name'] || 'Company'} is registered and active in MCA.
                                 </Alert>
                                 :
                                 <Alert severity='warning' sx={{mb: 2.5}}>
@@ -157,7 +157,7 @@ const RegisterCompany = () => {
                                     fullWidth label="Company Name" name="name"
                                     value={form.name} onChange={handleChange}
                                     required sx={{ mb: 2 }}
-                                    helperText="Pre-filled from MCA — edit if needed"
+                                    helperText="Pre-filled from MCA, edit if needed"
                                 />
                                 <TextField
                                     fullWidth label="CIN" name="cin"
@@ -188,11 +188,11 @@ const RegisterCompany = () => {
                                     fullWidth label="Registered Address" name="address"
                                     value={form.address} onChange={handleChange}
                                     required multiline rows={2} sx={{ mb: 2.5 }}
-                                    helperText="Pre-filled from MCA — edit if needed"
+                                    helperText="Pre-filled from MCA, edit if needed"
                                 />
 
                                 <Alert severity="info" sx={{ mb: 2, fontSize: '12px' }}>
-                                    Your default password will be <strong>Abced@12345</strong> — please change it after your first login.
+                                    Your default password will be <strong>Abced@12345</strong>, please change it after your first login.
                                 </Alert>
 
                                 <Button type="submit" variant="contained" fullWidth

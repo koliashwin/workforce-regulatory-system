@@ -395,7 +395,7 @@
   - ### Error Response (joining incomplete):
     ```json
     {
-        "detail": "Cannot initiate exit — joining not completed. Status: 'joining confirmed'"
+        "detail": "Cannot initiate exit - joining not completed. Status: 'joining confirmed'"
     }
     ```
   - ### Notes:
@@ -539,7 +539,7 @@
   - ### Error Response (wrong status):
     ```json
     {
-        "detail": "Cannot confirm joining — current status is 'joining confirmed'"
+        "detail": "Cannot confirm joining - current status is 'joining confirmed'"
     }
     ```
   - ### Notes:
@@ -1159,7 +1159,7 @@
         {
             "notification_id": 6,
             "type": "DISPUTE_RAISED",
-            "title": "Dispute raised — exit date mismatch",
+            "title": "Dispute raised - exit date mismatch",
             "message": "Your exit date (2026-05-16) doesn't match the company's record (2025-03-01). Dispute #8 has been raised.",
             "is_read": 0,
             "created_on": "2026-05-16 11:21:50"

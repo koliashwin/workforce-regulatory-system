@@ -28,7 +28,7 @@ const statusMap = {
 
 const StatusChip = ({ value }) => {
     const key = (value || '').toLowerCase();
-    const cfg = statusMap[key] || { label: value || '—', color: 'default' };
+    const cfg = statusMap[key] || { label: value || '-', color: 'default' };
 
     return (
         <Chip

@@ -20,7 +20,7 @@ const employmentCols = [
     { label: 'Company', key: 'name' },
     { label: 'CIN', key: 'cin', mono: true },
     { label: 'Joined', key: 'joining_date', mono: true },
-    { label: 'Exit', key: 'exit_date', render: r => r.exit_date || '—', mono: true },
+    { label: 'Exit', key: 'exit_date', render: r => r.exit_date || '-', mono: true },
     { label: 'Status', key: 'status', isStatus: true },
 ];
 
@@ -90,7 +90,7 @@ const CandidateHome = () => {
                         sub={activeJob ? activeJob.name : 'No active employer'} />
                 </Grid>
                 <Grid item xs={6} md={3}>
-                    <StatCard label="Education" value={academic.course || '—'} icon={SchoolIcon} accent={tokens.navy[800]}
+                    <StatCard label="Education" value={academic.course || '-'} icon={SchoolIcon} accent={tokens.navy[800]}
                         sub={academic.institute_name} />
                 </Grid>
                 <Grid item xs={6} md={3}>

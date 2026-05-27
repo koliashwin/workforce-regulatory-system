@@ -9,7 +9,7 @@
 ```
 src/
 ├── api/
-│   ├── axiosClient.js          # base HTTP client — token attachment, 401 redirect
+│   ├── axiosClient.js          # base HTTP client - token attachment, 401 redirect
 │   └── modules/
 │       ├── authAPI.js
 │       ├── candidateAPI.js
@@ -61,7 +61,7 @@ src/
 │   ├── AppRouter.jsx
 │   └── ProtectedRoute.jsx
 ├── theme/
-│   └── theme.js                # MUI theme — tokens, component overrides
+│   └── theme.js                # MUI theme - tokens, component overrides
 └── utils/
     └── decodeToken.js          # atob()-based JWT payload decoder
 ```
@@ -73,9 +73,9 @@ src/
 ### `context/AuthContext.jsx`
 Provides `user`, `login(userData)`, and `logout()` to all components.
 
-- On mount — reads `localStorage.getItem('user')` and hydrates state. Enables persistent login across page refreshes.
-- `login(userData)` — stores full token response in state and localStorage. Called from `Login.jsx` after successful API response.
-- `logout()` — clears state and localStorage.
+- On mount - reads `localStorage.getItem('user')` and hydrates state. Enables persistent login across page refreshes.
+- `login(userData)` - stores full token response in state and localStorage. Called from `Login.jsx` after successful API response.
+- `logout()` - clears state and localStorage.
 
 ### `utils/decodeToken.js`
 ```js
@@ -84,7 +84,7 @@ export const decodeToken = (token) => {
     return JSON.parse(atob(base64Payload));
 };
 ```
-Used in `Login.jsx` to extract `role`, `user_id`, `email`, `role_code` from the JWT without a library. Frontend does not verify the signature — that's the backend's job.
+Used in `Login.jsx` to extract `role`, `user_id`, `email`, `role_code` from the JWT without a library. Frontend does not verify the signature - that's the backend's job.
 
 ### `Login.jsx`
 1. Calls `authAPI.login({ email, password })`
@@ -104,7 +104,7 @@ Used in `Login.jsx` to extract `role`, `user_id`, `email`, `role_code` from the 
 ### `routes/AppRouter.jsx`
 Two top-level route groups:
 
-**Public** — wrapped in `<PublicLayout />`:
+**Public** - wrapped in `<PublicLayout />`:
 ```
 /                    → LandingPage
 /login               → Login
@@ -115,7 +115,7 @@ Two top-level route groups:
 /register/institute  → RegisterInstitute
 ```
 
-**Protected** — wrapped in `<ProtectedRoute />` then `<DashboardLayout />`:
+**Protected** - wrapped in `<ProtectedRoute />` then `<DashboardLayout />`:
 ```
 /candidate/*         → ProtectedRoute allowedRoles=['candidate']
 /institute/*         → ProtectedRoute allowedRoles=['institute']
@@ -135,7 +135,7 @@ Two top-level route groups:
 ### `axiosClient.js`
 Base client with `baseURL = VITE_BACKEND_URL`. Token attachment and 401 handling as described above.
 
-### API modules — pattern
+### API modules - pattern
 Each module is a plain object of named functions:
 ```js
 const candidateAPI = {
@@ -147,15 +147,15 @@ const candidateAPI = {
     disputeList:       ()     => axiosClient.get('/candidates/disputes_list'),
 };
 ```
-Note: `getProfile` takes no arguments — `user_id` comes from the token on the backend.
+Note: `getProfile` takes no arguments - `user_id` comes from the token on the backend.
 
 ---
 
 ## Layouts
 
 ### `DashboardLayout.jsx`
-- Permanent MUI `<Drawer>` sidebar — dark navy background, amber accents
-- Sidebar items built from `menuItems[role]` — different nav per role
+- Permanent MUI `<Drawer>` sidebar - dark navy background, amber accents
+- Sidebar items built from `menuItems[role]` - different nav per role
 - `<AppBar>` topbar with:
   - Platform label (monospace)
   - `<NotificationBell />` component
@@ -182,18 +182,18 @@ Note: `getProfile` takes no arguments — `user_id` comes from the token on the 
 - "Mark all read" button → `markAllRead()` → clears all locally
 
 ### `BulkUpload.jsx`
-Reusable component — configured differently per use case via props:
-- `columns` — defines required CSV column keys and preview table columns
-- `onUploadRow(row)` — async function called for each row. Throws on failure.
-- `templateName` — filename for downloaded template
-- `previewCols` — which column keys to show in preview
-- `templateSample` — array of arrays for sample rows in the downloaded template
-- `infoMessage` — context-specific alert shown above dropzone
+Reusable component - configured differently per use case via props:
+- `columns` - defines required CSV column keys and preview table columns
+- `onUploadRow(row)` - async function called for each row. Throws on failure.
+- `templateName` - filename for downloaded template
+- `previewCols` - which column keys to show in preview
+- `templateSample` - array of arrays for sample rows in the downloaded template
+- `infoMessage` - context-specific alert shown above dropzone
 
 **Flow:** File selected → SheetJS parses → validates required columns → shows preview table → user clicks "Upload All" → sends rows sequentially to `onUploadRow` → each row shows live status (Pending / uploading / Done / Failed) → progress bar tracks completion → "Retry Failed" re-sends only error rows.
 
 ### `StatusChip.jsx`
-Maps status strings to MUI `<Chip>` colour and label. Covers all 10 lifecycle statuses, all dispute statuses, and verification statuses. Returns a gray "—" chip for unknown values rather than crashing.
+Maps status strings to MUI `<Chip>` colour and label. Covers all 10 lifecycle statuses, all dispute statuses, and verification statuses. Returns a gray "-" chip for unknown values rather than crashing.
 
 ### `StatCard.jsx`
 KPI tile used on all dashboards. Props: `label`, `value`, `icon`, `accent` (left border colour), `sub` (secondary line).
@@ -211,11 +211,11 @@ Displays a single dispute. Left border colour encodes status (amber=pending, tea
 ### JoiningConfirm.jsx (Candidate)
 Two-step stepper. Auto-detects current step on mount from profile status.
 
-- Step 0 — Date confirmation form
+- Step 0 - Date confirmation form
   - Submits to `POST /candidates/joining_confirm`
   - On success → advances to Step 1
   - On mismatch → shows dispute warning with both dates
-- Step 1 — Document checklist (joining documents)
+- Step 1 - Document checklist (joining documents)
   - RECEIVED docs: unchecked = missing = dispute raised
   - SUBMITTED docs: acknowledgement only, no dispute
   - Submits to `POST /candidates/joining_documents`
@@ -227,8 +227,8 @@ ExitConfirm.jsx follows identical structure with exit-specific document list.
 
 ### OnboardStudent.jsx (Institute)
 Two tabs:
-- **Single** — standard form, calls `instituteAPI.onboardStudent()`
-- **Bulk** — `<BulkUpload>` configured with `STUDENT_COLUMNS` and `uploadStudentRow` function
+- **Single** - standard form, calls `instituteAPI.onboardStudent()`
+- **Bulk** - `<BulkUpload>` configured with `STUDENT_COLUMNS` and `uploadStudentRow` function
 
 ### OnboardEmployee.jsx / EmployeeExits.jsx (Company)
 Same two-tab pattern as OnboardStudent. `<BulkUpload>` configured with respective columns and API calls.
@@ -236,7 +236,7 @@ Same two-tab pattern as OnboardStudent. `<BulkUpload>` configured with respectiv
 ### RegisterCompany.jsx (Public)
 Three-step flow:
 1. CIN entry → calls `publicAPI.verifyCin()` → if found, pre-fills company name and address from MCA data
-2. Detail form → calls `publicAPI.registerCompany()` — backend verifies CIN internally and sets status
+2. Detail form → calls `publicAPI.registerCompany()` - backend verifies CIN internally and sets status
 3. Success screen → "Go to Login"
 
 If CIN not found in MCA, user still proceeds with a warning that account will be unverified.
@@ -249,10 +249,10 @@ If CIN not found in MCA, user still proceeds with a warning that account will be
 MUI `createTheme` with custom design tokens (`tokens` exported separately for use in component `sx` props).
 
 Key design decisions:
-- Dark navy sidebar (`#0d1117`) — authority without aggression
-- Amber accent (`#f59e0b`) — active, urgent, warm
-- `Fraunces` serif for headings — editorial, trustworthy
-- `DM Mono` for IDs, dates, codes — machine-readable data stands out
+- Dark navy sidebar (`#0d1117`) - authority without aggression
+- Amber accent (`#f59e0b`) - active, urgent, warm
+- `Fraunces` serif for headings - editorial, trustworthy
+- `DM Mono` for IDs, dates, codes - machine-readable data stands out
 - Left-border colour pattern used on both `StatCard` and `DisputeCard` for status-at-a-glance
 
 ---
@@ -268,7 +268,7 @@ VITE_BACKEND_URL=https://your-backend-url.com
 
 ## Known Limitations (Prototype)
 
-- Company ID is still a manual text input in `JoiningConfirm` and `ExitConfirm` — should be a dropdown populated from the candidate's employment history.
-- No `/unauthorized` page exists — `ProtectedRoute` redirects there but the route is not defined.
-- `console.log(backend_url)` still present in `axiosClient.js` — remove before production.
-- No loading skeleton on initial dashboard load — pages show empty state briefly before data arrives.
+- Company ID is still a manual text input in `JoiningConfirm` and `ExitConfirm` - should be a dropdown populated from the candidate's employment history.
+- No `/unauthorized` page exists - `ProtectedRoute` redirects there but the route is not defined.
+- `console.log(backend_url)` still present in `axiosClient.js` - remove before production.
+- No loading skeleton on initial dashboard load - pages show empty state briefly before data arrives.

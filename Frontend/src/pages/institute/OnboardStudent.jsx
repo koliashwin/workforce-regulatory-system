@@ -78,7 +78,7 @@ const SingleForm = ({ instituteId }) => {
                         onChange={handleChange} placeholder="e.g. Python, React, SQL"
                         helperText="Comma separated" sx={{ gridColumn: '1 / -1' }} />
                     <Alert severity="info" sx={{ gridColumn: '1 / -1', fontSize: '12px' }}>
-                        Default password is <strong>Abced@12345</strong> — student should change on first login.
+                        Default password is <strong>Abced@12345</strong>, student should change on first login.
                     </Alert>
                     <Button type="submit" variant="contained" fullWidth disabled={loading}
                         sx={{ py: 1.25, gridColumn: '1 / -1' }}>
@@ -133,7 +133,7 @@ const OnboardStudent = () => {
                             ['Aaditi Sharma', 'aaditi@example.com', '9876543210', '2001-06-15', 'B.Tech CSE', '2024', 'Python, React'],
                             ['Rohan Mehta', 'rohan@example.com', '9123456780', '2000-03-22', 'MBA Finance', '2023', 'Finance, Excel'],
                         ]}
-                        infoMessage="Each student gets an account with default password Abced@12345. Duplicate emails will fail — check the status column after upload."
+                        infoMessage="Each student gets an account with default password Abced@12345. Duplicate emails will fail, check the status column after upload."
                     />
                 </Box>
             )}

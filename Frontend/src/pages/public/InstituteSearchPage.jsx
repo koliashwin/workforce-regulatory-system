@@ -67,7 +67,7 @@ const InstituteCard = ({ institute, onClick }) => {
             <Box sx={{ minWidth: 0 }}>
               <Typography sx={{ fontWeight: 600, fontSize: '0.9375rem', lineHeight: 1.2,
                 overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {info.name || '—'}
+                {info.name || '-'}
               </Typography>
               {info.address && (
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mt: 0.25 }}>
@@ -91,13 +91,13 @@ const InstituteCard = ({ institute, onClick }) => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <PeopleIcon sx={{ fontSize: 13, color: '#718096' }} />
             <Typography sx={{ fontSize: '12px', color: '#4a5568', fontFamily: 'monospace' }}>
-              {stats.total ?? '—'} alumni
+              {stats.total ?? '-'} alumni
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <WorkIcon sx={{ fontSize: 13, color: '#718096' }} />
             <Typography sx={{ fontSize: '12px', color: '#4a5568', fontFamily: 'monospace' }}>
-              {stats.placed ?? '—'} placed
+              {stats.placed ?? '-'} placed
             </Typography>
           </Box>
           {disputes.total > 0 && (
@@ -159,9 +159,9 @@ const InstituteDrawer = ({ institute, open, onClose }) => {
         </Typography>
         <Grid container spacing={1.5} sx={{ mb: 2.5 }}>
           {[
-            { label: 'Total Alumni',    value: stats.total ?? '—',              color: '#161b26' },
-            { label: 'Placed',          value: stats.placed ?? '—',             color: '#16a34a' },
-            { label: 'Not Yet Placed',  value: (stats.total - stats.placed) || '—', color: '#718096' },
+            { label: 'Total Alumni',    value: stats.total ?? '-',              color: '#161b26' },
+            { label: 'Placed',          value: stats.placed ?? '-',             color: '#16a34a' },
+            { label: 'Not Yet Placed',  value: (stats.total - stats.placed) || '-', color: '#718096' },
             { label: 'Placement Rate',  value: `${stats.placement_rate ?? 0}%`, color: stats.placement_rate >= 75 ? '#16a34a' : '#d97706' },
           ].map(({ label, value, color }) => (
             <Grid item xs={6} key={label}>
@@ -307,7 +307,7 @@ const InstituteSearchPage = () => {
             Institutes
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Browse all registered institutes — placement rates, alumni data and dispute history are public.
+            Browse all registered institutes, placement rates, alumni data and dispute history are public.
           </Typography>
         </Box>
 
