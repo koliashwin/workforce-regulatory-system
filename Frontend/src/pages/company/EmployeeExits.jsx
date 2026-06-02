@@ -72,7 +72,7 @@ const EmployeeExits = () => {
     const uploadExitRow = (row) =>
         companyAPI.exitInitiate({
             user_email: row.user_email,
-            exit_date: row.exit_date,
+            exit_date: normalizeExcelDate(row.exit_date),
         });
 
     return (
