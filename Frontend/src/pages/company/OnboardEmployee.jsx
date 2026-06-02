@@ -4,7 +4,7 @@ import {
     Tab, Tabs, TextField, Typography
 } from '@mui/material';
 import companyAPI from '../../api/modules/companyAPI';
-import BulkUpload from '../../components/BulkUpload';
+import BulkUpload, { normalizeExcelDate } from '../../components/BulkUpload';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
@@ -81,7 +81,7 @@ const OnboardEmployee = () => {
         companyAPI.joiningInitiate({
             user_email: row.user_email,
             designation: row.designation,
-            joining_date: row.joining_date,
+            joining_date: normalizeExcelDate(row.joining_date),
         });
 
     return (

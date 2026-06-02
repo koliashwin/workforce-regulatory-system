@@ -4,6 +4,7 @@ import App from './App.jsx'
 // import './index.css'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import theme from './theme/theme.js'
+import { Analytics } from "@vercel/analytics/next"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
@@ -11,5 +12,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <CssBaseline />
             <App />
         </ThemeProvider>
+        <Analytics />
     </React.StrictMode>,
 )
